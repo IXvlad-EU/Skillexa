@@ -1,0 +1,62 @@
+version: '3.8'
+
+services:
+  skillexa-core:
+    build:
+      context: ./skillexa-core
+      dockerfile: Dockerfile
+    container_name: skillexa-core
+    ports:
+      - "5080:5080"
+      - "7171:7171"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_URLS=http://+:5080;https://+:7171
+    networks:
+      - skillexa-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5080"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  skillexa-engine:
+    build:
+      context: ./skillexa-engine
+      dockerfile: Dockerfile
+    container_name: skillexa-engine
+    environment:
+      - DOTNET_ENVIRONMENT=Production
+    networks:
+      - skillexa-network
+    restart: unless-stopped
+
+  skillexa-portal:
+    build:
+      context: ./skillexa-portal
+      dockerfile: Dockerfile
+    container_name: skillexa-portal
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      - HOSTNAME=0.0.0.0
+      - NEXT_TELEMETRY_DISABLED=1
+      # Add backend API URLs here when needed:
+      # - NEXT_PUBLIC_API_URL=http://skillexa-core:5080
+    networks:
+      - skillexa-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+networks:
+  skillexa-network:
+    driver: bridge
