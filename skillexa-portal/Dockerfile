@@ -24,16 +24,7 @@ RUN --mount=type=cache,target=/app/.next/cache \
 
 # Runtime stage
 FROM node:${NODE_VERSION} AS runner
-
-# Install curl for healthcheck
-RUN apt-get update && apt-get install -y --no-install-recommends curl \
-  && rm -rf /var/lib/apt/lists/*
-
 WORKDIR /app
-
-ENV NODE_ENV=production
-ENV PORT=3000
-ENV HOSTNAME="0.0.0.0"
 
 # Copy built application
 COPY --from=builder --chown=node:node /app/public ./public
