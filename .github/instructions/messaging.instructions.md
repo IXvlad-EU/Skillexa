@@ -8,10 +8,10 @@ applyTo: "**"
 
 All broker interactions go through the **`IMessageBus`** interface, which abstracts the underlying transport:
 
-| Environment | Implementation |
-|---|---|
-| **Local development** | RabbitMQ (Docker Compose container) |
-| **Production (Azure)** | Azure Service Bus |
+| Environment            | Implementation                      |
+| ---------------------- | ----------------------------------- |
+| **Local development**  | RabbitMQ (Docker Compose container) |
+| **Production (Azure)** | Azure Service Bus                   |
 
 The active implementation is selected at startup based on configuration:
 
@@ -35,10 +35,10 @@ public interface IMessageBus
 
 ## Queues / Topics
 
-| Logical Name | Direction | Purpose |
-|---|---|---|
-| `pdf-generate` | Core → Engine | Carries `GeneratePdf` commands |
-| `pdf-results` | Engine → Core | Carries `PdfStatusChanged` events |
+| Logical Name   | Direction     | Purpose                           |
+| -------------- | ------------- | --------------------------------- |
+| `pdf-generate` | Core → Engine | Carries `GeneratePdf` commands    |
+| `pdf-results`  | Engine → Core | Carries `PdfStatusChanged` events |
 
 ## Message Contracts
 
@@ -58,11 +58,11 @@ All messages are serialized as JSON. Use `record` types in C#.
     "jobTitle": "...",
     "keywords": ["..."],
     "salaryMin": 0,
-    "salaryMax": 0
+    "salaryMax": 0,
     // ...domain fields
   },
   "correlationId": "uuid",
-  "idempotencyKey": 123      // recommended: same as jobId
+  "idempotencyKey": 123, // recommended: same as jobId
 }
 ```
 
@@ -74,11 +74,11 @@ All messages are serialized as JSON. Use `record` types in C#.
   "messageVersion": 1,
   "jobId": 123,
   "status": "Processing | Succeeded | Failed",
-  "pdfStorageKey": "pdf/{jobId}.pdf",         // present when Succeeded
+  "pdfStorageKey": "pdf/{jobId}.pdf", // present when Succeeded
   "snapshotStorageKey": "snapshots/{jobId}.json", // present when available
-  "errorCode": "string | null",               // present when Failed
-  "errorMessage": "string | null",            // present when Failed
-  "correlationId": "uuid"
+  "errorCode": "string | null", // present when Failed
+  "errorMessage": "string | null", // present when Failed
+  "correlationId": "uuid",
 }
 ```
 
@@ -93,7 +93,7 @@ All messages are serialized as JSON. Use `record` types in C#.
   "used": 42,
   "remaining": 58,
   "checkedAtUtc": "ISO-8601",
-  "correlationId": "uuid"
+  "correlationId": "uuid",
 }
 ```
 

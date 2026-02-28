@@ -13,81 +13,89 @@ applyTo: "**/*.sql,**/Migrations/**,**/Data/**"
 ## Schema (high-level)
 
 ### `users`
-| Column | Type | Notes |
-|---|---|---|
-| `id` | BIGINT (PK) | Auto-increment |
-| `email` | VARCHAR(256), UNIQUE | |
-| `password_hash` | VARCHAR(512) | bcrypt or Argon2id — **never store plaintext** |
-| `created_at` | TIMESTAMPTZ | Default `now() AT TIME ZONE 'UTC'` |
+
+| Column          | Type                 | Notes                                          |
+| --------------- | -------------------- | ---------------------------------------------- |
+| `id`            | BIGINT (PK)          | Auto-increment                                 |
+| `email`         | VARCHAR(256), UNIQUE |                                                |
+| `password_hash` | VARCHAR(512)         | bcrypt or Argon2id — **never store plaintext** |
+| `created_at`    | TIMESTAMPTZ          | Default `now() AT TIME ZONE 'UTC'`             |
 
 ### `refresh_tokens` (optional)
-| Column | Type | Notes |
-|---|---|---|
-| `id` | BIGINT (PK) | Auto-increment |
-| `user_id` | BIGINT (FK → users) | ON DELETE RESTRICT |
-| `token_hash` | VARCHAR(512) | |
-| `expires_at` | TIMESTAMPTZ | UTC |
-| `created_at` | TIMESTAMPTZ | UTC |
+
+| Column       | Type                | Notes              |
+| ------------ | ------------------- | ------------------ |
+| `id`         | BIGINT (PK)         | Auto-increment     |
+| `user_id`    | BIGINT (FK → users) | ON DELETE RESTRICT |
+| `token_hash` | VARCHAR(512)        |                    |
+| `expires_at` | TIMESTAMPTZ         | UTC                |
+| `created_at` | TIMESTAMPTZ         | UTC                |
 
 ### `job_statuses` (lookup)
-| Column | Type | Notes |
-|---|---|---|
-| `id` | INT (PK) | Auto-increment |
+
+| Column | Type                | Notes                                         |
+| ------ | ------------------- | --------------------------------------------- |
+| `id`   | INT (PK)            | Auto-increment                                |
 | `name` | VARCHAR(20), UNIQUE | `Queued`, `Processing`, `Succeeded`, `Failed` |
 
 Seeded on migration with the four known statuses.
 
 ### `jobs`
-| Column | Type | Notes |
-|---|---|---|
-| `id` | BIGINT (PK) | Auto-increment |
-| `user_id` | BIGINT (FK → users) | ON DELETE RESTRICT |
-| `status_id` | INT (FK → job_statuses) | ON DELETE RESTRICT |
-| `template_key` | VARCHAR(100) | |
-| `template_version` | INT | Snapshot of version at creation time |
-| `pdf_storage_key` | VARCHAR(500) | Blob path (nullable until Succeeded) |
-| `snapshot_storage_key` | VARCHAR(500) | Blob path (nullable) |
-| `error_code` | VARCHAR(100) | Nullable |
-| `error_message` | TEXT | Nullable |
-| `created_at` | TIMESTAMPTZ | UTC |
-| `updated_at` | TIMESTAMPTZ | UTC |
+
+| Column                 | Type                    | Notes                                |
+| ---------------------- | ----------------------- | ------------------------------------ |
+| `id`                   | BIGINT (PK)             | Auto-increment                       |
+| `user_id`              | BIGINT (FK → users)     | ON DELETE RESTRICT                   |
+| `status_id`            | INT (FK → job_statuses) | ON DELETE RESTRICT                   |
+| `template_key`         | VARCHAR(100)            |                                      |
+| `template_version`     | INT                     | Snapshot of version at creation time |
+| `pdf_storage_key`      | VARCHAR(500)            | Blob path (nullable until Succeeded) |
+| `snapshot_storage_key` | VARCHAR(500)            | Blob path (nullable)                 |
+| `error_code`           | VARCHAR(100)            | Nullable                             |
+| `error_message`        | TEXT                    | Nullable                             |
+| `created_at`           | TIMESTAMPTZ             | UTC                                  |
+| `updated_at`           | TIMESTAMPTZ             | UTC                                  |
 
 ### `provider_usage`
-| Column | Type | Notes |
-|---|---|---|
-| `provider` | VARCHAR(50) | e.g., `theirstack` |
-| `period_key` | VARCHAR(10) | `YYYY-MM` |
-| `used` | INT | |
-| `remaining` | INT | |
-| `updated_at` | TIMESTAMPTZ | |
+
+| Column       | Type        | Notes              |
+| ------------ | ----------- | ------------------ |
+| `provider`   | VARCHAR(50) | e.g., `theirstack` |
+| `period_key` | VARCHAR(10) | `YYYY-MM`          |
+| `used`       | INT         |                    |
+| `remaining`  | INT         |                    |
+| `updated_at` | TIMESTAMPTZ |                    |
 
 ### `provider_quota`
-| Column | Type | Notes |
-|---|---|---|
-| `provider` | VARCHAR(50) | |
-| `day_key` | DATE | |
-| `used` | INT | Atomically incremented |
-| `limit` | INT | Daily cap |
-| `updated_at` | TIMESTAMPTZ | |
+
+| Column       | Type        | Notes                  |
+| ------------ | ----------- | ---------------------- |
+| `provider`   | VARCHAR(50) |                        |
+| `day_key`    | DATE        |                        |
+| `used`       | INT         | Atomically incremented |
+| `limit`      | INT         | Daily cap              |
+| `updated_at` | TIMESTAMPTZ |                        |
 
 ### `templates`
-| Column | Type | Notes |
-|---|---|---|
-| `id` | BIGINT (PK) | Auto-increment |
-| `template_key` | VARCHAR(100) | |
-| `version` | INT | Auto-incremented per key |
-| `is_active` | BOOLEAN | Only one active version per key |
-| `content` | JSONB or TEXT | Template body |
-| `updated_at` | TIMESTAMPTZ | |
+
+| Column         | Type          | Notes                           |
+| -------------- | ------------- | ------------------------------- |
+| `id`           | BIGINT (PK)   | Auto-increment                  |
+| `template_key` | VARCHAR(100)  |                                 |
+| `version`      | INT           | Auto-incremented per key        |
+| `is_active`    | BOOLEAN       | Only one active version per key |
+| `content`      | JSONB or TEXT | Template body                   |
+| `updated_at`   | TIMESTAMPTZ   |                                 |
 
 ### `outbox_messages` (optional — transactional outbox)
-| Column | Type | Notes |
-|---|---|---|
-| `id` | BIGINT (PK) | Auto-increment |
-| `type` | VARCHAR(100) | Message type |
-| `payload_json` | JSONB | |
-| `created_at` | TIMESTAMPTZ | |
-| `published_at` | TIMESTAMPTZ | Null until dispatched |
+
+| Column         | Type         | Notes                 |
+| -------------- | ------------ | --------------------- |
+| `id`           | BIGINT (PK)  | Auto-increment        |
+| `type`         | VARCHAR(100) | Message type          |
+| `payload_json` | JSONB        |                       |
+| `created_at`   | TIMESTAMPTZ  |                       |
+| `published_at` | TIMESTAMPTZ  | Null until dispatched |
 
 ## Conventions
 

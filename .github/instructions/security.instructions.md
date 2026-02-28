@@ -40,11 +40,11 @@ applyTo: "**"
 
 ## Rate Limiting
 
-| Layer | Scope | Mechanism |
-|---|---|---|
-| Edge / Ingress | IP, burst | Nginx/Traefik rate-limit module or cloud WAF |
-| API (Skillexa-Core) | Per-user, per-plan | Middleware + DB check (quota tables) |
-| Provider (TheirStack) | Daily call limit | Atomic DB decrement in Engine before API call |
+| Layer                 | Scope              | Mechanism                                     |
+| --------------------- | ------------------ | --------------------------------------------- |
+| Edge / Ingress        | IP, burst          | Nginx/Traefik rate-limit module or cloud WAF  |
+| API (Skillexa-Core)   | Per-user, per-plan | Middleware + DB check (quota tables)          |
+| Provider (TheirStack) | Daily call limit   | Atomic DB decrement in Engine before API call |
 
 ## Retry & Failure
 

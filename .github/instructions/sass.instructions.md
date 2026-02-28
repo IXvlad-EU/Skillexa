@@ -28,11 +28,11 @@ pnpm add -D sass-embedded
 
 ```ts
 // next.config.ts
-import type { NextConfig } from 'next';
+import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   sassOptions: {
-    implementation: 'sass-embedded',
+    implementation: "sass-embedded",
   },
 };
 
@@ -45,7 +45,7 @@ Use the `sassOptions` key for any Sass compiler configuration. Common options:
 
 ```ts
 // next.config.ts
-import type { NextConfig } from 'next';
+import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   sassOptions: {
@@ -69,10 +69,10 @@ The PostCSS config (`postcss.config.cjs`) continues to use `postcss-preset-manti
 
 ## File Naming Conventions
 
-| File Type | Extension | Example |
-|---|---|---|
-| Global styles | `.scss` | `app/globals.scss` |
-| Mantine CSS module | `.module.scss` | `components/JobCard/JobCard.module.scss` |
+| File Type            | Extension                     | Example                                         |
+| -------------------- | ----------------------------- | ----------------------------------------------- |
+| Global styles        | `.scss`                       | `app/globals.scss`                              |
+| Mantine CSS module   | `.module.scss`                | `components/JobCard/JobCard.module.scss`        |
 | Shared SCSS partials | `_*.scss` (underscore prefix) | `styles/_variables.scss`, `styles/_mixins.scss` |
 
 ## Global Styles
@@ -82,8 +82,8 @@ The PostCSS config (`postcss.config.cjs`) continues to use `postcss-preset-manti
 
 ```tsx
 // app/layout.tsx
-import '@mantine/core/styles.css';
-import './globals.scss';
+import "@mantine/core/styles.css";
+import "./globals.scss";
 ```
 
 ## Mantine CSS Modules with SCSS
@@ -105,9 +105,9 @@ Use `.module.scss` for component-scoped Mantine styles. Access Mantine theme tok
 Import in the component:
 
 ```tsx
-import classes from './JobCard.module.scss';
+import classes from "./JobCard.module.scss";
 
-<Card className={classes.card}>...</Card>
+<Card className={classes.card}>...</Card>;
 ```
 
 ## Exporting SCSS Variables to JavaScript
@@ -124,7 +124,7 @@ $primary-color: #64ff00;
 ```
 
 ```tsx
-import variables from './variables.module.scss';
+import variables from "./variables.module.scss";
 
 export default function Page() {
   return <h1 style={{ color: variables.primaryColor }}>Hello</h1>;
@@ -148,8 +148,8 @@ Import partials with `@use`:
 
 ```scss
 // components/Header/Header.module.scss
-@use '../../styles/variables' as vars;
-@use '../../styles/mixins' as mix;
+@use "../../styles/variables" as vars;
+@use "../../styles/mixins" as mix;
 
 .header {
   height: vars.$header-height;
@@ -167,11 +167,11 @@ Import partials with `@use`:
 
 ## SCSS Variables vs Mantine CSS Custom Properties
 
-| Use Case | Mechanism |
-|---|---|
-| Mantine theme tokens (colors, spacing, radii, font sizes) | `var(--mantine-*)` CSS custom properties |
-| App-specific constants not in Mantine theme (e.g., sidebar width, header height) | SCSS `$variables` in `_variables.scss` |
-| Responsive breakpoints (Mantine-aware) | PostCSS `$mantine-breakpoint-*` simple-vars |
+| Use Case                                                                         | Mechanism                                   |
+| -------------------------------------------------------------------------------- | ------------------------------------------- |
+| Mantine theme tokens (colors, spacing, radii, font sizes)                        | `var(--mantine-*)` CSS custom properties    |
+| App-specific constants not in Mantine theme (e.g., sidebar width, header height) | SCSS `$variables` in `_variables.scss`      |
+| Responsive breakpoints (Mantine-aware)                                           | PostCSS `$mantine-breakpoint-*` simple-vars |
 
 Do **not** duplicate Mantine tokens as SCSS variables. Use `var(--mantine-*)` directly.
 

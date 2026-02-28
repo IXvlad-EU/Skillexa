@@ -33,9 +33,44 @@ services:
     container_name: skillexa-engine
     environment:
       - DOTNET_ENVIRONMENT=Production
+      - TheirStack__BaseUrl=http://mock-theirstack:3100
+      - TheirStack__ApiKey=dev-theirstack-key
+    depends_on:
+      mock-theirstack:
+        condition: service_healthy
     networks:
       - skillexa-network
     restart: unless-stopped
+
+  mock-theirstack:
+    build:
+      context: ./mock-theirstack
+      dockerfile: Dockerfile
+    container_name: mock-theirstack
+    ports:
+      - "3100:3100"
+    environment:
+      - PORT=3100
+      - MOCK_API_KEY=dev-theirstack-key
+      - MOCK_DEFAULT_DELAY_MS=0
+      - MOCK_FAIL_RATE=0
+    networks:
+      - skillexa-network
+    restart: unless-stopped
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "wget",
+          "--no-verbose",
+          "--tries=1",
+          "--spider",
+          "http://localhost:3100/health",
+        ]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
 
   skillexa-portal:
     build:

@@ -8,10 +8,10 @@ applyTo: "**"
 
 All blob/object storage interactions go through the **`IObjectStorage`** interface:
 
-| Environment | Implementation |
-|---|---|
-| **Local development** | Azurite (Azure Storage emulator in Docker Compose) |
-| **Production (Azure)** | Azure Blob Storage |
+| Environment            | Implementation                                     |
+| ---------------------- | -------------------------------------------------- |
+| **Local development**  | Azurite (Azure Storage emulator in Docker Compose) |
+| **Production (Azure)** | Azure Blob Storage                                 |
 
 The active implementation is selected at startup based on configuration:
 
@@ -35,9 +35,9 @@ public interface IObjectStorage
 
 ## Blob Key Layout
 
-| Pattern | Content | Written By |
-|---|---|---|
-| `pdf/{jobId}.pdf` | Generated PDF document | Skillexa-Engine |
+| Pattern                  | Content                    | Written By      |
+| ------------------------ | -------------------------- | --------------- |
+| `pdf/{jobId}.pdf`        | Generated PDF document     | Skillexa-Engine |
 | `snapshots/{jobId}.json` | Input data snapshot (JSON) | Skillexa-Engine |
 
 - Keys are flat within the container (pseudo-folders via prefix).

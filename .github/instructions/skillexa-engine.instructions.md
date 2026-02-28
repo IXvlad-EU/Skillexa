@@ -6,16 +6,16 @@ applyTo: "skillexa-engine/**"
 
 ## Stack
 
-| Concern | Choice |
-|---|---|
-| Framework | .NET 10 Worker Service (`Host.CreateApplicationBuilder`) |
-| Hosting | `BackgroundService` / `IHostedService` |
-| Broker | `IMessageBus` abstraction — RabbitMQ (local) / Azure Service Bus (prod) |
-| Object storage | `IObjectStorage` abstraction — Azurite (local) / Azure Blob Storage (prod) |
-| External provider | TheirStack API (REST/HTTP) |
-| PDF rendering | PDF library (QuestPDF, iText, Puppeteer — TBD) |
-| Database | PostgreSQL (EF Core / Dapper) for templates & quota |
-| Root namespace | `skillexa_engine` |
+| Concern           | Choice                                                                     |
+| ----------------- | -------------------------------------------------------------------------- |
+| Framework         | .NET 10 Worker Service (`Host.CreateApplicationBuilder`)                   |
+| Hosting           | `BackgroundService` / `IHostedService`                                     |
+| Broker            | `IMessageBus` abstraction — RabbitMQ (local) / Azure Service Bus (prod)    |
+| Object storage    | `IObjectStorage` abstraction — Azurite (local) / Azure Blob Storage (prod) |
+| External provider | TheirStack API (REST/HTTP)                                                 |
+| PDF rendering     | PDF library (QuestPDF, iText, Puppeteer — TBD)                             |
+| Database          | PostgreSQL (EF Core / Dapper) for templates & quota                        |
+| Root namespace    | `skillexa_engine`                                                          |
 
 ## Role
 
@@ -89,17 +89,17 @@ skillexa-engine/
 
 ## Environment Variables
 
-| Variable | Purpose |
-|---|---|
-| `ConnectionStrings__DefaultConnection` | PostgreSQL connection string |
-| `Messaging__Provider` | `RabbitMQ` or `AzureServiceBus` |
-| `Messaging__ConnectionString` | Broker connection string |
-| `Storage__Provider` | `Azurite` or `AzureBlobStorage` |
-| `Storage__ConnectionString` | Storage connection string |
-| `Storage__ContainerName` | Blob container name |
-| `TheirStack__ApiKey` | TheirStack API key |
-| `TheirStack__BaseUrl` | TheirStack API base URL |
-| `TheirStack__DailyLimit` | Max daily calls (fallback if not in DB) |
+| Variable                               | Purpose                                 |
+| -------------------------------------- | --------------------------------------- |
+| `ConnectionStrings__DefaultConnection` | PostgreSQL connection string            |
+| `Messaging__Provider`                  | `RabbitMQ` or `AzureServiceBus`         |
+| `Messaging__ConnectionString`          | Broker connection string                |
+| `Storage__Provider`                    | `Azurite` or `AzureBlobStorage`         |
+| `Storage__ConnectionString`            | Storage connection string               |
+| `Storage__ContainerName`               | Blob container name                     |
+| `TheirStack__ApiKey`                   | TheirStack API key                      |
+| `TheirStack__BaseUrl`                  | TheirStack API base URL                 |
+| `TheirStack__DailyLimit`               | Max daily calls (fallback if not in DB) |
 
 ## Coding Standards
 

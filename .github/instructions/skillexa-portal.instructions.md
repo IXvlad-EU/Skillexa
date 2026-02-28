@@ -6,17 +6,17 @@ applyTo: "skillexa-portal/**"
 
 ## Stack
 
-| Concern | Choice |
-|---|---|
-| Framework | Next.js 16 (App Router, SSR) |
-| Language | TypeScript (strict mode) |
-| React | 19.x |
-| UI library | **Mantine 7** (`@mantine/core`, `@mantine/hooks`, `@mantine/form`, `@mantine/notifications`) |
-| Styling | Mantine CSS modules + PostCSS with `postcss-preset-mantine` and `postcss-simple-vars` |
-| Data fetching | TanStack Query (React Query) |
-| API client | **Kiota**-generated TypeScript client from Skillexa-Core's OpenAPI spec |
-| Output | `standalone` (Docker-friendly) |
-| Package manager | pnpm (workspace) |
+| Concern         | Choice                                                                                       |
+| --------------- | -------------------------------------------------------------------------------------------- |
+| Framework       | Next.js 16 (App Router, SSR)                                                                 |
+| Language        | TypeScript (strict mode)                                                                     |
+| React           | 19.x                                                                                         |
+| UI library      | **Mantine 7** (`@mantine/core`, `@mantine/hooks`, `@mantine/form`, `@mantine/notifications`) |
+| Styling         | Mantine CSS modules + PostCSS with `postcss-preset-mantine` and `postcss-simple-vars`        |
+| Data fetching   | TanStack Query (React Query)                                                                 |
+| API client      | **Kiota**-generated TypeScript client from Skillexa-Core's OpenAPI spec                      |
+| Output          | `standalone` (Docker-friendly)                                                               |
+| Package manager | pnpm (workspace)                                                                             |
 
 ## Mantine UI Library
 
@@ -29,25 +29,33 @@ Mantine is the **primary UI library** for all portal components. Follow these ru
 - Add `ColorSchemeScript` inside `<head>` to prevent color-scheme flash.
 - Spread `mantineHtmlProps` on the `<html>` element to avoid hydration warnings:
   ```tsx
-  import { ColorSchemeScript, MantineProvider, mantineHtmlProps } from '@mantine/core';
+  import {
+    ColorSchemeScript,
+    MantineProvider,
+    mantineHtmlProps,
+  } from "@mantine/core";
   // ...
   <html lang="en" {...mantineHtmlProps}>
-    <head><ColorSchemeScript defaultColorScheme="auto" /></head>
-    <body><MantineProvider>{children}</MantineProvider></body>
-  </html>
+    <head>
+      <ColorSchemeScript defaultColorScheme="auto" />
+    </head>
+    <body>
+      <MantineProvider>{children}</MantineProvider>
+    </body>
+  </html>;
   ```
 - Create `postcss.config.cjs` at the project root with `postcss-preset-mantine` and `postcss-simple-vars` plugins:
   ```js
   module.exports = {
     plugins: {
-      'postcss-preset-mantine': {},
-      'postcss-simple-vars': {
+      "postcss-preset-mantine": {},
+      "postcss-simple-vars": {
         variables: {
-          'mantine-breakpoint-xs': '36em',
-          'mantine-breakpoint-sm': '48em',
-          'mantine-breakpoint-md': '62em',
-          'mantine-breakpoint-lg': '75em',
-          'mantine-breakpoint-xl': '88em',
+          "mantine-breakpoint-xs": "36em",
+          "mantine-breakpoint-sm": "48em",
+          "mantine-breakpoint-md": "62em",
+          "mantine-breakpoint-lg": "75em",
+          "mantine-breakpoint-xl": "88em",
         },
       },
     },
@@ -93,7 +101,7 @@ Mantine is the **primary UI library** for all portal components. Follow these ru
   ```ts
   export default {
     experimental: {
-      optimizePackageImports: ['@mantine/core', '@mantine/hooks'],
+      optimizePackageImports: ["@mantine/core", "@mantine/hooks"],
     },
   };
   ```
@@ -193,11 +201,11 @@ postcss.config.cjs
 
 ## Environment Variables
 
-| Variable | Purpose |
-|---|---|
+| Variable                 | Purpose                                                           |
+| ------------------------ | ----------------------------------------------------------------- |
 | `SKILLEXA_CORE_BASE_URL` | Internal URL of Skillexa-Core (e.g., `http://skillexa-core:8080`) |
-| `NEXT_PUBLIC_APP_URL` | Public URL of the portal itself |
-| `NODE_ENV` | `development` / `production` |
+| `NEXT_PUBLIC_APP_URL`    | Public URL of the portal itself                                   |
+| `NODE_ENV`               | `development` / `production`                                      |
 
 ## Coding Standards
 

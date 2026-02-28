@@ -16,11 +16,11 @@ Skillexa is a web platform that aggregates job data from external providers (The
 
 ## Solution Structure
 
-| Application | Path | Tech | Role |
-|---|---|---|---|
-| **Skillexa-Portal** | `skillexa-portal/` | Next.js 16, React 19, TypeScript, TanStack Query, Kiota client, Tailwind CSS 4 | SSR + BFF — renders pages server-side, proxies API calls to Skillexa-Core |
-| **Skillexa-Core** | `skillexa-core/` | ASP.NET Core (.NET 10), EF Core, JWT auth | REST API — auth, job management, download URL issuance, broker publishing & event consumption |
-| **Skillexa-Engine** | `skillexa-engine/` | .NET 10 Worker Service | Background processor — queue consumer, TheirStack calls, PDF rendering, blob uploads, event emission |
+| Application         | Path               | Tech                                                                           | Role                                                                                                 |
+| ------------------- | ------------------ | ------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------- |
+| **Skillexa-Portal** | `skillexa-portal/` | Next.js 16, React 19, TypeScript, TanStack Query, Kiota client, Tailwind CSS 4 | SSR + BFF — renders pages server-side, proxies API calls to Skillexa-Core                            |
+| **Skillexa-Core**   | `skillexa-core/`   | ASP.NET Core (.NET 10), EF Core, JWT auth                                      | REST API — auth, job management, download URL issuance, broker publishing & event consumption        |
+| **Skillexa-Engine** | `skillexa-engine/` | .NET 10 Worker Service                                                         | Background processor — queue consumer, TheirStack calls, PDF rendering, blob uploads, event emission |
 
 ## Portability Goals
 

@@ -10,13 +10,14 @@ applyTo: "mock-theirstack/**"
 
 ## Stack
 
-| Concern | Choice |
-|---|---|
-| Runtime | Node.js 22 LTS |
-| Framework | Express (minimal — only the endpoints Skillexa-Engine calls) |
-| Language | TypeScript (compiled to JS in Docker build) |
-| Package manager | pnpm |
-| Port | `3100` |
+| Concern         | Choice                                                               |
+| --------------- | -------------------------------------------------------------------- |
+| Runtime         | Node.js 24 LTS                                                       |
+| Framework       | Express 5 (minimal — only the endpoints Skillexa-Engine calls)       |
+| Language        | TypeScript (strict mode, ESM, compiled to JS in Docker build)        |
+| Package manager | pnpm                                                                 |
+| Logging         | pino + pino-http (structured JSON, request-level logging middleware) |
+| Port            | `3100`                                                               |
 
 ## Project Location
 
@@ -26,7 +27,6 @@ mock-theirstack/          # repo root, sibling of skillexa-core / skillexa-engin
   pnpm-lock.yaml
   tsconfig.json
   Dockerfile
-  .dockerignore
   src/
     index.ts              # Express app entry point, starts server
     routes/
@@ -34,57 +34,92 @@ mock-theirstack/          # repo root, sibling of skillexa-core / skillexa-engin
     fixtures/
       jobs.json           # Static/seed response data (array of job objects)
     middleware/
-      auth.ts             # Validates API key header (mirrors TheirStack auth)
+      auth.ts             # Validates Authorization Bearer header
       delay.ts            # Optional artificial latency to simulate real network
+      errorSimulation.ts  # Simulates 429/500 errors via headers or random failure
     utils/
-      logger.ts           # Lightweight structured logging (pino or console)
+      logger.ts           # pino logger instance (level controlled by LOG_LEVEL env)
 ```
+
+## Middleware Pipeline
+
+Global middleware is applied in this order:
+
+1. **pino-http** — structured request logging (method, path, status, latency).
+2. **express.json()** — JSON body parsing.
+3. **Health endpoint** — `/health` is registered **before** auth so it stays unauthenticated.
+4. **auth** — validates `Authorization: Bearer <api-key>` header.
+5. **delay** — adds artificial latency (per-request header or global default).
+6. **errorSimulation** — returns simulated error responses (header-triggered or random).
+7. **Route handlers** — the actual API endpoints.
 
 ## API Surface
 
-Implement **only** the endpoints that Skillexa-Engine actually calls. At minimum:
+Implement **only** the endpoints that Skillexa-Engine actually calls.
 
-| Method | Path | Purpose |
-|---|---|---|
-| `POST` | `/v1/jobs/search` | Returns a paginated list of job postings matching the request payload |
+### `POST /v1/jobs/search`
 
-### Request validation
+Returns a paginated list of job postings from fixture data.
 
-- Require an `Authorization: Bearer <api-key>` header (or `X-Api-Key` — match whatever TheirStack uses).
-- Return `401 Unauthorized` if the key is missing or does not match the configured mock key.
-- Accept a JSON body with fields like `job_title_pattern`, `keywords`, `page`, `limit`, etc.
+**Request body** (JSON):
 
-### Response format
+| Field   | Type   | Default | Description                |
+| ------- | ------ | ------- | -------------------------- |
+| `page`  | number | `0`     | Zero-based page index      |
+| `limit` | number | `25`    | Number of results per page |
 
-- Mirror the real TheirStack response schema as closely as possible.
-- Return data from fixture files (`fixtures/jobs.json`) so responses are deterministic.
-- Support pagination (`page` / `limit` in request → sliced fixture array + `total` count in response).
+Other fields in the body (e.g., `job_title_pattern`, `keywords`) are accepted but currently ignored — the full fixture array is always the source.
+
+**Response** (JSON):
+
+```jsonc
+{
+  "metadata": {
+    "total_results": 50, // total jobs in fixture
+    "truncated_results": 0,
+    "truncated_companies": 0,
+    "total_companies": 12, // distinct companies in fixture
+  },
+  "data": [
+    /* sliced job objects for the requested page */
+  ],
+}
+```
+
+### Authentication
+
+- Require an `Authorization: Bearer <api-key>` header on all routes except `/health`.
+- Return `401 Unauthorized` with a JSON error body if the header is missing, malformed, or the key doesn't match `MOCK_API_KEY`.
 
 ### Error simulation
 
-Expose optional behaviour controlled by **environment variables** or **request headers**:
+Expose optional behaviour controlled by **request headers** and **environment variables**:
 
-| Trigger | Behaviour |
-|---|---|
-| Header `X-Mock-Status: 429` | Return HTTP 429 (rate limit) — useful for testing retry logic |
-| Header `X-Mock-Status: 500` | Return HTTP 500 (server error) — useful for testing transient-error handling |
-| Header `X-Mock-Delay: <ms>` | Add artificial delay before responding |
-| Env `MOCK_DEFAULT_DELAY_MS` | Default latency added to every response (default `0`) |
-| Env `MOCK_FAIL_RATE` | Fraction `0.0–1.0` of requests that randomly return 500 (default `0`) |
+| Trigger                     | Behaviour                                                                          |
+| --------------------------- | ---------------------------------------------------------------------------------- |
+| Header `X-Mock-Status: 429` | Return HTTP 429 with JSON error body — useful for testing retry logic              |
+| Header `X-Mock-Status: 500` | Return HTTP 500 with JSON error body — useful for testing transient-error handling |
+| Header `X-Mock-Delay: <ms>` | Add artificial delay (ms) before responding (overrides default)                    |
+| Env `MOCK_DEFAULT_DELAY_MS` | Default latency (ms) added to every response when no header override (default `0`) |
+| Env `MOCK_FAIL_RATE`        | Fraction `0.0–1.0` of requests that randomly return 500 (default `0`)              |
+
+Header-triggered errors (`X-Mock-Status`) take precedence over random failure (`MOCK_FAIL_RATE`).
 
 ## Docker
 
 ### Dockerfile
 
-- Multi-stage build:
-  1. **Build stage** — `node:22-alpine`, install deps, compile TypeScript.
-  2. **Production stage** — `node:22-alpine`, copy compiled JS + `node_modules` (production only), run as non-root user.
+Multi-stage build with a pinned Node version via build argument:
+
+1. **Build stage** — `node:24-alpine`, `corepack enable`, `pnpm install --frozen-lockfile`, compile TypeScript.
+2. **Production stage** — same `node:24-alpine` base, production-only deps (`pnpm install --frozen-lockfile --prod`), compiled JS from build stage, fixture files copied separately (`COPY src/fixtures ./dist/fixtures`), non-root user (`appuser`).
+
 - Expose port `3100`.
 - Entry point: `node dist/index.js`.
 
 ### Docker Compose integration
 
-Add a `mock-theirstack` service to the repo-root `docker-compose.yml`:
+The `mock-theirstack` service in the repo-root `docker-compose.yml`:
 
 ```yaml
 mock-theirstack:
@@ -103,7 +138,15 @@ mock-theirstack:
     - skillexa-network
   restart: unless-stopped
   healthcheck:
-    test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:3100/health"]
+    test:
+      [
+        "CMD",
+        "wget",
+        "--no-verbose",
+        "--tries=1",
+        "--spider",
+        "http://localhost:3100/health",
+      ]
     interval: 15s
     timeout: 5s
     retries: 3
@@ -112,49 +155,64 @@ mock-theirstack:
 
 ### Engine configuration
 
-Point Skillexa-Engine to the mock service in `docker-compose.yml`:
+Skillexa-Engine points to the mock service via environment variables in `docker-compose.yml`:
 
 ```yaml
 skillexa-engine:
   environment:
     - TheirStack__BaseUrl=http://mock-theirstack:3100
     - TheirStack__ApiKey=dev-theirstack-key
+  depends_on:
+    mock-theirstack:
+      condition: service_healthy
 ```
 
 In production, these variables point to the real TheirStack API — **no code changes required**.
 
 ## Environment Variables
 
-| Variable | Default | Purpose |
-|---|---|---|
-| `PORT` | `3100` | HTTP listen port |
-| `MOCK_API_KEY` | `dev-theirstack-key` | Expected API key for auth validation |
-| `MOCK_DEFAULT_DELAY_MS` | `0` | Artificial latency (ms) added to every response |
-| `MOCK_FAIL_RATE` | `0` | Random failure rate (`0.0`–`1.0`) for chaos testing |
-| `LOG_LEVEL` | `info` | Log verbosity (`debug`, `info`, `warn`, `error`) |
+| Variable                | Default              | Purpose                                                                |
+| ----------------------- | -------------------- | ---------------------------------------------------------------------- |
+| `PORT`                  | `3100`               | HTTP listen port                                                       |
+| `MOCK_API_KEY`          | `dev-theirstack-key` | Expected API key for auth validation                                   |
+| `MOCK_DEFAULT_DELAY_MS` | `0`                  | Artificial latency (ms) added to every response                        |
+| `MOCK_FAIL_RATE`        | `0`                  | Random failure rate (`0.0`–`1.0`) for chaos testing                    |
+| `LOG_LEVEL`             | `info`               | pino log level (`debug`, `info`, `warn`, `error`)                      |
+| `NODE_ENV`              | —                    | When not `production`, pino writes to stdout via `pino/file` transport |
 
 ## Fixture Data
 
-- Store fixture JSON files under `src/fixtures/`.
-- `jobs.json` contains an array of realistic-looking job posting objects matching the TheirStack schema.
+- Stored under `src/fixtures/`.
+- `jobs.json` contains an array of ~50 job posting objects matching the TheirStack schema (1800+ lines).
+- Loaded once at startup via `readFileSync` and held in memory.
+- Each fixture object includes: `id`, `job_title`, `company`, `company_object`, `description`, `location`, `salary_*`, `technology_slugs`, `hiring_team`, `employment_statuses`, `remote`/`hybrid`, `seniority`, and many more TheirStack fields.
 - Keep fixtures committed to the repo — they serve as a shared contract between Engine developers and the mock.
 - Fixtures should cover edge cases: jobs with missing optional fields, very long descriptions, special characters, etc.
 
 ## Health Endpoint
 
-| Method | Path | Response |
-|---|---|---|
-| `GET` | `/health` | `200 OK` — `{ "status": "healthy" }` |
+| Method | Path      | Response                             |
+| ------ | --------- | ------------------------------------ |
+| `GET`  | `/health` | `200 OK` — `{ "status": "healthy" }` |
 
-Used by Docker Compose health check and orchestrator probes.
+Registered **before** the auth middleware — no API key required. Used by Docker Compose health check and orchestrator probes.
+
+## npm Scripts
+
+| Script  | Command                  | Purpose                                   |
+| ------- | ------------------------ | ----------------------------------------- |
+| `build` | `tsc`                    | Compile TypeScript to `dist/`             |
+| `start` | `node dist/index.js`     | Run the compiled application              |
+| `dev`   | `tsx watch src/index.ts` | Run with hot-reload for local development |
 
 ## Coding Standards
 
-- Enable TypeScript strict mode.
-- Use ESM modules (`"type": "module"` in `package.json`).
+- TypeScript strict mode enabled.
+- ESM modules (`"type": "module"` in `package.json`, `"module": "NodeNext"` in tsconfig).
 - Keep the codebase minimal — this is a dev tool, not a production service.
 - No database required — all data comes from in-memory fixtures loaded at startup.
-- Log every request with method, path, response status, and latency for observability during development.
+- Use `pino-http` middleware for automatic per-request structured logging.
+- Access environment variables via bracket notation: `process.env["VAR_NAME"]`.
 
 ## Key Rules
 

@@ -6,17 +6,17 @@ applyTo: "skillexa-core/**"
 
 ## Stack
 
-| Concern | Choice |
-|---|---|
-| Framework | ASP.NET Core Web API (.NET 10) |
-| Auth | JWT Bearer authentication (self-issued tokens) |
-| DI container | **Autofac** (replaces built-in DI) |
-| ORM / Data | EF Core (or Dapper) with PostgreSQL |
-| Mapping | **Mapperly** (source-generated DTO ↔ Entity mapping) |
-| Broker | `IMessageBus` abstraction — RabbitMQ (local) / Azure Service Bus (prod) |
-| Object storage | `IObjectStorage` abstraction — Azurite (local) / Azure Blob Storage (prod) |
-| API docs | OpenAPI spec (built-in `Microsoft.AspNetCore.OpenApi`) — consumed by Kiota in Skillexa-Portal |
-| Root namespace | `skillexa_core` |
+| Concern        | Choice                                                                                        |
+| -------------- | --------------------------------------------------------------------------------------------- |
+| Framework      | ASP.NET Core Web API (.NET 10)                                                                |
+| Auth           | JWT Bearer authentication (self-issued tokens)                                                |
+| DI container   | **Autofac** (replaces built-in DI)                                                            |
+| ORM / Data     | EF Core (or Dapper) with PostgreSQL                                                           |
+| Mapping        | **Mapperly** (source-generated DTO ↔ Entity mapping)                                          |
+| Broker         | `IMessageBus` abstraction — RabbitMQ (local) / Azure Service Bus (prod)                       |
+| Object storage | `IObjectStorage` abstraction — Azurite (local) / Azure Blob Storage (prod)                    |
+| API docs       | OpenAPI spec (built-in `Microsoft.AspNetCore.OpenApi`) — consumed by Kiota in Skillexa-Portal |
+| Root namespace | `skillexa_core`                                                                               |
 
 ## Role
 
@@ -92,14 +92,14 @@ Modules/
 
 ### Module Responsibilities
 
-| Module | Registers | Notes |
-|---|---|---|
-| `DataModule` | `ApplicationDbContext`, repository interfaces (`IJobRepository`, `IUserRepository`, etc.) | Reads connection string from config; lifetime = `InstancePerLifetimeScope` |
-| `ServiceModule` | All `I*Service` interfaces and their implementations | Scans assembly for `*Service` classes; lifetime = `InstancePerLifetimeScope` |
-| `MessagingModule` | `IMessageBus` → `RabbitMqMessageBus` or `AzureServiceBusMessageBus` | Reads `Messaging:Provider` from config to choose implementation; lifetime = `SingleInstance` |
-| `StorageModule` | `IObjectStorage` → `AzuriteObjectStorage` or `AzureBlobObjectStorage` | Reads `Storage:Provider` from config to choose implementation; lifetime = `SingleInstance` |
-| `MappingModule` | Mapperly mapper classes | Registers `[Mapper]`-annotated classes via assembly scanning |
-| `AuthModule` | `IPasswordHasher`, `ITokenGenerator`, related auth services | Lifetime = `InstancePerLifetimeScope` |
+| Module            | Registers                                                                                 | Notes                                                                                        |
+| ----------------- | ----------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
+| `DataModule`      | `ApplicationDbContext`, repository interfaces (`IJobRepository`, `IUserRepository`, etc.) | Reads connection string from config; lifetime = `InstancePerLifetimeScope`                   |
+| `ServiceModule`   | All `I*Service` interfaces and their implementations                                      | Scans assembly for `*Service` classes; lifetime = `InstancePerLifetimeScope`                 |
+| `MessagingModule` | `IMessageBus` → `RabbitMqMessageBus` or `AzureServiceBusMessageBus`                       | Reads `Messaging:Provider` from config to choose implementation; lifetime = `SingleInstance` |
+| `StorageModule`   | `IObjectStorage` → `AzuriteObjectStorage` or `AzureBlobObjectStorage`                     | Reads `Storage:Provider` from config to choose implementation; lifetime = `SingleInstance`   |
+| `MappingModule`   | Mapperly mapper classes                                                                   | Registers `[Mapper]`-annotated classes via assembly scanning                                 |
+| `AuthModule`      | `IPasswordHasher`, `ITokenGenerator`, related auth services                               | Lifetime = `InstancePerLifetimeScope`                                                        |
 
 ### Registration in `Program.cs`
 
@@ -160,16 +160,16 @@ public static partial class JobMapper
 
 ## Endpoint Catalog
 
-| Method | Path | Auth | Purpose |
-|---|---|---|---|
-| POST | `/auth/login` | Anonymous | Authenticate, return JWT |
-| POST | `/auth/refresh` | Anonymous | Refresh access token |
-| POST | `/documents` | Bearer | Create document → enqueue `GeneratePdf` |
-| GET | `/jobs` | Bearer | List current user's jobs |
-| GET | `/jobs/{jobId}` | Bearer | Single job detail (status, error, timestamps) |
-| POST | `/jobs/{jobId}/download-url` | Bearer | Get signed download URL (owner check, status=Succeeded) |
-| GET | `/app/usage` | Bearer | Provider usage / quota for current user |
-| POST/PUT | `/admin/templates/*` | Bearer+Admin | Template CRUD (admin only) |
+| Method   | Path                         | Auth         | Purpose                                                 |
+| -------- | ---------------------------- | ------------ | ------------------------------------------------------- |
+| POST     | `/auth/login`                | Anonymous    | Authenticate, return JWT                                |
+| POST     | `/auth/refresh`              | Anonymous    | Refresh access token                                    |
+| POST     | `/documents`                 | Bearer       | Create document → enqueue `GeneratePdf`                 |
+| GET      | `/jobs`                      | Bearer       | List current user’s jobs                                |
+| GET      | `/jobs/{jobId}`              | Bearer       | Single job detail (status, error, timestamps)           |
+| POST     | `/jobs/{jobId}/download-url` | Bearer       | Get signed download URL (owner check, status=Succeeded) |
+| GET      | `/app/usage`                 | Bearer       | Provider usage / quota for current user                 |
+| POST/PUT | `/admin/templates/*`         | Bearer+Admin | Template CRUD (admin only)                              |
 
 ## Database Access
 
