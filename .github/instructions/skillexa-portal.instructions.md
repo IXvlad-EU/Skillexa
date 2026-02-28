@@ -62,6 +62,15 @@ Mantine is the **primary UI library** for all portal components. Follow these ru
 - Use `@mantine/notifications` for toast/notification feedback (success, error, info messages).
 - Use `@mantine/hooks` for common UI utilities (`useDisclosure`, `useMediaQuery`, `useClipboard`, `useDebouncedValue`, etc.).
 
+### Icons
+
+- Use **`@tabler/icons-react`** as the default icon library — it is Mantine's recommended icon set and is already installed.
+- Always prefer Tabler icons before reaching for any other icon package. They integrate seamlessly with Mantine components (`ActionIcon`, `Button` `leftSection`/`rightSection`, `ThemeIcon`, etc.).
+- Import icons individually for tree shaking: `import { IconLanguage } from '@tabler/icons-react';`
+- Use a consistent icon `size` prop (e.g., `16` for inline, `20` for buttons, `24` for headers) to maintain visual harmony.
+- Ensure `@tabler/icons-react` is listed in `optimizePackageImports` in `next.config.ts` for efficient bundling.
+- Do **not** add alternative icon libraries (Lucide, Heroicons, Font Awesome, Material Icons, etc.) unless Tabler icons genuinely lack a required glyph — and document the reason in a code comment if so.
+
 ### Styling Rules
 
 - Use **Mantine CSS modules** (`.module.css` files) for component-specific styles. Access Mantine theme variables via `var(--mantine-*)` CSS custom properties.
@@ -120,12 +129,18 @@ app/
       page.tsx        # jobs grid
       [jobId]/
         page.tsx      # single job detail + download
-  api/                # BFF Route Handlers (proxy to Core)
+i18n/
+  navigation.ts       # locale-aware navigation helpers (Link, redirect, useRouter, etc.)
+  request.ts          # next-intl request config
+  routing.ts          # locale routing config
 lib/
   api-client/         # Kiota-generated client
   hooks/              # custom React hooks (TanStack Query wrappers)
   utils/
 components/           # shared UI components
+proxy.ts              # locale detection & redirect (replaces deprecated middleware.ts in Next.js 16)
+next.config.ts
+postcss.config.cjs
 ```
 
 ## TanStack Query Guidelines
@@ -159,7 +174,7 @@ components/           # shared UI components
 - All pages under authenticated routes must verify the session server-side before rendering.
 - Use TypeScript `strict` — no `any` types without justification.
 - Set `"target": "ES2022"` (or later) in `tsconfig.json` to enable modern type-checking (e.g., `Array.at()`, `structuredClone`, `Error.cause`).
-- ESLint config extends `eslint-config-next`.
+- ESLint config uses the **flat config** format (`eslint.config.mjs`) with `eslint-config-next/core-web-vitals` and `eslint-config-next/typescript`.
 
 ## VS Code Setup
 

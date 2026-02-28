@@ -1,0 +1,12 @@
+{
+  "common": {
+    "helloWorld": "Привет, мир!"
+  },
+  "navbar": {
+    "appName": "Skillexa",
+    "language": "Язык",
+    "locale_en": "English",
+    "locale_ru": "Русский",
+    "locale_de": "Deutsch"
+  }
+}
