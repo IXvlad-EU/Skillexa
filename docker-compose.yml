@@ -38,6 +38,7 @@ services:
       - "3000:3000"
     environment:
       - NODE_ENV=production
+      - SKILLEXA_CORE_BASE_URL=http://skillexa-core:8080
     networks:
       - skillexa-network
     restart: unless-stopped

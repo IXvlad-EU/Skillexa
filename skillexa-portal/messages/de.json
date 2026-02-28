@@ -1,6 +1,7 @@
 {
   "common": {
-    "helloWorld": "Hallo Welt!"
+    "helloWorld": "Hallo Welt!",
+    "failedToLoad": "Nachricht konnte nicht geladen werden"
   },
   "navbar": {
     "appName": "Skillexa",

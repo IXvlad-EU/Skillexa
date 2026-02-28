@@ -11,6 +11,7 @@ import {
 } from "@mantine/core";
 import { routing } from "@/i18n/routing";
 import { Navbar } from "@/components/Navbar";
+import { Providers } from "@/app/providers";
 
 import "@mantine/core/styles.css";
 import "../globals.scss";
@@ -40,12 +41,14 @@ export default async function LocaleLayout({ children, params }: Props) {
       <body>
         <MantineProvider defaultColorScheme="auto">
           <NextIntlClientProvider>
-            <AppShell header={{ height: 60 }}>
-              <AppShellHeader>
-                <Navbar />
-              </AppShellHeader>
-              <AppShellMain>{children}</AppShellMain>
-            </AppShell>
+            <Providers>
+              <AppShell header={{ height: 60 }}>
+                <AppShellHeader>
+                  <Navbar />
+                </AppShellHeader>
+                <AppShellMain>{children}</AppShellMain>
+              </AppShell>
+            </Providers>
           </NextIntlClientProvider>
         </MantineProvider>
       </body>

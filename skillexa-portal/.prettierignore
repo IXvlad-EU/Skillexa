@@ -1,0 +1,13 @@
+# Build outputs
+.next/
+out/
+build/
+
+# Dependencies
+node_modules/
+
+# Auto-generated API client (Kiota)
+lib/api-client/
+
+# Lock file
+pnpm-lock.yaml

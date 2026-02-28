@@ -7,7 +7,11 @@ const nextConfig: NextConfig = {
     implementation: "sass-embedded",
   },
   experimental: {
-    optimizePackageImports: ["@mantine/core", "@mantine/hooks", "@tabler/icons-react"],
+    optimizePackageImports: [
+      "@mantine/core",
+      "@mantine/hooks",
+      "@tabler/icons-react",
+    ],
   },
 };
 

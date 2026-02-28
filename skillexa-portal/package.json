@@ -6,25 +6,38 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "generate-api-client": "kiota generate -l typescript -d http://localhost:8080/openapi/v1.json -o ./lib/api-client -c SkillexaCoreClient --co"
   },
   "dependencies": {
     "@mantine/core": "^7",
     "@mantine/hooks": "^7",
+    "@microsoft/kiota-abstractions": "1.0.0-preview.99",
+    "@microsoft/kiota-http-fetchlibrary": "1.0.0-preview.99",
+    "@microsoft/kiota-serialization-form": "1.0.0-preview.99",
+    "@microsoft/kiota-serialization-json": "1.0.0-preview.99",
+    "@microsoft/kiota-serialization-multipart": "1.0.0-preview.99",
+    "@microsoft/kiota-serialization-text": "1.0.0-preview.99",
     "@tabler/icons-react": "^3.37.1",
+    "@tanstack/react-query": "^5.90.21",
     "next": "16.1.6",
     "next-intl": "^4",
     "react": "19.2.3",
     "react-dom": "19.2.3"
   },
   "devDependencies": {
+    "@tanstack/react-query-devtools": "^5.91.3",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.1.6",
+    "eslint-config-prettier": "^10.1.8",
     "postcss-preset-mantine": "^1",
     "postcss-simple-vars": "^7",
+    "prettier": "^3.8.1",
     "sass-embedded": "^1",
     "typescript": "^5"
   }

@@ -1,6 +1,7 @@
 {
   "common": {
-    "helloWorld": "Hello World!"
+    "helloWorld": "Hello World!",
+    "failedToLoad": "Failed to load message"
   },
   "navbar": {
     "appName": "Skillexa",
