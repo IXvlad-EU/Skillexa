@@ -17,6 +17,7 @@ The `docker-compose.yml` at the repo root defines the full local environment:
 | `skillexa-portal` | `./skillexa-portal/Dockerfile`                                   | 3000        | Next.js SSR + BFF                       |
 | `skillexa-core`   | `./skillexa-core/Dockerfile`                                     | 8080        | ASP.NET Core API                        |
 | `skillexa-engine` | `./skillexa-engine/Dockerfile`                                   | —           | .NET Worker (no HTTP)                   |
+| `mock-theirstack` | `./mock-theirstack/Dockerfile`                                   | 3100        | TheirStack API mock for local dev       |
 | `postgres`        | `postgres:17`                                                    | 5432        | PostgreSQL database                     |
 | `rabbitmq`        | `./rabbitmq/Dockerfile` (base: `rabbitmq:4.1-management-alpine`) | 5672, 15672 | Message broker (management UI on 15672) |
 | `azurite`         | `mcr.microsoft.com/azure-storage/azurite`                        | 10000       | Azure Storage emulator (blob)           |
