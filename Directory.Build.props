@@ -1,0 +1,15 @@
+<Project>
+
+  <PropertyGroup>
+    <!-- Enforce code style rules (IDE*) during build, not just in IDE -->
+    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+
+    <!-- Promote all warnings to errors -->
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <CodeAnalysisTreatWarningsAsErrors>true</CodeAnalysisTreatWarningsAsErrors>
+
+    <!-- Use the latest CA rule set with recommended severity -->
+    <AnalysisLevel>latest-Recommended</AnalysisLevel>
+  </PropertyGroup>
+
+</Project>
