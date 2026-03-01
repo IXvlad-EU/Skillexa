@@ -8,6 +8,11 @@ services:
       - "8080:8080"
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
+      - Messaging__Provider=RabbitMQ
+      - Messaging__ConnectionString=amqp://${RABBITMQ_USER}:${RABBITMQ_PASS}@rabbitmq:5672/${RABBITMQ_VHOST}
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
     networks:
       - skillexa-network
     restart: unless-stopped
@@ -34,9 +39,13 @@ services:
     environment:
       - DOTNET_ENVIRONMENT=Production
       - TheirStack__BaseUrl=http://mock-theirstack:3100
-      - TheirStack__ApiKey=dev-theirstack-key
+      - TheirStack__ApiKey=${THEIRSTACK_API_KEY}
+      - Messaging__Provider=RabbitMQ
+      - Messaging__ConnectionString=amqp://${RABBITMQ_USER}:${RABBITMQ_PASS}@rabbitmq:5672/${RABBITMQ_VHOST}
     depends_on:
       mock-theirstack:
+        condition: service_healthy
+      rabbitmq:
         condition: service_healthy
     networks:
       - skillexa-network
@@ -51,7 +60,7 @@ services:
       - "3100:3100"
     environment:
       - PORT=3100
-      - MOCK_API_KEY=dev-theirstack-key
+      - MOCK_API_KEY=${THEIRSTACK_API_KEY}
       - MOCK_DEFAULT_DELAY_MS=0
       - MOCK_FAIL_RATE=0
     networks:
@@ -85,6 +94,33 @@ services:
     networks:
       - skillexa-network
     restart: unless-stopped
+
+  rabbitmq:
+    build:
+      context: ./rabbitmq
+      dockerfile: Dockerfile
+    container_name: rabbitmq
+    ports:
+      - "5672:5672"
+      - "127.0.0.1:15672:15672" # Management UI — localhost only
+    environment:
+      - RABBITMQ_DEFAULT_USER=${RABBITMQ_USER}
+      - RABBITMQ_DEFAULT_PASS=${RABBITMQ_PASS}
+      - RABBITMQ_DEFAULT_VHOST=${RABBITMQ_VHOST}
+    volumes:
+      - rabbitmq-data:/var/lib/rabbitmq
+    networks:
+      - skillexa-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "-q", "ping"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+
+volumes:
+  rabbitmq-data:
 
 networks:
   skillexa-network:

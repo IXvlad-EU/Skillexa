@@ -12,14 +12,14 @@ All three application components run as Docker containers. The same images work 
 
 The `docker-compose.yml` at the repo root defines the full local environment:
 
-| Service           | Image / Build                             | Ports       | Purpose                                 |
-| ----------------- | ----------------------------------------- | ----------- | --------------------------------------- |
-| `skillexa-portal` | `./skillexa-portal/Dockerfile`            | 3000        | Next.js SSR + BFF                       |
-| `skillexa-core`   | `./skillexa-core/Dockerfile`              | 8080        | ASP.NET Core API                        |
-| `skillexa-engine` | `./skillexa-engine/Dockerfile`            | —           | .NET Worker (no HTTP)                   |
-| `postgres`        | `postgres:17`                             | 5432        | PostgreSQL database                     |
-| `rabbitmq`        | `rabbitmq:3-management`                   | 5672, 15672 | Message broker (management UI on 15672) |
-| `azurite`         | `mcr.microsoft.com/azure-storage/azurite` | 10000       | Azure Storage emulator (blob)           |
+| Service           | Image / Build                                                    | Ports       | Purpose                                 |
+| ----------------- | ---------------------------------------------------------------- | ----------- | --------------------------------------- |
+| `skillexa-portal` | `./skillexa-portal/Dockerfile`                                   | 3000        | Next.js SSR + BFF                       |
+| `skillexa-core`   | `./skillexa-core/Dockerfile`                                     | 8080        | ASP.NET Core API                        |
+| `skillexa-engine` | `./skillexa-engine/Dockerfile`                                   | —           | .NET Worker (no HTTP)                   |
+| `postgres`        | `postgres:17`                                                    | 5432        | PostgreSQL database                     |
+| `rabbitmq`        | `./rabbitmq/Dockerfile` (base: `rabbitmq:4.1-management-alpine`) | 5672, 15672 | Message broker (management UI on 15672) |
+| `azurite`         | `mcr.microsoft.com/azure-storage/azurite`                        | 10000       | Azure Storage emulator (blob)           |
 
 ### Network
 
