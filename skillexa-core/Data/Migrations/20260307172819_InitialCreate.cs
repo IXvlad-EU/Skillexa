@@ -83,8 +83,9 @@ namespace Skillexa.Core.Data.Migrations
                 {
                     id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    entra_object_id = table.Column<string>(type: "character varying(36)", maxLength: 36, nullable: false),
                     email = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: false),
-                    password_hash = table.Column<string>(type: "character varying(512)", maxLength: 512, nullable: false),
+                    display_name = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: false),
                     created_at = table.Column<DateTime>(type: "timestamp with time zone", nullable: false, defaultValueSql: "now() at time zone 'utc'"),
                     updated_at = table.Column<DateTime>(type: "timestamp with time zone", nullable: false, defaultValueSql: "now() at time zone 'utc'")
                 },
@@ -124,29 +125,6 @@ namespace Skillexa.Core.Data.Migrations
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "fk_jobs_users_user_id",
-                        column: x => x.user_id,
-                        principalTable: "users",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "refresh_tokens",
-                columns: table => new
-                {
-                    id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    user_id = table.Column<long>(type: "bigint", nullable: false),
-                    token_hash = table.Column<string>(type: "character varying(512)", maxLength: 512, nullable: false),
-                    expires_at = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    created_at = table.Column<DateTime>(type: "timestamp with time zone", nullable: false, defaultValueSql: "now() at time zone 'utc'"),
-                    revoked_at = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("pk_refresh_tokens", x => x.id);
-                    table.ForeignKey(
-                        name: "fk_refresh_tokens_users_user_id",
                         column: x => x.user_id,
                         principalTable: "users",
                         principalColumn: "id",
@@ -198,19 +176,15 @@ namespace Skillexa.Core.Data.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "ix_refresh_tokens_token_hash",
-                table: "refresh_tokens",
-                column: "token_hash");
-
-            migrationBuilder.CreateIndex(
-                name: "ix_refresh_tokens_user_id",
-                table: "refresh_tokens",
-                column: "user_id");
-
-            migrationBuilder.CreateIndex(
                 name: "ix_users_email",
                 table: "users",
                 column: "email",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "ix_users_entra_object_id",
+                table: "users",
+                column: "entra_object_id",
                 unique: true);
         }
 
@@ -225,9 +199,6 @@ namespace Skillexa.Core.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "provider_usages");
-
-            migrationBuilder.DropTable(
-                name: "refresh_tokens");
 
             migrationBuilder.DropTable(
                 name: "templates");

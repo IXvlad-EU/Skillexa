@@ -13,6 +13,13 @@ public sealed class UserConfiguration : IEntityTypeConfiguration<User>
         builder.Property(u => u.Id)
             .ValueGeneratedOnAdd();
 
+        builder.Property(u => u.EntraObjectId)
+            .HasMaxLength(36)
+            .IsRequired();
+
+        builder.HasIndex(u => u.EntraObjectId)
+            .IsUnique();
+
         builder.Property(u => u.Email)
             .HasMaxLength(256)
             .IsRequired();
@@ -20,8 +27,8 @@ public sealed class UserConfiguration : IEntityTypeConfiguration<User>
         builder.HasIndex(u => u.Email)
             .IsUnique();
 
-        builder.Property(u => u.PasswordHash)
-            .HasMaxLength(512)
+        builder.Property(u => u.DisplayName)
+            .HasMaxLength(256)
             .IsRequired();
 
         builder.Property(u => u.CreatedAt)
@@ -31,11 +38,6 @@ public sealed class UserConfiguration : IEntityTypeConfiguration<User>
         builder.Property(u => u.UpdatedAt)
             .HasDefaultValueSql("now() at time zone 'utc'")
             .IsRequired();
-
-        builder.HasMany(u => u.RefreshTokens)
-            .WithOne(rt => rt.User)
-            .HasForeignKey(rt => rt.UserId)
-            .OnDelete(DeleteBehavior.Restrict);
 
         builder.HasMany(u => u.Jobs)
             .WithOne(j => j.User)

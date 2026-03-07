@@ -12,10 +12,10 @@ applyTo: "**/*.sql,**/Migrations/**,**/Data/**"
 
 ## Database Topology
 
-| Database          | Owner Service   | Tables                                                                                               |
-| ----------------- | --------------- | ---------------------------------------------------------------------------------------------------- |
-| `skillexa` (Core) | Skillexa-Core   | `users`, `refresh_tokens`, `jobs`, `job_statuses`, `templates`, `provider_usages`, `outbox_messages` |
-| `skillexa_engine` | Skillexa-Engine | `templates`, `provider_quotas`                                                                       |
+| Database          | Owner Service   | Tables                                                                             |
+| ----------------- | --------------- | ---------------------------------------------------------------------------------- |
+| `skillexa` (Core) | Skillexa-Core   | `users`, `jobs`, `job_statuses`, `templates`, `provider_usages`, `outbox_messages` |
+| `skillexa_engine` | Skillexa-Engine | `templates`, `provider_quotas`                                                     |
 
 - The second database (`skillexa_engine`) must be created manually on first setup. Run `CREATE DATABASE skillexa_engine;` against the PostgreSQL instance.
 - **Important:** If you already have a `postgres-data` volume and need to re-initialize, run `docker compose down -v` to destroy it.
@@ -27,24 +27,14 @@ applyTo: "**/*.sql,**/Migrations/**,**/Data/**"
 
 ### `users`
 
-| Column          | Type                 | Notes                                          |
-| --------------- | -------------------- | ---------------------------------------------- |
-| `id`            | BIGINT (PK)          | Auto-increment                                 |
-| `email`         | VARCHAR(256), UNIQUE |                                                |
-| `password_hash` | VARCHAR(512)         | bcrypt or Argon2id — **never store plaintext** |
-| `created_at`    | TIMESTAMPTZ          | Default `now() AT TIME ZONE 'UTC'`             |
-| `updated_at`    | TIMESTAMPTZ          | Default `now() AT TIME ZONE 'UTC'`             |
-
-### `refresh_tokens` (optional)
-
-| Column       | Type                | Notes              |
-| ------------ | ------------------- | ------------------ |
-| `id`         | BIGINT (PK)         | Auto-increment     |
-| `user_id`    | BIGINT (FK → users) | ON DELETE RESTRICT |
-| `token_hash` | VARCHAR(512)        |                    |
-| `expires_at` | TIMESTAMPTZ         | UTC                |
-| `created_at` | TIMESTAMPTZ         | UTC                |
-| `revoked_at` | TIMESTAMPTZ         | Nullable, UTC      |
+| Column            | Type                 | Notes                              |
+| ----------------- | -------------------- | ---------------------------------- |
+| `id`              | BIGINT (PK)          | Auto-increment                     |
+| `entra_object_id` | VARCHAR(36), UNIQUE  | Entra ID Object ID (`oid` claim)   |
+| `email`           | VARCHAR(256), UNIQUE | From `preferred_username` claim    |
+| `display_name`    | VARCHAR(256)         | From `name` claim                  |
+| `created_at`      | TIMESTAMPTZ          | Default `now() AT TIME ZONE 'UTC'` |
+| `updated_at`      | TIMESTAMPTZ          | Default `now() AT TIME ZONE 'UTC'` |
 
 ### `job_statuses` (lookup)
 

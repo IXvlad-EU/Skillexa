@@ -9,7 +9,7 @@ applyTo: "skillexa-core/**"
 | Concern        | Choice                                                                                        |
 | -------------- | --------------------------------------------------------------------------------------------- |
 | Framework      | ASP.NET Core Web API (.NET 10)                                                                |
-| Auth           | JWT Bearer authentication (self-issued tokens)                                                |
+| Auth           | Microsoft Entra ID (JWT Bearer via `Microsoft.Identity.Web`)                                  |
 | DI container   | **Autofac** (replaces built-in DI)                                                            |
 | ORM / Data     | EF Core (or Dapper) with PostgreSQL                                                           |
 | Mapping        | **Mapperly** (source-generated DTO ↔ Entity mapping)                                          |
@@ -22,7 +22,7 @@ applyTo: "skillexa-core/**"
 
 Skillexa-Core is the **HTTP API and orchestration layer**. It:
 
-1. Authenticates users and issues JWTs.
+1. Validates Entra ID Bearer tokens and provisions users (JIT).
 2. Accepts document creation requests and creates `Job` records in PostgreSQL.
 3. Publishes `GeneratePdf` commands to the message broker.
 4. Consumes `PdfStatusChanged` events from the broker and updates job state.
@@ -37,7 +37,6 @@ skillexa-core/
   appsettings.json / appsettings.Development.json
   Properties/launchSettings.json
   Endpoints/             # Minimal API endpoint groups
-    AuthEndpoints.cs
     DocumentsEndpoints.cs
     JobsEndpoints.cs
     AdminTemplatesEndpoints.cs
@@ -48,7 +47,6 @@ skillexa-core/
   Services/              # business logic services
   Messaging/             # IMessageBus, broker adapters, message contracts
   Storage/               # IObjectStorage, Azurite/Azure Blob adapters
-  Auth/                  # JWT configuration, token generation, password hashing
   Middleware/            # error handling, rate limiting middleware
   Mapping/               # Mapperly mappers
   Modules/               # Autofac module registrations
@@ -66,7 +64,7 @@ public interface IEntity
 ```
 
 - `Id` is a `long` (BIGINT) auto-incremented primary key.
-- Every entity class (`User`, `Job`, `Template`, `ProviderUsage`, `ProviderQuota`, `RefreshToken`, `OutboxMessage`) implements `IEntity`.
+- Every entity class (`User`, `Job`, `Template`, `ProviderUsage`, `OutboxMessage`) implements `IEntity`.
 - Lookup / reference tables (e.g., `JobStatus`) may use `int` keys and are **not** required to implement `IEntity`.
 - EF Core entity configurations map `Id` to the `id` column with `ValueGeneratedOnAdd()`.
 
@@ -83,11 +81,10 @@ Each architectural concern gets its own **Autofac module** under `Modules/`:
 ```
 Modules/
   DataModule.cs          # DbContext, repositories, Unit of Work
-  ServiceModule.cs       # business logic services (IJobService, IAuthService…)
+  ServiceModule.cs       # business logic services (IJobService, IUserService…)
   MessagingModule.cs     # IMessageBus + selected adapter (RabbitMQ / Azure Service Bus)
   StorageModule.cs       # IObjectStorage + selected adapter (Azurite / Azure Blob)
   MappingModule.cs       # Mapperly mapper registrations
-  AuthModule.cs          # password hasher, token generator, auth-related services
 ```
 
 ### Module Responsibilities
@@ -99,7 +96,6 @@ Modules/
 | `MessagingModule` | `IMessageBus` → `RabbitMqMessageBus` or `AzureServiceBusMessageBus`                       | Reads `Messaging:Provider` from config to choose implementation; lifetime = `SingleInstance` |
 | `StorageModule`   | `IObjectStorage` → `AzuriteObjectStorage` or `AzureBlobObjectStorage`                     | Reads `Storage:Provider` from config to choose implementation; lifetime = `SingleInstance`   |
 | `MappingModule`   | Mapperly mapper classes                                                                   | Registers `[Mapper]`-annotated classes via assembly scanning                                 |
-| `AuthModule`      | `IPasswordHasher`, `ITokenGenerator`, related auth services                               | Lifetime = `InstancePerLifetimeScope`                                                        |
 
 ### Registration in `Program.cs`
 
@@ -112,7 +108,6 @@ builder.Host.ConfigureContainer<ContainerBuilder>(container =>
     container.RegisterModule(new MessagingModule(builder.Configuration));
     container.RegisterModule(new StorageModule(builder.Configuration));
     container.RegisterModule(new MappingModule());
-    container.RegisterModule(new AuthModule());
 });
 ```
 
@@ -142,14 +137,13 @@ public static partial class JobMapper
 }
 ```
 
-## JWT Authentication
+## Authentication
 
-- Skillexa-Core **issues its own JWTs** (no external identity provider required).
-- `POST /auth/login` validates credentials (bcrypt/Argon2id hash) and returns an access token (+ optional refresh token).
-- `POST /auth/refresh` issues a new access token given a valid refresh token.
-- Tokens are signed with a symmetric key (`JwtSettings:Secret` from config/secrets).
-- Configure `AddAuthentication().AddJwtBearer()` in `Program.cs`.
-- All endpoints except `/auth/login` and `/auth/refresh` require `[Authorize]`.
+- Skillexa-Core is a **protected web API** — it validates Bearer tokens issued by **Microsoft Entra ID**.
+- Uses `Microsoft.Identity.Web` (`AddMicrosoftIdentityWebApi`) for JWT validation.
+- No self-issued tokens, no local password storage, no login/refresh endpoints.
+- All endpoints (except health checks and OpenAPI metadata) require `.RequireAuthorization()`.
+- See `authentication.instructions.md` for full Entra ID configuration details.
 
 ## OpenAPI Spec
 
@@ -162,8 +156,6 @@ public static partial class JobMapper
 
 | Method   | Path                         | Auth         | Purpose                                                 |
 | -------- | ---------------------------- | ------------ | ------------------------------------------------------- |
-| POST     | `/auth/login`                | Anonymous    | Authenticate, return JWT                                |
-| POST     | `/auth/refresh`              | Anonymous    | Refresh access token                                    |
 | POST     | `/documents`                 | Bearer       | Create document → enqueue `GeneratePdf`                 |
 | GET      | `/jobs`                      | Bearer       | List current user’s jobs                                |
 | GET      | `/jobs/{jobId}`              | Bearer       | Single job detail (status, error, timestamps)           |

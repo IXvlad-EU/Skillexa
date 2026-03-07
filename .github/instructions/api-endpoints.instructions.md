@@ -9,21 +9,10 @@ applyTo: "skillexa-core/**"
 - Local: `http://localhost:8080`
 - Container-to-container: `http://skillexa-core:8080`
 
-## Authentication Endpoints
+## Authentication
 
-### `POST /auth/login`
-
-- **Auth**: Anonymous
-- **Body**: `{ "email": "string", "password": "string" }`
-- **200**: `{ "accessToken": "string", "expiresIn": 3600, "refreshToken": "string" }`
-- **401**: Invalid credentials
-
-### `POST /auth/refresh`
-
-- **Auth**: Anonymous
-- **Body**: `{ "refreshToken": "string" }`
-- **200**: `{ "accessToken": "string", "expiresIn": 3600, "refreshToken": "string" }`
-- **401**: Invalid or expired refresh token
+- All endpoints below require a valid **Bearer token** issued by **Microsoft Entra ID** (unless noted otherwise).
+- See `authentication.instructions.md` for Entra ID configuration and token validation details.
 
 ## Document / Job Endpoints
 
@@ -34,14 +23,14 @@ applyTo: "skillexa-core/**"
   ```jsonc
   {
     "templateKey": "string",
-    "templateVersion": 1,        // optional — defaults to active version
+    "templateVersion": 1, // optional — defaults to active version
     "payload": {
       "jobTitle": "string",
       "keywords": ["string"],
       "salaryMin": 0,
-      "salaryMax": 0
+      "salaryMax": 0,
       // ...other domain fields
-    }
+    },
   }
   ```
 - **202 Accepted**: `{ "jobId": 123, "status": "Queued" }`
@@ -59,8 +48,8 @@ applyTo: "skillexa-core/**"
       "templateKey": "string",
       "errorCode": "string | null",
       "createdAt": "ISO-8601",
-      "updatedAt": "ISO-8601"
-    }
+      "updatedAt": "ISO-8601",
+    },
   ]
   ```
 - Supports pagination query params (`?page=1&pageSize=20`).
@@ -92,7 +81,7 @@ applyTo: "skillexa-core/**"
     "provider": "theirstack",
     "periodKey": "2026-02",
     "used": 12,
-    "remaining": 88
+    "remaining": 88,
   }
   ```
 

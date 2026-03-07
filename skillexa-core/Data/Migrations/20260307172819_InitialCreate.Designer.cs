@@ -12,7 +12,7 @@ using Skillexa.Core.Data;
 namespace Skillexa.Core.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20260307153329_InitialCreate")]
+    [Migration("20260307172819_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -247,51 +247,6 @@ namespace Skillexa.Core.Data.Migrations
                     b.ToTable("provider_usages", (string)null);
                 });
 
-            modelBuilder.Entity("Skillexa.Core.Domain.RefreshToken", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasColumnName("id");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
-
-                    b.Property<DateTime>("CreatedAt")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("created_at")
-                        .HasDefaultValueSql("now() at time zone 'utc'");
-
-                    b.Property<DateTime>("ExpiresAt")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("expires_at");
-
-                    b.Property<DateTime?>("RevokedAt")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("revoked_at");
-
-                    b.Property<string>("TokenHash")
-                        .IsRequired()
-                        .HasMaxLength(512)
-                        .HasColumnType("character varying(512)")
-                        .HasColumnName("token_hash");
-
-                    b.Property<long>("UserId")
-                        .HasColumnType("bigint")
-                        .HasColumnName("user_id");
-
-                    b.HasKey("Id")
-                        .HasName("pk_refresh_tokens");
-
-                    b.HasIndex("TokenHash")
-                        .HasDatabaseName("ix_refresh_tokens_token_hash");
-
-                    b.HasIndex("UserId")
-                        .HasDatabaseName("ix_refresh_tokens_user_id");
-
-                    b.ToTable("refresh_tokens", (string)null);
-                });
-
             modelBuilder.Entity("Skillexa.Core.Domain.Template", b =>
                 {
                     b.Property<long>("Id")
@@ -347,17 +302,23 @@ namespace Skillexa.Core.Data.Migrations
                         .HasColumnName("created_at")
                         .HasDefaultValueSql("now() at time zone 'utc'");
 
+                    b.Property<string>("DisplayName")
+                        .IsRequired()
+                        .HasMaxLength(256)
+                        .HasColumnType("character varying(256)")
+                        .HasColumnName("display_name");
+
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasMaxLength(256)
                         .HasColumnType("character varying(256)")
                         .HasColumnName("email");
 
-                    b.Property<string>("PasswordHash")
+                    b.Property<string>("EntraObjectId")
                         .IsRequired()
-                        .HasMaxLength(512)
-                        .HasColumnType("character varying(512)")
-                        .HasColumnName("password_hash");
+                        .HasMaxLength(36)
+                        .HasColumnType("character varying(36)")
+                        .HasColumnName("entra_object_id");
 
                     b.Property<DateTime>("UpdatedAt")
                         .ValueGeneratedOnAdd()
@@ -371,6 +332,10 @@ namespace Skillexa.Core.Data.Migrations
                     b.HasIndex("Email")
                         .IsUnique()
                         .HasDatabaseName("ix_users_email");
+
+                    b.HasIndex("EntraObjectId")
+                        .IsUnique()
+                        .HasDatabaseName("ix_users_entra_object_id");
 
                     b.ToTable("users", (string)null);
                 });
@@ -396,18 +361,6 @@ namespace Skillexa.Core.Data.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Skillexa.Core.Domain.RefreshToken", b =>
-                {
-                    b.HasOne("Skillexa.Core.Domain.User", "User")
-                        .WithMany("RefreshTokens")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired()
-                        .HasConstraintName("fk_refresh_tokens_users_user_id");
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("Skillexa.Core.Domain.JobStatus", b =>
                 {
                     b.Navigation("Jobs");
@@ -416,8 +369,6 @@ namespace Skillexa.Core.Data.Migrations
             modelBuilder.Entity("Skillexa.Core.Domain.User", b =>
                 {
                     b.Navigation("Jobs");
-
-                    b.Navigation("RefreshTokens");
                 });
 #pragma warning restore 612, 618
         }

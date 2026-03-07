@@ -9,8 +9,6 @@ public sealed class ApplicationDbContext(DbContextOptions<ApplicationDbContext> 
 {
     public DbSet<User> Users => Set<User>();
 
-    public DbSet<RefreshToken> RefreshTokens => Set<RefreshToken>();
-
     public DbSet<JobStatus> JobStatuses => Set<JobStatus>();
 
     public DbSet<Job> Jobs => Set<Job>();

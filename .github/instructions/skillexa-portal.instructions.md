@@ -129,8 +129,6 @@ app/
   providers.tsx       # client provider (QueryClientProvider + DevTools)
   layout.tsx          # root layout (fonts, providers, global styles)
   page.tsx            # landing / home page
-  (auth)/
-    login/page.tsx
   (dashboard)/
     layout.tsx        # authenticated layout shell
     documents/
@@ -194,10 +192,11 @@ postcss.config.cjs
 
 ## Auth Flow
 
-- Login: user submits credentials → BFF Route Handler calls `POST /auth/login` on Core → receives JWT → sets an **httpOnly, Secure, SameSite=Strict** cookie.
-- Subsequent requests: the BFF reads the cookie, attaches the JWT as a `Bearer` header when calling Core.
-- Token refresh: BFF calls `POST /auth/refresh` transparently when the token is near expiry.
-- Client components never see or handle raw JWTs.
+- Sign-in: user clicks "Sign in" → `next-auth` redirects to **Microsoft Entra ID** OIDC login → Entra ID returns auth code → `next-auth` exchanges it for tokens server-side → session stored in an **httpOnly, Secure, SameSite=Strict** cookie.
+- Subsequent requests: the BFF reads the session, attaches the Entra ID access token as a `Bearer` header when calling Core.
+- Token refresh: `next-auth` handles token refresh with Entra ID silently.
+- Client components never see or handle raw access tokens.
+- See `authentication.instructions.md` for full Entra ID configuration.
 
 ## Environment Variables
 

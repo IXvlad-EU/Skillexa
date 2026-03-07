@@ -6,16 +6,11 @@ applyTo: "**"
 
 ## Authentication
 
-- **JWT Bearer tokens** issued by Skillexa-Core (`POST /auth/login`).
-- Access tokens are short-lived (15–60 min); optional refresh tokens are longer-lived and stored hashed in the DB.
-- Skillexa-Portal (BFF) stores the JWT in an **httpOnly, Secure, SameSite=Strict** cookie — the browser JavaScript never accesses the token.
-- All API endpoints (except `/auth/login`, `/auth/refresh`) require a valid `Authorization: Bearer <token>` header.
-
-## Password Storage
-
-- Passwords are hashed with **bcrypt** or **Argon2id** before storage.
-- **Never** store plaintext passwords.
-- Use a work factor / memory cost appropriate for current hardware (bcrypt cost ≥ 12).
+- **Microsoft Entra ID** is the sole identity provider — see `authentication.instructions.md` for full details.
+- Skillexa-Core validates Bearer tokens issued by Entra ID using `Microsoft.Identity.Web`.
+- Skillexa-Portal (BFF) stores the encrypted session in an **httpOnly, Secure, SameSite=Strict** cookie — the browser never sees raw access tokens.
+- All API endpoints (except health checks and OpenAPI metadata) require a valid `Authorization: Bearer <token>` header.
+- There are **no local passwords, no self-issued tokens, and no login/refresh endpoints**.
 
 ## Object Storage Access
 
@@ -30,7 +25,7 @@ applyTo: "**"
 
 ## Secrets Management
 
-- All secrets (DB connection strings, broker credentials, storage keys, TheirStack API key, JWT signing key) come from **environment variables or a secrets manager** — never hard-coded or committed to source control.
+- All secrets (DB connection strings, broker credentials, storage keys, TheirStack API key, Entra ID client secrets) come from **environment variables or a secrets manager** — never hard-coded or committed to source control.
 - `.env` files for local development are listed in `.gitignore`.
 
 ## Idempotency
