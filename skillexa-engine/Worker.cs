@@ -1,4 +1,4 @@
-namespace skillexa_engine;
+namespace Skillexa.Engine;
 
 public class Worker(ILogger<Worker> logger) : BackgroundService
 {

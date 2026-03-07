@@ -4,7 +4,7 @@ ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 
 # Copy csproj and restore dependencies
-COPY skillexa-engine.csproj ./
+COPY Skillexa.Engine.csproj ./
 RUN dotnet restore
 
 # Copy everything else and build
@@ -21,4 +21,4 @@ COPY --from=build /app/publish .
 USER app
 
 # Run the application
-ENTRYPOINT ["dotnet", "skillexa-engine.dll"]
+ENTRYPOINT ["dotnet", "Skillexa.Engine.dll"]

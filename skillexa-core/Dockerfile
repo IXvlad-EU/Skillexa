@@ -3,7 +3,7 @@ FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 
-COPY skillexa-core.csproj ./
+COPY Skillexa.Core.csproj ./
 RUN dotnet restore
 
 COPY . .
@@ -19,4 +19,4 @@ USER app
 
 EXPOSE 8080
 
-ENTRYPOINT ["dotnet", "skillexa-core.dll"]
+ENTRYPOINT ["dotnet", "Skillexa.Core.dll"]

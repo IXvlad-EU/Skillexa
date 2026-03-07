@@ -18,9 +18,10 @@ The `docker-compose.yml` at the repo root defines the full local environment:
 | `skillexa-core`   | `./skillexa-core/Dockerfile`                                     | 8080        | ASP.NET Core API                        |
 | `skillexa-engine` | `./skillexa-engine/Dockerfile`                                   | —           | .NET Worker (no HTTP)                   |
 | `mock-theirstack` | `./mock-theirstack/Dockerfile`                                   | 3100        | TheirStack API mock for local dev       |
-| `postgres`        | `postgres:17`                                                    | 5432        | PostgreSQL database                     |
+| `postgres`        | `postgres:17-alpine`                                             | 5432        | PostgreSQL database                     |
 | `rabbitmq`        | `./rabbitmq/Dockerfile` (base: `rabbitmq:4.1-management-alpine`) | 5672, 15672 | Message broker (management UI on 15672) |
-| `azurite`         | `mcr.microsoft.com/azure-storage/azurite`                        | 10000       | Azure Storage emulator (blob)           |
+
+> **Note:** An `azurite` service (Azure Storage emulator) is not yet in the Compose file. Add it when blob storage features are implemented.
 
 ### Network
 
@@ -29,7 +30,8 @@ The `docker-compose.yml` at the repo root defines the full local environment:
 
 ### Environment Variables
 
-- Local dev values go in `docker-compose.yml` `environment:` blocks or a `.env` file (gitignored).
+- Local dev values go in a root `.env` file (gitignored) and referenced from `docker-compose.yml` via `${VAR_NAME}` syntax.
+- The `.env` file defines: `RABBITMQ_USER`, `RABBITMQ_PASS`, `RABBITMQ_VHOST`, `THEIRSTACK_API_KEY`, `POSTGRES_USER`, `POSTGRES_PASSWORD`, `POSTGRES_DB`.
 - Production values come from the deployment platform's secret/config management.
 
 ## Dockerfile Conventions

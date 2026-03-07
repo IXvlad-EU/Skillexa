@@ -41,7 +41,7 @@ public interface IObjectStorage
 | `snapshots/{jobId}.json` | Input data snapshot (JSON) | Skillexa-Engine |
 
 - Keys are flat within the container (pseudo-folders via prefix).
-- `jobId` is a UUID — keys are globally unique.
+- `jobId` is a BIGINT (auto-increment) — keys are unique within the application.
 
 ## Signed Download URLs
 
@@ -60,7 +60,7 @@ public interface IObjectStorage
 
 ## Azurite (Local Development)
 
-- Runs as a Docker Compose service.
+- Will run as a Docker Compose service (not yet added — add when blob storage features are implemented).
 - Connection string: `DefaultEndpointsProtocol=http;AccountName=devstoreaccount1;AccountKey=<Azurite default key>;BlobEndpoint=http://azurite:10000/devstoreaccount1;`
 - The container is auto-created on first upload (or at startup via an init script).
 - Azurite supports the same Azure Blob SDK (`Azure.Storage.Blobs`) as production — the same adapter code works in both environments.

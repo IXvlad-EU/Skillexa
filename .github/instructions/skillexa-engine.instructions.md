@@ -15,7 +15,7 @@ applyTo: "skillexa-engine/**"
 | External provider | TheirStack API (REST/HTTP)                                                 |
 | PDF rendering     | PDF library (QuestPDF, iText, Puppeteer — TBD)                             |
 | Database          | PostgreSQL (EF Core / Dapper) for templates & quota                        |
-| Root namespace    | `skillexa_engine`                                                          |
+| Root namespace    | `Skillexa.Engine`                                                          |
 
 ## Role
 

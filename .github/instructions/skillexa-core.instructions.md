@@ -16,7 +16,7 @@ applyTo: "skillexa-core/**"
 | Broker         | `IMessageBus` abstraction — RabbitMQ (local) / Azure Service Bus (prod)                       |
 | Object storage | `IObjectStorage` abstraction — Azurite (local) / Azure Blob Storage (prod)                    |
 | API docs       | OpenAPI spec (built-in `Microsoft.AspNetCore.OpenApi`) — consumed by Kiota in Skillexa-Portal |
-| Root namespace | `skillexa_core`                                                                               |
+| Root namespace | `Skillexa.Core`                                                                               |
 
 ## Role
 

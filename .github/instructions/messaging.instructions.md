@@ -61,7 +61,7 @@ All messages are serialized as JSON. Use `record` types in C#.
     "salaryMax": 0,
     // ...domain fields
   },
-  "correlationId": "uuid",
+  "correlationId": 789,
   "idempotencyKey": 123, // recommended: same as jobId
 }
 ```
@@ -78,7 +78,7 @@ All messages are serialized as JSON. Use `record` types in C#.
   "snapshotStorageKey": "snapshots/{jobId}.json", // present when available
   "errorCode": "string | null", // present when Failed
   "errorMessage": "string | null", // present when Failed
-  "correlationId": "uuid",
+  "correlationId": 789,
 }
 ```
 
@@ -93,7 +93,7 @@ All messages are serialized as JSON. Use `record` types in C#.
   "used": 42,
   "remaining": 58,
   "checkedAtUtc": "ISO-8601",
-  "correlationId": "uuid",
+  "correlationId": 789,
 }
 ```
 

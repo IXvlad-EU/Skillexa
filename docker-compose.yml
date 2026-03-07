@@ -10,8 +10,11 @@ services:
       - ASPNETCORE_ENVIRONMENT=Production
       - Messaging__Provider=RabbitMQ
       - Messaging__ConnectionString=amqp://${RABBITMQ_USER}:${RABBITMQ_PASS}@rabbitmq:5672/${RABBITMQ_VHOST}
+      - ConnectionStrings__DefaultConnection=Host=postgres;Port=5432;Database=${POSTGRES_DB};Username=${POSTGRES_USER};Password=${POSTGRES_PASSWORD}
     depends_on:
       rabbitmq:
+        condition: service_healthy
+      postgres:
         condition: service_healthy
     networks:
       - skillexa-network
@@ -42,10 +45,13 @@ services:
       - TheirStack__ApiKey=${THEIRSTACK_API_KEY}
       - Messaging__Provider=RabbitMQ
       - Messaging__ConnectionString=amqp://${RABBITMQ_USER}:${RABBITMQ_PASS}@rabbitmq:5672/${RABBITMQ_VHOST}
+      - ConnectionStrings__DefaultConnection=Host=postgres;Port=5432;Database=skillexa_engine;Username=${POSTGRES_USER};Password=${POSTGRES_PASSWORD}
     depends_on:
       mock-theirstack:
         condition: service_healthy
       rabbitmq:
+        condition: service_healthy
+      postgres:
         condition: service_healthy
     networks:
       - skillexa-network
@@ -94,6 +100,20 @@ services:
     networks:
       - skillexa-network
     restart: unless-stopped
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "wget",
+          "--no-verbose",
+          "--tries=1",
+          "--spider",
+          "http://localhost:3000/api/health",
+        ]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+      start_period: 20s
 
   rabbitmq:
     build:
@@ -119,8 +139,30 @@ services:
       retries: 5
       start_period: 30s
 
+  postgres:
+    image: postgres:17-alpine
+    container_name: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - skillexa-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
 volumes:
   rabbitmq-data:
+  postgres-data:
 
 networks:
   skillexa-network:
