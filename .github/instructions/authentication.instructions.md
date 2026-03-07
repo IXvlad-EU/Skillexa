@@ -148,20 +148,20 @@ Since users no longer register locally:
 ### Package
 
 ```
-next-auth   (v5)
+next-auth   (v4 — latest stable)
 ```
 
-Use the **Microsoft Entra ID** provider built into `next-auth`.
+Use the **Azure AD** provider built into `next-auth`.
 
 ### Environment Variables
 
 ```env
-# .env.local (development)
-AUTH_SECRET=<random-32-byte-secret-for-session-encryption>
+# .env (development — gitignored)
+NEXTAUTH_SECRET=<random-32-byte-secret-for-session-encryption>
+NEXTAUTH_URL=http://localhost:3000
 AUTH_MICROSOFT_ENTRA_ID_ID=<Skillexa-Portal-Web Application (client) ID>
 AUTH_MICROSOFT_ENTRA_ID_SECRET=<Skillexa-Portal-Web client secret>
 AUTH_MICROSOFT_ENTRA_ID_TENANT_ID=<Directory (tenant) ID>
-AUTH_MICROSOFT_ENTRA_ID_ISSUER=https://login.microsoftonline.com/<tenant-id>/v2.0
 
 # Scope to request access token for Skillexa-Core API
 AZURE_AD_API_SCOPE=api://<Skillexa-Core-API-Client-ID>/access_as_user
@@ -170,12 +170,12 @@ AZURE_AD_API_SCOPE=api://<Skillexa-Core-API-Client-ID>/access_as_user
 ### NextAuth Configuration — `auth.ts`
 
 ```ts
-import NextAuth from "next-auth";
-import MicrosoftEntraId from "next-auth/providers/microsoft-entra-id";
+import type { AuthOptions } from "next-auth";
+import AzureAD from "next-auth/providers/azure-ad";
 
-export const { handlers, signIn, signOut, auth } = NextAuth({
+export const authOptions: AuthOptions = {
   providers: [
-    MicrosoftEntraId({
+    AzureAD({
       clientId: process.env.AUTH_MICROSOFT_ENTRA_ID_ID!,
       clientSecret: process.env.AUTH_MICROSOFT_ENTRA_ID_SECRET!,
       tenantId: process.env.AUTH_MICROSOFT_ENTRA_ID_TENANT_ID!,
@@ -202,42 +202,58 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     },
   },
   session: { strategy: "jwt" },
-});
+};
 ```
 
 ### Route Handler — `app/api/auth/[...nextauth]/route.ts`
 
 ```ts
-import { handlers } from "@/auth";
-export const { GET, POST } = handlers;
+import NextAuth from "next-auth";
+import { authOptions } from "@/auth";
+
+const handler = NextAuth(authOptions);
+
+export { handler as GET, handler as POST };
 ```
 
 ### Calling Skillexa-Core from Server Components / Route Handlers
 
 ```ts
-import { auth } from "@/auth";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/auth";
 
-const session = await auth();
-const response = await fetch(`${process.env.CORE_API_URL}/jobs`, {
+const session = await getServerSession(authOptions);
+const response = await fetch(`${process.env.SKILLEXA_CORE_BASE_URL}/jobs`, {
   headers: {
     Authorization: `Bearer ${session?.accessToken}`,
   },
 });
 ```
 
-When using the **Kiota-generated client**, configure it to attach the access token from the session to every request automatically.
+When using the **Kiota-generated client**, pass the access token from the session to the `createApiClient(accessToken)` factory:
+
+```ts
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/auth";
+import { createApiClient } from "@/lib/api-client/client";
+
+const session = await getServerSession(authOptions);
+const client = createApiClient(session?.accessToken ?? "");
+```
 
 ### Sign-In / Sign-Out UI
 
 ```tsx
-import { signIn, signOut } from "@/auth";
+import { signIn, signOut } from "next-auth/react";
 
 // Sign in — redirects to Entra ID login page
-<Button onClick={() => signIn("microsoft-entra-id")}>Sign in</Button>
+<Button onClick={() => signIn("azure-ad")}>Sign in</Button>
 
 // Sign out — clears session + redirects to Entra ID logout
 <Button onClick={() => signOut()}>Sign out</Button>
 ```
+
+Use the `useSession()` hook from `next-auth/react` in client components to access session state (user name, auth status). Wrap the app in `<SessionProvider>` (inside `app/providers.tsx`).
 
 ---
 

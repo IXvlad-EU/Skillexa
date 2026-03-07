@@ -23,6 +23,7 @@
     "@tabler/icons-react": "^3.37.1",
     "@tanstack/react-query": "^5.90.21",
     "next": "16.1.6",
+    "next-auth": "^4.24.13",
     "next-intl": "^4",
     "react": "19.2.3",
     "react-dom": "19.2.3"

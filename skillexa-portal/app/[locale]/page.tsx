@@ -2,7 +2,6 @@ import { getTranslations } from "next-intl/server";
 import type { ComponentType } from "react";
 import {
   Box,
-  Button,
   Container,
   Divider,
   SimpleGrid,
@@ -11,12 +10,8 @@ import {
   ThemeIcon,
   Title,
 } from "@mantine/core";
-import {
-  IconBrandWindows,
-  IconDownload,
-  IconFileText,
-  IconSearch,
-} from "@tabler/icons-react";
+import { IconDownload, IconFileText, IconSearch } from "@tabler/icons-react";
+import { SignInButton } from "@/components/SignInButton";
 
 import classes from "./page.module.scss";
 
@@ -88,14 +83,7 @@ export default async function HomePage() {
             <Text size="xl" c="dimmed" ta="center" maw={560}>
               {t("hero.tagline")}
             </Text>
-            <Button
-              size="lg"
-              leftSection={<IconBrandWindows size={20} />}
-              component="a"
-              href="#"
-            >
-              {t("hero.cta")}
-            </Button>
+            <SignInButton label={t("hero.cta")} />
           </Stack>
         </Container>
       </Box>

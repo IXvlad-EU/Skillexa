@@ -192,19 +192,26 @@ postcss.config.cjs
 
 ## Auth Flow
 
-- Sign-in: user clicks "Sign in" → `next-auth` redirects to **Microsoft Entra ID** OIDC login → Entra ID returns auth code → `next-auth` exchanges it for tokens server-side → session stored in an **httpOnly, Secure, SameSite=Strict** cookie.
-- Subsequent requests: the BFF reads the session, attaches the Entra ID access token as a `Bearer` header when calling Core.
+- Sign-in: user clicks "Sign in" → `next-auth` (v4) redirects to **Microsoft Entra ID** OIDC login → Entra ID returns auth code → `next-auth` exchanges it for tokens server-side → session stored in an **httpOnly, Secure, SameSite=Strict** cookie.
+- Subsequent requests: the BFF reads the session via `getServerSession(authOptions)`, attaches the Entra ID access token as a `Bearer` header when calling Core.
 - Token refresh: `next-auth` handles token refresh with Entra ID silently.
+- Client components use `useSession()` from `next-auth/react` for auth state (user name, loading status). The app is wrapped in `<SessionProvider>` inside `app/providers.tsx`.
 - Client components never see or handle raw access tokens.
 - See `authentication.instructions.md` for full Entra ID configuration.
 
 ## Environment Variables
 
-| Variable                 | Purpose                                                           |
-| ------------------------ | ----------------------------------------------------------------- |
-| `SKILLEXA_CORE_BASE_URL` | Internal URL of Skillexa-Core (e.g., `http://skillexa-core:8080`) |
-| `NEXT_PUBLIC_APP_URL`    | Public URL of the portal itself                                   |
-| `NODE_ENV`               | `development` / `production`                                      |
+| Variable                            | Purpose                                                                 |
+| ----------------------------------- | ----------------------------------------------------------------------- |
+| `SKILLEXA_CORE_BASE_URL`            | Internal URL of Skillexa-Core (e.g., `http://skillexa-core:8080`)       |
+| `NEXTAUTH_URL`                      | Public URL of the portal (e.g., `http://localhost:3000`)                |
+| `NEXTAUTH_SECRET`                   | Random secret for encrypting the next-auth session cookie               |
+| `AUTH_MICROSOFT_ENTRA_ID_ID`        | Skillexa-Portal-Web Entra ID Application (client) ID                    |
+| `AUTH_MICROSOFT_ENTRA_ID_SECRET`    | Skillexa-Portal-Web client secret                                       |
+| `AUTH_MICROSOFT_ENTRA_ID_TENANT_ID` | Entra ID Directory (tenant) ID                                          |
+| `AZURE_AD_API_SCOPE`                | Skillexa-Core API scope (e.g., `api://<Core-Client-ID>/access_as_user`) |
+| `NEXT_PUBLIC_APP_URL`               | Public URL of the portal itself (if needed client-side)                 |
+| `NODE_ENV`                          | `development` / `production`                                            |
 
 ## Coding Standards
 

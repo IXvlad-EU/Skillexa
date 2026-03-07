@@ -1,7 +1,18 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Identity.Web;
 using Skillexa.Core.Data;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// ── Authentication (Microsoft Entra ID) ────────────────────────
+builder.Services
+    .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddMicrosoftIdentityWebApi(builder.Configuration.GetSection("AzureAd"));
+
+builder.Services.AddAuthorizationBuilder()
+    .AddPolicy("AdminOnly", policy =>
+        policy.RequireRole("Admin"));
 
 builder.Services.AddOpenApi();
 
@@ -19,9 +30,13 @@ if (app.Environment.IsDevelopment())
     await db.Database.MigrateAsync();
 }
 
+app.UseAuthentication();
+app.UseAuthorization();
+
 app.MapOpenApi();
 
 app.MapGet("/", () => "Hello World!")
+    .RequireAuthorization()
     .WithName("GetRoot")
     .WithSummary("Root endpoint")
     .WithDescription("Returns a greeting message from Skillexa-Core");

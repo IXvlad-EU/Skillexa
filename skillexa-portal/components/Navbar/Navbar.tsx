@@ -13,7 +13,9 @@ export function Navbar() {
       <Text fw={700} size="lg">
         {t("appName")}
       </Text>
-      <LocaleSwitcher />
+      <Group gap="sm">
+        <LocaleSwitcher />
+      </Group>
     </Group>
   );
 }
