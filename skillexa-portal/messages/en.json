@@ -9,5 +9,46 @@
     "locale_en": "English",
     "locale_ru": "Русский",
     "locale_de": "Deutsch"
+  },
+  "home": {
+    "hero": {
+      "title": "Find Jobs. Build Your CV. Stand Out.",
+      "tagline": "Skillexa aggregates thousands of job listings and generates tailored PDF resumes on demand — so you can focus on landing the role.",
+      "cta": "Sign in with Microsoft"
+    },
+    "features": {
+      "sectionTitle": "Everything you need to land your next job",
+      "search": {
+        "title": "Smart Job Discovery",
+        "description": "Browse aggregated listings from top providers, filtered by your skills, location, and preferred salary."
+      },
+      "pdf": {
+        "title": "Tailored PDF Resumes",
+        "description": "Generate a polished, professionally formatted PDF resume matched to any job posting in seconds."
+      },
+      "download": {
+        "title": "Instant Downloads",
+        "description": "Your resume is ready to download via a secure, private link the moment generation completes."
+      }
+    },
+    "steps": {
+      "sectionTitle": "How it works",
+      "signIn": {
+        "title": "Sign in",
+        "description": "Authenticate securely with your Microsoft account — no password required."
+      },
+      "browse": {
+        "title": "Browse jobs",
+        "description": "Explore thousands of aggregated job listings and find the perfect match."
+      },
+      "generate": {
+        "title": "Generate your PDF",
+        "description": "Kick off an asynchronous PDF generation tailored to the chosen job posting."
+      },
+      "download": {
+        "title": "Download",
+        "description": "Receive a secure download link and save your resume with one click."
+      }
+    }
   }
 }

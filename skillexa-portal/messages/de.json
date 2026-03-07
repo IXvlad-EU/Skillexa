@@ -9,5 +9,46 @@
     "locale_en": "English",
     "locale_ru": "Русский",
     "locale_de": "Deutsch"
+  },
+  "home": {
+    "hero": {
+      "title": "Jobs finden. Lebenslauf erstellen. Herausstechen.",
+      "tagline": "Skillexa bündelt tausende Stellenanzeigen und erstellt auf Anfrage maßgeschneiderte PDF-Lebensläufe – damit du dich auf den Job konzentrieren kannst.",
+      "cta": "Mit Microsoft anmelden"
+    },
+    "features": {
+      "sectionTitle": "Alles, was du für deinen nächsten Job brauchst",
+      "search": {
+        "title": "Intelligente Jobsuche",
+        "description": "Durchsuche aggregierte Anzeigen von führenden Anbietern, gefiltert nach Fähigkeiten, Standort und Gehaltswunsch."
+      },
+      "pdf": {
+        "title": "Maßgeschneiderte PDF-Lebensläufe",
+        "description": "Erstelle in Sekunden einen professionell formatierten PDF-Lebenslauf, der zu jeder Stellenausschreibung passt."
+      },
+      "download": {
+        "title": "Sofort-Download",
+        "description": "Dein Lebenslauf steht über einen sicheren, privaten Link sofort nach der Generierung zum Download bereit."
+      }
+    },
+    "steps": {
+      "sectionTitle": "So funktioniert es",
+      "signIn": {
+        "title": "Anmelden",
+        "description": "Authentifiziere dich sicher mit deinem Microsoft-Konto – kein Passwort erforderlich."
+      },
+      "browse": {
+        "title": "Jobs durchsuchen",
+        "description": "Entdecke tausende aggregierte Stellenanzeigen und finde die perfekte Stelle."
+      },
+      "generate": {
+        "title": "PDF generieren",
+        "description": "Starte die asynchrone PDF-Generierung, die auf die ausgewählte Stelle zugeschnitten ist."
+      },
+      "download": {
+        "title": "Herunterladen",
+        "description": "Erhalte einen sicheren Download-Link und speichere deinen Lebenslauf mit einem Klick."
+      }
+    }
   }
 }
