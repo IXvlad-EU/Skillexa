@@ -1,13 +1,20 @@
+using Autofac;
+using Autofac.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
+using Serilog;
 using Skillexa.Engine;
 using Skillexa.Engine.Data;
 
 var builder = Host.CreateApplicationBuilder(args);
 
+builder.Services.AddSerilog((_, lc) => lc.ReadFrom.Configuration(builder.Configuration));
+
 builder.Services.AddDbContext<EngineDbContext>(options =>
     options
         .UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"))
         .UseSnakeCaseNamingConvention());
+
+builder.ConfigureContainer(new AutofacServiceProviderFactory());
 
 builder.Services.AddHostedService<Worker>();
 

@@ -1,11 +1,17 @@
+using Autofac;
+using Autofac.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Identity.Web;
+using Serilog;
 using Skillexa.Core.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// ── Authentication (Microsoft Entra ID) ────────────────────────
+builder.Host.UseSerilog((ctx, lc) => lc.ReadFrom.Configuration(ctx.Configuration));
+
+builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
+
 builder.Services
     .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddMicrosoftIdentityWebApi(builder.Configuration.GetSection("AzureAd"));
