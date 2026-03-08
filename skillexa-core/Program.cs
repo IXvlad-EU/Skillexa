@@ -5,12 +5,21 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Identity.Web;
 using Serilog;
 using Skillexa.Core.Data;
+using Skillexa.Core.Modules;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Host.UseSerilog((ctx, lc) => lc.ReadFrom.Configuration(ctx.Configuration));
 
 builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
+builder.Host.ConfigureContainer<ContainerBuilder>(container =>
+{
+    container.RegisterModule(new DataModule());
+    container.RegisterModule(new CqrsModule());
+    // container.RegisterModule(new MessagingModule(builder.Configuration));
+    // container.RegisterModule(new StorageModule(builder.Configuration));
+    // container.RegisterModule(new MappingModule());
+});
 
 builder.Services
     .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)

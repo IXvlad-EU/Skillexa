@@ -109,3 +109,4 @@ skillexa-engine/
 - Each consumer should be a single-responsibility class.
 - Log structured data (`ILogger` with named placeholders) at appropriate levels.
 - Never swallow exceptions silently — log and emit a `Failed` event.
+- **Always use block bodies `{ }` for methods** — never expression-bodied members (`=>`). This applies to all methods including single-expression ones.

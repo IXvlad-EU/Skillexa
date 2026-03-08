@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Serilog;
 using Skillexa.Engine;
 using Skillexa.Engine.Data;
+using Skillexa.Engine.Modules;
 
 var builder = Host.CreateApplicationBuilder(args);
 
@@ -14,7 +15,13 @@ builder.Services.AddDbContext<EngineDbContext>(options =>
         .UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"))
         .UseSnakeCaseNamingConvention());
 
-builder.ConfigureContainer(new AutofacServiceProviderFactory());
+builder.ConfigureContainer(new AutofacServiceProviderFactory(), container =>
+{
+    container.RegisterModule(new DataModule());
+    container.RegisterModule(new CqrsModule());
+    // container.RegisterModule(new MessagingModule(builder.Configuration));
+    // container.RegisterModule(new StorageModule(builder.Configuration));
+});
 
 builder.Services.AddHostedService<Worker>();
 

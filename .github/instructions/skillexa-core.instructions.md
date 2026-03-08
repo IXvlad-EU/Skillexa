@@ -192,3 +192,4 @@ public static partial class JobMapper
 - All domain entities implement `IEntity` (`long Id`).
 - All DTO ↔ Entity mapping goes through Mapperly-generated mappers.
 - All public API changes must be reflected in the OpenAPI spec.
+- **Always use block bodies `{ }` for methods** — never expression-bodied members (`=>`). This applies to all methods including single-expression ones.
