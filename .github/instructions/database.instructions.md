@@ -1,4 +1,5 @@
 ---
+description: "PostgreSQL schema, EF Core migrations, and database conventions"
 applyTo: "**/*.sql,**/Migrations/**,**/Data/**"
 ---
 

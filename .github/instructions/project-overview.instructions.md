@@ -1,4 +1,5 @@
 ---
+description: "High-level Skillexa architecture, solution structure, and async data flow"
 applyTo: "**"
 ---
 

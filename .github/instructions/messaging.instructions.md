@@ -1,4 +1,5 @@
 ---
+description: "Message broker abstraction, queue contracts, and async messaging patterns"
 applyTo: "**"
 ---
 

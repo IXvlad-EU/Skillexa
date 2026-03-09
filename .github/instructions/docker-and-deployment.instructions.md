@@ -1,4 +1,5 @@
 ---
+description: "Docker Compose setup, Dockerfile conventions, and deployment configuration"
 applyTo: "**/Dockerfile,docker-compose.yml"
 ---
 

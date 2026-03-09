@@ -1,4 +1,5 @@
 ---
+description: "Prettier code formatting configuration and ESLint integration"
 applyTo: "skillexa-portal/**"
 ---
 

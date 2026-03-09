@@ -1,4 +1,5 @@
 ---
+description: "Unit of Work and Repository patterns for transactional data access"
 applyTo: "{skillexa-core,skillexa-engine}/**"
 ---
 

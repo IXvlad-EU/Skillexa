@@ -1,4 +1,5 @@
 ---
+description: "Command Query Responsibility Segregation pattern for commands and queries"
 applyTo: "{skillexa-core,skillexa-engine}/**"
 ---
 

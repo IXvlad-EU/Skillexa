@@ -1,4 +1,5 @@
 ---
+description: "Microsoft Entra ID authentication flow, token validation, and user provisioning"
 applyTo: "**"
 ---
 

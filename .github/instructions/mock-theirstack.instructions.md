@@ -1,4 +1,5 @@
 ---
+description: "TheirStack API mock service for local development and testing"
 applyTo: "mock-theirstack/**"
 ---
 

@@ -1,4 +1,5 @@
 ---
+description: "REST API endpoints, request/response schemas, and conventions for Skillexa-Core"
 applyTo: "skillexa-core/**"
 ---
 

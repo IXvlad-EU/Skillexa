@@ -1,4 +1,5 @@
 ---
+description: ".NET Worker Service for async PDF generation and TheirStack integration"
 applyTo: "skillexa-engine/**"
 ---
 

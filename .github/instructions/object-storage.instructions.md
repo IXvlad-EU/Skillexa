@@ -1,4 +1,5 @@
 ---
+description: "Blob storage abstraction for Azurite and Azure Blob Storage"
 applyTo: "**"
 ---
 

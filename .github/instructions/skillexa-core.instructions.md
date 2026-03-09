@@ -1,4 +1,5 @@
 ---
+description: "ASP.NET Core API architecture, Autofac DI, and Mapperly mapping"
 applyTo: "skillexa-core/**"
 ---
 

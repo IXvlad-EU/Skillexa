@@ -1,4 +1,5 @@
 ---
+description: "SCSS styling conventions and Mantine CSS module integration"
 applyTo: "skillexa-portal/**"
 ---
 

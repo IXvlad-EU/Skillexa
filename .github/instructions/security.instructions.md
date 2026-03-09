@@ -1,4 +1,5 @@
 ---
+description: "Security best practices, secrets management, and rate limiting"
 applyTo: "**"
 ---
 
