@@ -3,13 +3,14 @@ FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 
-# Copy csproj and restore dependencies
-COPY Skillexa.Engine.csproj ./
-RUN dotnet restore
+# Copy Directory.Build.props, .editorconfig, and restore dependencies
+COPY .editorconfig Directory.Build.props ./
+COPY skillexa-engine/Skillexa.Engine.csproj skillexa-engine/
+RUN dotnet restore skillexa-engine/Skillexa.Engine.csproj
 
 # Copy everything else and build
-COPY . ./
-RUN dotnet publish -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+COPY skillexa-engine/ skillexa-engine/
+RUN dotnet publish skillexa-engine/Skillexa.Engine.csproj -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
 # Runtime stage
 FROM mcr.microsoft.com/dotnet/runtime:10.0 AS runtime

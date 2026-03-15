@@ -1,8 +1,8 @@
 services:
   skillexa-core:
     build:
-      context: ./skillexa-core
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: ./skillexa-core/Dockerfile
     container_name: skillexa-core
     ports:
       - "8080:8080"
@@ -39,8 +39,8 @@ services:
 
   skillexa-engine:
     build:
-      context: ./skillexa-engine
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: ./skillexa-engine/Dockerfile
     container_name: skillexa-engine
     environment:
       - DOTNET_ENVIRONMENT=Production
