@@ -1,6 +1,5 @@
 ---
-description: "Command Query Responsibility Segregation pattern for commands and queries"
-applyTo: "{skillexa-core,skillexa-engine}/**"
+name: CQRS Agent
 ---
 
 # CQRS — Instructions
@@ -29,33 +28,6 @@ Skillexa-Core follows the **Command Query Responsibility Segregation (CQRS)** pa
 4. **Single data store, separate models.** Both command and query paths hit the same PostgreSQL database but use distinct model types (domain entities vs. read DTOs).
 5. **No Event Sourcing.** The write side persists current state directly via EF Core. Async side-effects (e.g., PDF generation) are handled by publishing messages to the broker, not by replaying an event stream.
 6. **Commands use `IUnitOfWork`; queries use `ApplicationDbContext` directly.** Command handlers access repositories and commit via `IUnitOfWork.SaveChangesAsync()`. Query handlers inject `ApplicationDbContext` and read with `AsNoTracking()`. See `unit-of-work.instructions.md` for full details.
-
-## Folder Structure
-
-```
-skillexa-core/
-  Commands/                  # command interfaces + definitions + handlers
-    ICommand.cs
-    ICommandHandler.cs
-    CreateDocument/
-      CreateDocumentCommand.cs
-      CreateDocumentHandler.cs
-      CreateDocumentResult.cs
-    UpdateJobStatus/
-      UpdateJobStatusCommand.cs
-      UpdateJobStatusHandler.cs
-  Queries/                   # query interfaces + definitions + handlers
-    IQuery.cs
-    IQueryHandler.cs
-    GetJobs/
-      GetJobsQuery.cs
-      GetJobsHandler.cs
-      GetJobsResult.cs        # read DTO
-    GetJobById/
-      GetJobByIdQuery.cs
-      GetJobByIdHandler.cs
-      GetJobByIdResult.cs
-```
 
 Each command or query lives in its own subfolder containing the **request**, **handler**, and (if needed) **result** types. This prevents bloated "service" classes and makes each operation discoverable.
 
