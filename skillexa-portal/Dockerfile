@@ -6,7 +6,7 @@ WORKDIR /app
 # Copy package files and install dependencies
 COPY package.json pnpm-lock.yaml* pnpm-workspace.yaml* ./
 RUN --mount=type=cache,target=/root/.local/share/pnpm/store \
-  corepack enable pnpm && pnpm install --frozen-lockfile
+  npm install -g pnpm@11.0.9 && pnpm install --frozen-lockfile
 
 # Build stage
 FROM node:${NODE_VERSION} AS builder
@@ -20,7 +20,7 @@ ENV NODE_ENV=production
 
 # Build Next.js application
 RUN --mount=type=cache,target=/app/.next/cache \
-  corepack enable pnpm && pnpm build
+  npm install -g pnpm@11.0.9 && pnpm build
 
 # Runtime stage
 FROM node:${NODE_VERSION} AS runner

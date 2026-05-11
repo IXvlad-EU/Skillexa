@@ -12,6 +12,7 @@
     "node": ">=24"
   },
   "private": true,
+  "packageManager": "pnpm@11.0.9",
   "dependencies": {
     "express": "^5.2.1",
     "pino": "^10.3.1",
