@@ -4,7 +4,7 @@ ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 
 # Copy Directory.Build.props, .editorconfig, and restore dependencies
-COPY .editorconfig Directory.Build.props ./
+COPY .editorconfig Directory.Build.props global.json ./
 COPY skillexa-engine/Skillexa.Engine.csproj skillexa-engine/
 RUN dotnet restore skillexa-engine/Skillexa.Engine.csproj
 

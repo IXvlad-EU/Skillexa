@@ -3,7 +3,7 @@ FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 
-COPY .editorconfig Directory.Build.props ./
+COPY .editorconfig Directory.Build.props global.json ./
 COPY skillexa-core/Skillexa.Core.csproj skillexa-core/
 RUN dotnet restore skillexa-core/Skillexa.Core.csproj
 
