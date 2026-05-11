@@ -1,0 +1,44 @@
+{
+  "common": {
+    "appName": "Skillexa",
+    "loading": "Loading…",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "confirm": "Confirm",
+    "error": "Something went wrong",
+    "retry": "Retry",
+    "back": "Back",
+    "close": "Close"
+  },
+  "auth": {
+    "login": "Log in",
+    "logout": "Log out",
+    "loginButton": "Sign in",
+    "signingIn": "Signing in…"
+  },
+  "jobs": {
+    "title": "My Jobs",
+    "status": {
+      "queued": "Queued",
+      "processing": "Processing",
+      "succeeded": "Succeeded",
+      "failed": "Failed"
+    },
+    "download": "Download PDF",
+    "noJobs": "You have no jobs yet",
+    "createdAt": "Created"
+  },
+  "documents": {
+    "title": "Create Document",
+    "submit": "Generate",
+    "generating": "Generating…"
+  },
+  "validation": {
+    "required": "{field} is required",
+    "minLength": "{field} must be at least {min} characters",
+    "maxLength": "{field} must be at most {max} characters",
+    "email": "Enter a valid email address",
+    "invalidFormat": "{field} has an invalid format"
+  }
+}

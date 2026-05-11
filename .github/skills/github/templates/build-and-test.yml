@@ -1,0 +1,125 @@
+name: CI — Build, Test & Deploy
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+env:
+  DOTNET_VERSION: '10.x'
+  NODE_VERSION: '22.x'
+
+jobs:
+  # ─── .NET Build & Test ───────────────────────────────────────────────────────
+  dotnet:
+    name: .NET Build & Test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+
+      - uses: actions/cache@v4
+        with:
+          path: ~/.nuget/packages
+          key: ${{ runner.os }}-nuget-${{ hashFiles('**/*.csproj', '**/*.props') }}
+          restore-keys: ${{ runner.os }}-nuget-
+
+      - run: dotnet restore --locked-mode
+        name: Restore NuGet packages
+
+      - run: dotnet build --no-restore --configuration Release
+        name: Build
+
+      - run: dotnet test --no-build --configuration Release --logger trx --results-directory ${{ runner.temp }}/test-results
+        name: Test
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: dotnet-test-results
+          path: ${{ runner.temp }}/test-results
+
+  # ─── Portal (Next.js) Build ──────────────────────────────────────────────────
+  portal:
+    name: Portal Build & Lint
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: skillexa-portal
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: latest
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: pnpm
+          cache-dependency-path: skillexa-portal/pnpm-lock.yaml
+
+      - run: pnpm install --frozen-lockfile
+        name: Install dependencies
+
+      - run: pnpm lint
+        name: Lint
+
+      - run: pnpm build
+        name: Build
+        env:
+          NEXTAUTH_SECRET: placeholder-for-build
+          NEXTAUTH_URL: http://localhost:3000
+
+  # ─── Docker Build & Push ─────────────────────────────────────────────────────
+  docker:
+    name: Docker Build & Push
+    runs-on: ubuntu-latest
+    needs: [dotnet, portal]
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: docker/build-push-action@v6
+        name: Build and push skillexa-core
+        with:
+          context: .
+          file: skillexa-core/Dockerfile
+          push: true
+          tags: ghcr.io/${{ github.repository }}/skillexa-core:${{ github.sha }}
+
+      - uses: docker/build-push-action@v6
+        name: Build and push skillexa-engine
+        with:
+          context: .
+          file: skillexa-engine/Dockerfile
+          push: true
+          tags: ghcr.io/${{ github.repository }}/skillexa-engine:${{ github.sha }}
+
+      - uses: docker/build-push-action@v6
+        name: Build and push skillexa-portal
+        with:
+          context: skillexa-portal
+          file: skillexa-portal/Dockerfile
+          push: true
+          tags: ghcr.io/${{ github.repository }}/skillexa-portal:${{ github.sha }}
