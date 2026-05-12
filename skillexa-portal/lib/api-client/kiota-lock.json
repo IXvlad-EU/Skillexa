@@ -1,8 +1,8 @@
 {
-  "descriptionHash": "A252D3FC4A4E1D72666EF78BB023158C5432A5F8D593ADDEE72DAD92D8A964B4EF2ACEC525337092E2531F33633F5C3EA938D4F083CC2848949D0CDA71498A6F",
+  "descriptionHash": "E15B1557C43AB55D5D79548191736A7016E8FCFDF769067929436D2382773E1D58DFF340F5C492A81D376DA648073CD1276FA23C2071FFE72687E6409589640F",
   "descriptionLocation": "http://localhost:8080/openapi/v1.json",
   "lockFileVersion": "1.0.0",
-  "kiotaVersion": "1.30.0",
+  "kiotaVersion": "1.31.1",
   "clientClassName": "SkillexaCoreClient",
   "typeAccessModifier": "Public",
   "clientNamespaceName": "ApiSdk",
