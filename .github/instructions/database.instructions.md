@@ -13,10 +13,10 @@ applyTo: "**/*.sql,**/Migrations/**,**/Data/**"
 
 ## Database Topology
 
-| Database          | Owner Service   | Tables                                                                             |
-| ----------------- | --------------- | ---------------------------------------------------------------------------------- |
-| `skillexa` (Core) | Skillexa-Core   | `users`, `jobs`, `job_statuses`, `templates`, `provider_usages`, `outbox_messages` |
-| `skillexa_engine` | Skillexa-Engine | `templates`, `provider_quotas`                                                     |
+| Database          | Owner Service   | Tables                                                                                       |
+| ----------------- | --------------- | -------------------------------------------------------------------------------------------- |
+| `skillexa` (Core) | Skillexa-Core   | `users`, `documents`, `document_statuses`, `templates`, `provider_usages`, `outbox_messages` |
+| `skillexa_engine` | Skillexa-Engine | `templates`, `provider_quotas`                                                               |
 
 - The second database (`skillexa_engine`) must be created manually on first setup. Run `CREATE DATABASE skillexa_engine;` against the PostgreSQL instance.
 - **Important:** If you already have a `postgres-data` volume and need to re-initialize, run `docker compose down -v` to destroy it.
@@ -37,7 +37,7 @@ applyTo: "**/*.sql,**/Migrations/**,**/Data/**"
 | `created_at`      | TIMESTAMPTZ          | Default `now() AT TIME ZONE 'UTC'` |
 | `updated_at`      | TIMESTAMPTZ          | Default `now() AT TIME ZONE 'UTC'` |
 
-### `job_statuses` (lookup)
+### `document_statuses` (lookup)
 
 | Column | Type                | Notes                                         |
 | ------ | ------------------- | --------------------------------------------- |
@@ -46,13 +46,13 @@ applyTo: "**/*.sql,**/Migrations/**,**/Data/**"
 
 Seeded on migration with the four known statuses.
 
-### `jobs`
+### `documents`
 
-| Column                 | Type                    | Notes                                        |
-| ---------------------- | ----------------------- | -------------------------------------------- |
-| `id`                   | BIGINT (PK)             | Auto-increment                               |
-| `user_id`              | BIGINT (FK → users)     | ON DELETE RESTRICT                           |
-| `status_id`            | INT (FK → job_statuses) | ON DELETE RESTRICT                           |
+| Column                 | Type                          | Notes                                        |
+| ---------------------- | ----------------------------- | -------------------------------------------- |
+| `id`                   | BIGINT (PK)                   | Auto-increment                               |
+| `user_id`              | BIGINT (FK → users)           | ON DELETE RESTRICT                           |
+| `status_id`            | INT (FK → document_statuses)  | ON DELETE RESTRICT                           |
 | `template_key`         | VARCHAR(100)            |                                              |
 | `template_version`     | INT                     | Snapshot of version at creation time         |
 | `payload`              | JSONB                   | Input data, default `'{}'::jsonb`            |
@@ -132,10 +132,10 @@ Unique index on `(provider, day_key)`. Engine-exclusive — used for atomic `UPD
 - Use **snake_case** for all table and column names.
 - All tables have a `created_at` timestamp; mutable tables also have `updated_at`.
 - **All date/time columns use `TIMESTAMPTZ` and store values in UTC.** Application code must convert to UTC before writing and interpret stored values as UTC.
-- Primary keys are **BIGINT with auto-increment** (except lookup tables like `job_statuses` which use INT).
+- Primary keys are **BIGINT with auto-increment** (except lookup tables like `document_statuses` which use INT).
 - **No cascade deletion.** All foreign keys use `ON DELETE RESTRICT` (or `NO ACTION`). Deletes must be handled explicitly in application logic.
-- Index `jobs(user_id, status_id)` and `jobs(created_at)` for common query patterns.
-- Unique index on `jobs(idempotency_key)` for duplicate prevention.
+- Index `documents(user_id, status_id)` and `documents(created_at)` for common query patterns.
+- Unique index on `documents(idempotency_key)` for duplicate prevention.
 - Unique index on `provider_usages(provider, period_key)`.
 - Index `provider_quotas(provider, day_key)` for atomic increment queries.
 
@@ -149,6 +149,6 @@ Unique index on `(provider, day_key)`. Engine-exclusive — used for atomic `UPD
 
 ## Key Rules
 
-- `template_version` is snapshotted in `jobs` at creation time to guarantee reproducibility.
+- `template_version` is snapshotted in `documents` at creation time to guarantee reproducibility.
 - Large data (PDF content, input snapshots) is stored in **blob storage**, not in the DB — only storage keys are persisted.
 - Provider quota enforcement uses atomic `UPDATE … WHERE used < limit` to prevent race conditions.

@@ -110,6 +110,8 @@ app.Run();
 
 ### Protecting Endpoints
 
+> **Development note:** Entra ID app registrations are not yet configured. During active development, authorization is applied as `// TODO: .RequireAuthorization()` comments and endpoints are temporarily public. Re-enable `.RequireAuthorization()` once registrations are set up.
+
 - Apply `.RequireAuthorization()` on all endpoints **except** health checks and OpenAPI metadata.
 - Use policy-based authorization for role-restricted endpoints:
 
