@@ -16,13 +16,13 @@ public record MyQueryResult(
     /* , ... */);
 
 // 3. Handler — read-only, AsNoTracking, no SaveChangesAsync
-public sealed class MyQueryHandler(ApplicationDbContext db)
+public sealed class MyQueryHandler(ApplicationDbContext dbContext)
     : IQueryHandler<MyQueryQuery, IReadOnlyList<MyQueryResult>>
 {
     public async Task<IReadOnlyList<MyQueryResult>> HandleAsync(
         MyQueryQuery query, CancellationToken cancellationToken = default)
     {
-        return await db.MyEntities
+        return await dbContext.MyEntities
             .AsNoTracking()
             .Where(e => e.UserId == query.UserId)
             .OrderByDescending(e => e.CreatedAt)

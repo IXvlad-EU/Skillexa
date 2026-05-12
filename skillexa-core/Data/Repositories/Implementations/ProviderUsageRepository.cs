@@ -4,17 +4,17 @@ using Skillexa.Core.Domain;
 
 namespace Skillexa.Core.Data.Repositories.Implementations;
 
-public sealed class ProviderUsageRepository(ApplicationDbContext db) : IProviderUsageRepository
+public sealed class ProviderUsageRepository(ApplicationDbContext dbContext) : IProviderUsageRepository
 {
     public Task<ProviderUsage?> GetByProviderAndPeriodAsync(string provider, string periodKey, CancellationToken cancellationToken = default)
     {
-        return db.ProviderUsages.FirstOrDefaultAsync(
+        return dbContext.ProviderUsages.FirstOrDefaultAsync(
             usage => usage.Provider == provider && usage.PeriodKey == periodKey,
             cancellationToken);
     }
 
     public async Task AddAsync(ProviderUsage usage, CancellationToken cancellationToken = default)
     {
-        await db.ProviderUsages.AddAsync(usage, cancellationToken);
+        await dbContext.ProviderUsages.AddAsync(usage, cancellationToken);
     }
 }

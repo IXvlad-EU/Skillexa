@@ -22,7 +22,7 @@ using Skillexa.Core.Requests;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Host.UseSerilog((ctx, lc) => lc.ReadFrom.Configuration(ctx.Configuration));
+builder.Host.UseSerilog((context, loggerConfig) => loggerConfig.ReadFrom.Configuration(context.Configuration));
 
 builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
 builder.Host.ConfigureContainer<ContainerBuilder>(container =>
@@ -71,11 +71,11 @@ app.UseAuthorization();
 app.MapOpenApi();
 
 app.MapPost("/job-listings/search", async (
-    SearchJobListingsRequest req,
+    SearchJobListingsRequest request,
     IQueryHandler<SearchJobListingsQuery, IReadOnlyList<SearchJobListingsResult>> handler,
     CancellationToken cancellationToken) =>
 {
-    var query = new SearchJobListingsQuery(req.Skills, req.SourceDomains, req.Page, req.PageSize);
+    var query = new SearchJobListingsQuery(request.Skills, request.SourceDomains, request.Page, request.PageSize);
     var results = await handler.HandleAsync(query, cancellationToken);
     return TypedResults.Ok(results);
 })
@@ -86,14 +86,14 @@ app.MapPost("/job-listings/search", async (
 .WithOpenApi();
 
 app.MapPost("/documents", async (
-    CreateDocumentRequest req,
+    CreateDocumentRequest request,
     ICommandHandler<CreateDocumentCommand, CreateDocumentResult> handler,
     ICommandHandler<ProvisionUserCommand, ProvisionUserResult> provisioner,
-    HttpContext ctx,
+    HttpContext httpContext,
     CancellationToken cancellationToken) =>
 {
-    var userId = await GetCurrentUserIdAsync(ctx, provisioner, cancellationToken);
-    var command = new CreateDocumentCommand(userId, req.TemplateKey, req.TemplateVersion, req.PayloadJson);
+    var userId = await GetCurrentUserIdAsync(httpContext, provisioner, cancellationToken);
+    var command = new CreateDocumentCommand(userId, request.TemplateKey, request.TemplateVersion, request.PayloadJson);
     var result = await handler.HandleAsync(command, cancellationToken);
     return TypedResults.Created($"/documents/{result.DocumentId}", result);
 })
@@ -106,12 +106,12 @@ app.MapPost("/documents", async (
 app.MapGet("/documents", async (
     IQueryHandler<GetDocumentsQuery, IReadOnlyList<GetDocumentsResult>> handler,
     ICommandHandler<ProvisionUserCommand, ProvisionUserResult> provisioner,
-    HttpContext ctx,
+    HttpContext httpContext,
     CancellationToken cancellationToken,
     int page = 1,
     int pageSize = 20) =>
 {
-    var userId = await GetCurrentUserIdAsync(ctx, provisioner, cancellationToken);
+    var userId = await GetCurrentUserIdAsync(httpContext, provisioner, cancellationToken);
     var query = new GetDocumentsQuery(userId, page, pageSize);
     var results = await handler.HandleAsync(query, cancellationToken);
     return TypedResults.Ok(results);
@@ -126,10 +126,10 @@ app.MapGet("/documents/{id}", async (
     long id,
     IQueryHandler<GetDocumentByIdQuery, GetDocumentByIdResult?> handler,
     ICommandHandler<ProvisionUserCommand, ProvisionUserResult> provisioner,
-    HttpContext ctx,
+    HttpContext httpContext,
     CancellationToken cancellationToken) =>
 {
-    var userId = await GetCurrentUserIdAsync(ctx, provisioner, cancellationToken);
+    var userId = await GetCurrentUserIdAsync(httpContext, provisioner, cancellationToken);
     var query = new GetDocumentByIdQuery(id, userId);
     var result = await handler.HandleAsync(query, cancellationToken);
     return result is null ? Results.NotFound() : Results.Ok(result);
@@ -144,10 +144,10 @@ app.MapPost("/documents/{id}/download-url", async (
     long id,
     IQueryHandler<GetDownloadUrlQuery, GetDownloadUrlResult> handler,
     ICommandHandler<ProvisionUserCommand, ProvisionUserResult> provisioner,
-    HttpContext ctx,
+    HttpContext httpContext,
     CancellationToken cancellationToken) =>
 {
-    var userId = await GetCurrentUserIdAsync(ctx, provisioner, cancellationToken);
+    var userId = await GetCurrentUserIdAsync(httpContext, provisioner, cancellationToken);
     var query = new GetDownloadUrlQuery(id, userId);
     var result = await handler.HandleAsync(query, cancellationToken);
     return Results.Ok(result);
@@ -161,10 +161,10 @@ app.MapPost("/documents/{id}/download-url", async (
 app.MapGet("/app/usage", async (
     IQueryHandler<GetUsageQuery, GetUsageResult?> handler,
     ICommandHandler<ProvisionUserCommand, ProvisionUserResult> provisioner,
-    HttpContext ctx,
+    HttpContext httpContext,
     CancellationToken cancellationToken) =>
 {
-    var userId = await GetCurrentUserIdAsync(ctx, provisioner, cancellationToken);
+    var userId = await GetCurrentUserIdAsync(httpContext, provisioner, cancellationToken);
     var query = new GetUsageQuery(userId);
     var result = await handler.HandleAsync(query, cancellationToken);
     return result is null ? Results.NoContent() : Results.Ok(result);
@@ -178,21 +178,21 @@ app.MapGet("/app/usage", async (
 app.Run();
 
 static async Task<long> GetCurrentUserIdAsync(
-    HttpContext ctx,
+    HttpContext httpContext,
     ICommandHandler<ProvisionUserCommand, ProvisionUserResult> provisioner,
-    CancellationToken ct)
+    CancellationToken cancellationToken)
 {
-    var entraObjectId = ctx.User.FindFirstValue(ClaimTypes.NameIdentifier);
+    var entraObjectId = httpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
     if (string.IsNullOrEmpty(entraObjectId))
     {
         return 0L; // stub while auth is public
     }
 
-    var email = ctx.User.FindFirstValue("preferred_username") ?? string.Empty;
-    var displayName = ctx.User.FindFirstValue("name") ?? string.Empty;
+    var email = httpContext.User.FindFirstValue("preferred_username") ?? string.Empty;
+    var displayName = httpContext.User.FindFirstValue("name") ?? string.Empty;
 
     var result = await provisioner.HandleAsync(
-        new ProvisionUserCommand(entraObjectId, email, displayName), ct);
+        new ProvisionUserCommand(entraObjectId, email, displayName), cancellationToken);
 
     return result.UserId;
 }

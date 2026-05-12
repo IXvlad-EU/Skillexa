@@ -4,16 +4,16 @@ using Skillexa.Core.Domain;
 
 namespace Skillexa.Core.Data.Repositories.Implementations;
 
-public sealed class OutboxRepository(ApplicationDbContext db) : IOutboxRepository
+public sealed class OutboxRepository(ApplicationDbContext dbContext) : IOutboxRepository
 {
     public async Task AddAsync(OutboxMessage message, CancellationToken cancellationToken = default)
     {
-        await db.OutboxMessages.AddAsync(message, cancellationToken);
+        await dbContext.OutboxMessages.AddAsync(message, cancellationToken);
     }
 
     public async Task<IReadOnlyList<OutboxMessage>> GetUnpublishedAsync(int batchSize, CancellationToken cancellationToken = default)
     {
-        return await db.OutboxMessages
+        return await dbContext.OutboxMessages
             .Where(message => message.PublishedAt == null)
             .OrderBy(message => message.CreatedAt)
             .Take(batchSize)
@@ -22,7 +22,7 @@ public sealed class OutboxRepository(ApplicationDbContext db) : IOutboxRepositor
 
     public async Task MarkPublishedAsync(long id, CancellationToken cancellationToken = default)
     {
-        await db.OutboxMessages
+        await dbContext.OutboxMessages
             .Where(message => message.Id == id)
             .ExecuteUpdateAsync(
                 setter => setter.SetProperty(message => message.PublishedAt, DateTime.UtcNow),

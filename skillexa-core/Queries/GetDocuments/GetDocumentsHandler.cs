@@ -3,13 +3,13 @@ using Skillexa.Core.Data;
 
 namespace Skillexa.Core.Queries.GetDocuments;
 
-public class GetDocumentsHandler(ApplicationDbContext db)
+public class GetDocumentsHandler(ApplicationDbContext dbContext)
     : IQueryHandler<GetDocumentsQuery, IReadOnlyList<GetDocumentsResult>>
 {
     public async Task<IReadOnlyList<GetDocumentsResult>> HandleAsync(
         GetDocumentsQuery query, CancellationToken cancellationToken = default)
     {
-        return await db.Documents
+        return await dbContext.Documents
             .AsNoTracking()
             .Where(document => document.UserId == query.UserId)
             .OrderByDescending(document => document.CreatedAt)

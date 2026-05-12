@@ -4,13 +4,13 @@ using Skillexa.Core.Domain;
 
 namespace Skillexa.Core.Queries.GetDownloadUrl;
 
-public class GetDownloadUrlHandler(ApplicationDbContext db)
+public class GetDownloadUrlHandler(ApplicationDbContext dbContext)
     : IQueryHandler<GetDownloadUrlQuery, GetDownloadUrlResult>
 {
     public async Task<GetDownloadUrlResult> HandleAsync(
         GetDownloadUrlQuery query, CancellationToken cancellationToken = default)
     {
-        var document = await db.Documents
+        var document = await dbContext.Documents
             .AsNoTracking()
             .Where(document => document.Id == query.DocumentId && document.UserId == query.UserId)
             .Select(document => new { document.StatusId, document.PdfStorageKey })

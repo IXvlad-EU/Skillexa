@@ -3,13 +3,13 @@ using Skillexa.Core.Data;
 
 namespace Skillexa.Core.Queries.GetDocumentById;
 
-public class GetDocumentByIdHandler(ApplicationDbContext db)
+public class GetDocumentByIdHandler(ApplicationDbContext dbContext)
     : IQueryHandler<GetDocumentByIdQuery, GetDocumentByIdResult?>
 {
     public async Task<GetDocumentByIdResult?> HandleAsync(
         GetDocumentByIdQuery query, CancellationToken cancellationToken = default)
     {
-        return await db.Documents
+        return await dbContext.Documents
             .AsNoTracking()
             .Where(document => document.Id == query.DocumentId && document.UserId == query.UserId)
             .Select(document => new GetDocumentByIdResult(
