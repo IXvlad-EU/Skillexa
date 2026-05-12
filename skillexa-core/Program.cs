@@ -1,3 +1,4 @@
+using System.Net.Http.Headers;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -5,7 +6,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Identity.Web;
 using Serilog;
 using Skillexa.Core.Data;
+using Skillexa.Core.Infrastructure.TheirStack;
 using Skillexa.Core.Modules;
+using Skillexa.Core.Queries;
+using Skillexa.Core.Queries.SearchJobListings;
+using Skillexa.Core.Requests;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -30,6 +35,13 @@ builder.Services.AddAuthorizationBuilder()
         policy.RequireRole("Admin"));
 
 builder.Services.AddOpenApi();
+
+builder.Services.AddHttpClient<ITheirStackClient, TheirStackClient>(client =>
+{
+    client.BaseAddress = new Uri(builder.Configuration["TheirStack:BaseUrl"]!);
+    client.DefaultRequestHeaders.Authorization =
+        new AuthenticationHeaderValue("Bearer", builder.Configuration["TheirStack:ApiKey"]);
+});
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options
@@ -56,4 +68,20 @@ app.MapGet("/", () => "Hello World!")
     .WithSummary("Root endpoint")
     .WithDescription("Returns a greeting message from Skillexa-Core");
 
+app.MapPost("/job-listings/search", async (
+    SearchJobListingsRequest req,
+    IQueryHandler<SearchJobListingsQuery, IReadOnlyList<SearchJobListingsResult>> handler,
+    CancellationToken cancellationToken) =>
+{
+    var query = new SearchJobListingsQuery(req.Skills, req.SourceDomains, req.Page, req.PageSize);
+    var results = await handler.HandleAsync(query, cancellationToken);
+    return TypedResults.Ok(results);
+})
+// TODO: .RequireAuthorization()
+.WithName("SearchJobListings")
+.WithSummary("Search job listings")
+.WithDescription("Proxies to TheirStack POST /v1/jobs/search and returns matching job listings.")
+.WithOpenApi();
+
 app.Run();
+

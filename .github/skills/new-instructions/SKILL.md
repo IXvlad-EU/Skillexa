@@ -77,6 +77,27 @@ A well-formed instructions file uses the following sections (include only what i
 - Keep each section focused and scannable — no long prose paragraphs.
 - Cross-link related instruction files by name (e.g., `see unit-of-work.instructions.md`).
 
+### Table Format
+
+Use GFM tables with aligned separator rows. Column widths should be padded so that separators visually align with the header:
+
+```markdown
+| Column | Type                | Notes                                         |
+| ------ | ------------------- | --------------------------------------------- |
+| `id`   | INT (PK)            | Auto-increment                                |
+| `name` | VARCHAR(20), UNIQUE | `Queued`, `Processing`, `Succeeded`, `Failed` |
+```
+
+Standard column sets by context:
+
+| Context               | Recommended Columns                    |
+| --------------------- | -------------------------------------- |
+| Schema / data model   | `Column`, `Type`, `Notes`              |
+| Rule sets / options   | `Setting`, `Value` (or `Description`)  |
+| Environment / config  | `Variable`, `Example`, `Purpose`       |
+| Anti-patterns         | `Pattern`, `Why it's wrong`            |
+| Comparison / mapping  | `Local`, `Production` (or equivalent)  |
+
 ---
 
 ## Template

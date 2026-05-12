@@ -41,15 +41,15 @@ Two app registrations are required in the [Microsoft Entra admin center](https:/
 
 ### 2. `Skillexa-Portal-Web` (Confidential Client — BFF)
 
-| Setting                  | Value                                                                    |
-| ------------------------ | ------------------------------------------------------------------------ |
-| Supported account types  | **Accounts in this organizational directory only** (single-tenant)       |
-| Platform                 | **Web**                                                                  |
-| Redirect URI             | `http://localhost:3000/api/auth/callback/azure-ad` (dev)                 |
-| Front-channel logout URL | `http://localhost:3000/api/auth/signout` (dev)                           |
-| Client credentials       | **Client secret** (dev) / **Certificate or federated credential** (prod) |
-| API permissions          | Add `Skillexa-Core-API` → `access_as_user` (delegated)                   |
-| ID tokens                | Enable under **Implicit grant and hybrid flows** (for OIDC)              |
+| Setting                   | Value                                                                    |
+| ------------------------- | ------------------------------------------------------------------------ |
+| Supported account types   | **Accounts in this organizational directory only** (single-tenant)       |
+| Platform                  | **Web**                                                                  |
+| Redirect URI              | `http://localhost:3000/api/auth/callback/azure-ad` (dev)                 |
+| Front-channel logout URL  | `http://localhost:3000/api/auth/signout` (dev)                           |
+| Client credentials        | **Client secret** (dev) / **Certificate or federated credential** (prod) |
+| API permissions           | Add `Skillexa-Core-API` → `access_as_user` (delegated)                   |
+| ID tokens                 | Enable under **Implicit grant and hybrid flows** (for OIDC)              |
 
 > **Production redirect URIs** use the real domain with HTTPS, e.g., `https://portal.skillexa.com/api/auth/callback/azure-ad`.
 
@@ -125,12 +125,12 @@ builder.Services.AddAuthorizationBuilder()
 
 The validated JWT populates `HttpContext.User`. Use standard claims:
 
-| Claim                                        | Purpose                          |
-| -------------------------------------------- | -------------------------------- |
-| `ClaimTypes.NameIdentifier` (`oid` or `sub`) | Unique user ID (Entra Object ID) |
-| `preferred_username`                         | User's email / UPN               |
-| `name`                                       | Display name                     |
-| `roles`                                      | App roles (e.g., `Admin`)        |
+| Claim                                          | Purpose                          |
+| ---------------------------------------------- | -------------------------------- |
+| `ClaimTypes.NameIdentifier` (`oid` or `sub`)   | Unique user ID (Entra Object ID) |
+| `preferred_username`                           | User's email / UPN               |
+| `name`                                         | Display name                     |
+| `roles`                                        | App roles (e.g., `Admin`)        |
 
 ```csharp
 var entraObjectId = context.User.FindFirstValue(ClaimTypes.NameIdentifier);

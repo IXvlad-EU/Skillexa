@@ -48,22 +48,22 @@ Seeded on migration with the four known statuses.
 
 ### `documents`
 
-| Column                 | Type                          | Notes                                        |
-| ---------------------- | ----------------------------- | -------------------------------------------- |
-| `id`                   | BIGINT (PK)                   | Auto-increment                               |
-| `user_id`              | BIGINT (FK → users)           | ON DELETE RESTRICT                           |
-| `status_id`            | INT (FK → document_statuses)  | ON DELETE RESTRICT                           |
-| `template_key`         | VARCHAR(100)            |                                              |
-| `template_version`     | INT                     | Snapshot of version at creation time         |
-| `payload`              | JSONB                   | Input data, default `'{}'::jsonb`            |
-| `pdf_storage_key`      | VARCHAR(500)            | Blob path (nullable until Succeeded)         |
-| `snapshot_storage_key` | VARCHAR(500)            | Blob path (nullable)                         |
-| `error_code`           | VARCHAR(100)            | Nullable                                     |
-| `error_message`        | TEXT                    | Nullable                                     |
-| `correlation_id`       | BIGINT                  | Ties related messages together for tracing   |
-| `idempotency_key`      | BIGINT, UNIQUE          | Prevents duplicate processing (unique index) |
-| `created_at`           | TIMESTAMPTZ             | UTC                                          |
-| `updated_at`           | TIMESTAMPTZ             | UTC                                          |
+| Column                 | Type                         | Notes                                        |
+| ---------------------- | ---------------------------- | -------------------------------------------- |
+| `id`                   | BIGINT (PK)                  | Auto-increment                               |
+| `user_id`              | BIGINT (FK → users)          | ON DELETE RESTRICT                           |
+| `status_id`            | INT (FK → document_statuses) | ON DELETE RESTRICT                           |
+| `template_key`         | VARCHAR(100)                 |                                              |
+| `template_version`     | INT                          | Snapshot of version at creation time         |
+| `payload`              | JSONB                        | Input data, default `'{}'::jsonb`            |
+| `pdf_storage_key`      | VARCHAR(500)                 | Blob path (nullable until Succeeded)         |
+| `snapshot_storage_key` | VARCHAR(500)                 | Blob path (nullable)                         |
+| `error_code`           | VARCHAR(100)                 | Nullable                                     |
+| `error_message`        | TEXT                         | Nullable                                     |
+| `correlation_id`       | BIGINT                       | Ties related messages together for tracing   |
+| `idempotency_key`      | BIGINT, UNIQUE               | Prevents duplicate processing (unique index) |
+| `created_at`           | TIMESTAMPTZ                  | UTC                                          |
+| `updated_at`           | TIMESTAMPTZ                  | UTC                                          |
 
 ### `provider_usages`
 

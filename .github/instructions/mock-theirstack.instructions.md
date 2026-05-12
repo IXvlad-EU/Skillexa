@@ -96,13 +96,13 @@ Other fields in the body (e.g., `job_title_pattern`, `keywords`) are accepted bu
 
 Expose optional behaviour controlled by **request headers** and **environment variables**:
 
-| Trigger                     | Behaviour                                                                          |
-| --------------------------- | ---------------------------------------------------------------------------------- |
-| Header `X-Mock-Status: 429` | Return HTTP 429 with JSON error body — useful for testing retry logic              |
-| Header `X-Mock-Status: 500` | Return HTTP 500 with JSON error body — useful for testing transient-error handling |
-| Header `X-Mock-Delay: <ms>` | Add artificial delay (ms) before responding (overrides default)                    |
-| Env `MOCK_DEFAULT_DELAY_MS` | Default latency (ms) added to every response when no header override (default `0`) |
-| Env `MOCK_FAIL_RATE`        | Fraction `0.0–1.0` of requests that randomly return 500 (default `0`)              |
+| Trigger                       | Behaviour                                                                              |
+| ----------------------------- | -------------------------------------------------------------------------------------- |
+| Header `X-Mock-Status: 429`   | Return HTTP 429 with JSON error body — useful for testing retry logic                  |
+| Header `X-Mock-Status: 500`   | Return HTTP 500 with JSON error body — useful for testing transient-error handling     |
+| Header `X-Mock-Delay: <ms>`   | Add artificial delay (ms) before responding (overrides default)                        |
+| Env `MOCK_DEFAULT_DELAY_MS`   | Default latency (ms) added to every response when no header override (default `0`)     |
+| Env `MOCK_FAIL_RATE`          | Fraction `0.0–1.0` of requests that randomly return 500 (default `0`)                  |
 
 Header-triggered errors (`X-Mock-Status`) take precedence over random failure (`MOCK_FAIL_RATE`).
 
@@ -192,8 +192,8 @@ In production, these variables point to the real TheirStack API — **no code ch
 
 ## Health Endpoint
 
-| Method | Path      | Response                             |
-| ------ | --------- | ------------------------------------ |
+| Method | Path      | Response                               |
+| ------ | --------- | -------------------------------------- |
 | `GET`  | `/health` | `200 OK` — `{ "status": "healthy" }` |
 
 Registered **before** the auth middleware — no API key required. Used by Docker Compose health check and orchestrator probes.
