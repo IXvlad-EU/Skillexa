@@ -1,9 +1,9 @@
 namespace Skillexa.Core.Domain;
 
 /// <summary>
-/// Well-known job status IDs matching the seeded <see cref="JobStatus"/> lookup table.
+/// Well-known document status IDs matching the seeded <see cref="DocumentStatus"/> lookup table.
 /// </summary>
-public static class JobStatuses
+public static class DocumentStatuses
 {
     public const int Queued = 1;
     public const int Processing = 2;

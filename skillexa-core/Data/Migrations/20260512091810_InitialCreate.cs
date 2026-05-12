@@ -15,7 +15,7 @@ namespace Skillexa.Core.Data.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "job_statuses",
+                name: "document_statuses",
                 columns: table => new
                 {
                     id = table.Column<int>(type: "integer", nullable: false)
@@ -24,7 +24,7 @@ namespace Skillexa.Core.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("pk_job_statuses", x => x.id);
+                    table.PrimaryKey("pk_document_statuses", x => x.id);
                 });
 
             migrationBuilder.CreateTable(
@@ -95,7 +95,7 @@ namespace Skillexa.Core.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "jobs",
+                name: "documents",
                 columns: table => new
                 {
                     id = table.Column<long>(type: "bigint", nullable: false)
@@ -116,15 +116,15 @@ namespace Skillexa.Core.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("pk_jobs", x => x.id);
+                    table.PrimaryKey("pk_documents", x => x.id);
                     table.ForeignKey(
-                        name: "fk_jobs_job_statuses_status_id",
+                        name: "fk_documents_document_statuses_status_id",
                         column: x => x.status_id,
-                        principalTable: "job_statuses",
+                        principalTable: "document_statuses",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "fk_jobs_users_user_id",
+                        name: "fk_documents_users_user_id",
                         column: x => x.user_id,
                         principalTable: "users",
                         principalColumn: "id",
@@ -132,7 +132,7 @@ namespace Skillexa.Core.Data.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "job_statuses",
+                table: "document_statuses",
                 columns: new[] { "id", "name" },
                 values: new object[,]
                 {
@@ -143,30 +143,30 @@ namespace Skillexa.Core.Data.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "ix_job_statuses_name",
-                table: "job_statuses",
+                name: "ix_document_statuses_name",
+                table: "document_statuses",
                 column: "name",
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "ix_jobs_created_at",
-                table: "jobs",
+                name: "ix_documents_created_at",
+                table: "documents",
                 column: "created_at");
 
             migrationBuilder.CreateIndex(
-                name: "ix_jobs_idempotency_key",
-                table: "jobs",
+                name: "ix_documents_idempotency_key",
+                table: "documents",
                 column: "idempotency_key",
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "ix_jobs_status_id",
-                table: "jobs",
+                name: "ix_documents_status_id",
+                table: "documents",
                 column: "status_id");
 
             migrationBuilder.CreateIndex(
-                name: "ix_jobs_user_id_status_id",
-                table: "jobs",
+                name: "ix_documents_user_id_status_id",
+                table: "documents",
                 columns: new[] { "user_id", "status_id" });
 
             migrationBuilder.CreateIndex(
@@ -192,7 +192,7 @@ namespace Skillexa.Core.Data.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "jobs");
+                name: "documents");
 
             migrationBuilder.DropTable(
                 name: "outbox_messages");
@@ -204,7 +204,7 @@ namespace Skillexa.Core.Data.Migrations
                 name: "templates");
 
             migrationBuilder.DropTable(
-                name: "job_statuses");
+                name: "document_statuses");
 
             migrationBuilder.DropTable(
                 name: "users");

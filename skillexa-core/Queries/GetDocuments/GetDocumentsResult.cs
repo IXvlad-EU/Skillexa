@@ -1,6 +1,6 @@
-namespace Skillexa.Core.Queries.GetJobs;
+namespace Skillexa.Core.Queries.GetDocuments;
 
-public record GetJobsResult(
+public record GetDocumentsResult(
     long Id,
     string Status,
     string TemplateKey,

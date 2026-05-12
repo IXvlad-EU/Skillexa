@@ -39,9 +39,9 @@ public sealed class UserConfiguration : IEntityTypeConfiguration<User>
             .HasDefaultValueSql("now() at time zone 'utc'")
             .IsRequired();
 
-        builder.HasMany(u => u.Jobs)
-            .WithOne(j => j.User)
-            .HasForeignKey(j => j.UserId)
+        builder.HasMany(u => u.Documents)
+            .WithOne(d => d.User)
+            .HasForeignKey(d => d.UserId)
             .OnDelete(DeleteBehavior.Restrict);
     }
 }

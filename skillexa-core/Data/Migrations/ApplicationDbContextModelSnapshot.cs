@@ -17,12 +17,12 @@ namespace Skillexa.Core.Data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "10.0.3")
+                .HasAnnotation("ProductVersion", "10.0.5")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("Skillexa.Core.Domain.Job", b =>
+            modelBuilder.Entity("Skillexa.Core.Domain.Document", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -98,25 +98,25 @@ namespace Skillexa.Core.Data.Migrations
                         .HasColumnName("user_id");
 
                     b.HasKey("Id")
-                        .HasName("pk_jobs");
+                        .HasName("pk_documents");
 
                     b.HasIndex("CreatedAt")
-                        .HasDatabaseName("ix_jobs_created_at");
+                        .HasDatabaseName("ix_documents_created_at");
 
                     b.HasIndex("IdempotencyKey")
                         .IsUnique()
-                        .HasDatabaseName("ix_jobs_idempotency_key");
+                        .HasDatabaseName("ix_documents_idempotency_key");
 
                     b.HasIndex("StatusId")
-                        .HasDatabaseName("ix_jobs_status_id");
+                        .HasDatabaseName("ix_documents_status_id");
 
                     b.HasIndex("UserId", "StatusId")
-                        .HasDatabaseName("ix_jobs_user_id_status_id");
+                        .HasDatabaseName("ix_documents_user_id_status_id");
 
-                    b.ToTable("jobs", (string)null);
+                    b.ToTable("documents", (string)null);
                 });
 
-            modelBuilder.Entity("Skillexa.Core.Domain.JobStatus", b =>
+            modelBuilder.Entity("Skillexa.Core.Domain.DocumentStatus", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -132,13 +132,13 @@ namespace Skillexa.Core.Data.Migrations
                         .HasColumnName("name");
 
                     b.HasKey("Id")
-                        .HasName("pk_job_statuses");
+                        .HasName("pk_document_statuses");
 
                     b.HasIndex("Name")
                         .IsUnique()
-                        .HasDatabaseName("ix_job_statuses_name");
+                        .HasDatabaseName("ix_document_statuses_name");
 
-                    b.ToTable("job_statuses", (string)null);
+                    b.ToTable("document_statuses", (string)null);
 
                     b.HasData(
                         new
@@ -337,35 +337,35 @@ namespace Skillexa.Core.Data.Migrations
                     b.ToTable("users", (string)null);
                 });
 
-            modelBuilder.Entity("Skillexa.Core.Domain.Job", b =>
+            modelBuilder.Entity("Skillexa.Core.Domain.Document", b =>
                 {
-                    b.HasOne("Skillexa.Core.Domain.JobStatus", "Status")
-                        .WithMany("Jobs")
+                    b.HasOne("Skillexa.Core.Domain.DocumentStatus", "Status")
+                        .WithMany("Documents")
                         .HasForeignKey("StatusId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired()
-                        .HasConstraintName("fk_jobs_job_statuses_status_id");
+                        .HasConstraintName("fk_documents_document_statuses_status_id");
 
                     b.HasOne("Skillexa.Core.Domain.User", "User")
-                        .WithMany("Jobs")
+                        .WithMany("Documents")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired()
-                        .HasConstraintName("fk_jobs_users_user_id");
+                        .HasConstraintName("fk_documents_users_user_id");
 
                     b.Navigation("Status");
 
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Skillexa.Core.Domain.JobStatus", b =>
+            modelBuilder.Entity("Skillexa.Core.Domain.DocumentStatus", b =>
                 {
-                    b.Navigation("Jobs");
+                    b.Navigation("Documents");
                 });
 
             modelBuilder.Entity("Skillexa.Core.Domain.User", b =>
                 {
-                    b.Navigation("Jobs");
+                    b.Navigation("Documents");
                 });
 #pragma warning restore 612, 618
         }

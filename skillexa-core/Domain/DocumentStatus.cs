@@ -1,10 +1,10 @@
 namespace Skillexa.Core.Domain;
 
-public class JobStatus
+public class DocumentStatus
 {
     public int Id { get; set; }
 
     public string Name { get; set; } = string.Empty;
 
-    public ICollection<Job> Jobs { get; set; } = [];
+    public ICollection<Document> Documents { get; set; } = [];
 }

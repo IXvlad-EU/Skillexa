@@ -4,8 +4,6 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-#pragma warning disable CA1861 // Prefer static readonly fields over constant array arguments
-
 namespace Skillexa.Engine.Data.Migrations
 {
     /// <inheritdoc />

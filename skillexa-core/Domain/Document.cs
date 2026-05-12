@@ -1,6 +1,6 @@
 namespace Skillexa.Core.Domain;
 
-public class Job : IEntity
+public class Document : IEntity
 {
     public long Id { get; set; }
 
@@ -32,5 +32,5 @@ public class Job : IEntity
 
     public User User { get; set; } = null!;
 
-    public JobStatus Status { get; set; } = null!;
+    public DocumentStatus Status { get; set; } = null!;
 }
