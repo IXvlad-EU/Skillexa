@@ -6,6 +6,15 @@
 **/bin/
 **/obj/
 
+## Windows-style MSBuild/Roslyn BuildHost artifacts created with backslash
+## path separators on macOS/Linux (e.g. a directory literally named "bin\Debug").
+## gitignore cannot match a literal backslash (it's the escape char), so we
+## use ? which matches any single non-/ character including \.
+**/bin?Debug
+**/bin?Release
+**/obj?Debug
+**/obj?Release
+
 ## User-specific files
 **/*.user
 **/*.suo

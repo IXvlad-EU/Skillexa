@@ -9,11 +9,13 @@ import {
   MantineProvider,
   mantineHtmlProps,
 } from "@mantine/core";
+import { Notifications } from "@mantine/notifications";
 import { routing } from "@/i18n/routing";
 import { Navbar } from "@/components/Navbar";
 import { Providers } from "@/app/providers";
 
 import "@mantine/core/styles.css";
+import "@mantine/notifications/styles.css";
 import "../globals.scss";
 
 type Props = {
@@ -42,6 +44,7 @@ export default async function LocaleLayout({ children, params }: Props) {
         <MantineProvider defaultColorScheme="auto">
           <NextIntlClientProvider>
             <Providers>
+              <Notifications />
               <AppShell header={{ height: 60 }}>
                 <AppShellHeader>
                   <Navbar />

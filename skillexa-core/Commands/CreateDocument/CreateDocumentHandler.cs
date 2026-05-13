@@ -13,19 +13,19 @@ public class CreateDocumentHandler(IUnitOfWork unitOfWork)
         var correlationId = GenerateCorrelationId();
         var idempotencyKey = correlationId;
 
-        if (await unitOfWork.Jobs.ExistsByIdempotencyKeyAsync(idempotencyKey, cancellationToken))
+        if (await unitOfWork.Documents.ExistsByIdempotencyKeyAsync(idempotencyKey, cancellationToken))
         {
-            throw new InvalidOperationException($"A job with idempotency key '{idempotencyKey}' already exists.");
+            throw new InvalidOperationException($"A document with idempotency key '{idempotencyKey}' already exists.");
         }
 
         var templateVersion = command.TemplateVersion
             ?? (await unitOfWork.Templates.GetActiveByKeyAsync(command.TemplateKey, cancellationToken))?.Version
             ?? throw new InvalidOperationException($"No active template found for key '{command.TemplateKey}'.");
 
-        var job = new Job
+        var document = new Document
         {
             UserId = command.UserId,
-            StatusId = JobStatuses.Queued,
+            StatusId = DocumentStatuses.Queued,
             TemplateKey = command.TemplateKey,
             TemplateVersion = templateVersion,
             Payload = command.PayloadJson,
@@ -35,13 +35,13 @@ public class CreateDocumentHandler(IUnitOfWork unitOfWork)
             UpdatedAt = DateTime.UtcNow,
         };
 
-        await unitOfWork.Jobs.AddAsync(job, cancellationToken);
+        await unitOfWork.Documents.AddAsync(document, cancellationToken);
 
         var generatePdfPayload = new
         {
             messageType = "GeneratePdf",
             messageVersion = 1,
-            jobId = job.Id,
+            documentId = document.Id,
             userId = command.UserId,
             templateKey = command.TemplateKey,
             templateVersion,
@@ -59,7 +59,7 @@ public class CreateDocumentHandler(IUnitOfWork unitOfWork)
 
         await unitOfWork.SaveChangesAsync(cancellationToken);
 
-        return new CreateDocumentResult(job.Id, "Queued");
+        return new CreateDocumentResult(document.Id, "Queued");
     }
 
     private static long GenerateCorrelationId()

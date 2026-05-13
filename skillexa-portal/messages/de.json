@@ -8,7 +8,8 @@
     "language": "Sprache",
     "locale_en": "English",
     "locale_ru": "Русский",
-    "locale_de": "Deutsch"
+    "locale_de": "Deutsch",
+    "jobs": "Jobs"
   },
   "home": {
     "hero": {
@@ -50,5 +51,76 @@
         "description": "Erhalte einen sicheren Download-Link und speichere deinen Lebenslauf mit einem Klick."
       }
     }
+  },
+  "jobSearch": {
+    "title": "Jobsuche",
+    "subtitle": "Gib deine Fähigkeiten und bevorzugten Jobbörsen ein, um passende Stellen zu finden.",
+    "filters": {
+      "jobTitle": "Berufsbezeichnung",
+      "jobTitlePlaceholder": "z. B. Softwareentwickler",
+      "skills": "Fähigkeiten",
+      "skillsPlaceholder": "z. B. TypeScript, React",
+      "workType": "Arbeitsmodell",
+      "workTypeAll": "Alle",
+      "workTypeRemote": "Remote",
+      "workTypeOnSite": "Vor Ort",
+      "seniority": "Erfahrungsstufe",
+      "seniorityPlaceholder": "Beliebig",
+      "moreFilters": "Mehr Filter ↓",
+      "fewerFilters": "Weniger Filter ↑",
+      "search": "Suchen",
+      "descriptionKeywords": "Schlüsselwörter in der Beschreibung",
+      "descriptionKeywordsPlaceholder": "z. B. Python, Kubernetes",
+      "employmentType": "Beschäftigungsart",
+      "employmentTypePlaceholder": "Beliebig",
+      "country": "Land (ISO2)",
+      "countryPlaceholder": "z. B. US, GB, DE",
+      "companyName": "Unternehmensname",
+      "companyNamePlaceholder": "z. B. Acme Corp",
+      "minSalary": "Mindestgehalt (USD)",
+      "minSalaryPlaceholder": "z. B. 80000",
+      "maxSalary": "Höchstgehalt (USD)",
+      "maxSalaryPlaceholder": "z. B. 200000",
+      "postedWithin": "Veröffentlicht innerhalb",
+      "sources": "Jobbörsen",
+      "sourcesPlaceholder": "Jobbörsen auswählen",
+      "seniority_options": {
+        "junior": "Junior",
+        "mid_level": "Mid-Level",
+        "senior": "Senior",
+        "staff": "Staff",
+        "c_level": "C-Level"
+      },
+      "employment_type_options": {
+        "full_time": "Vollzeit",
+        "part_time": "Teilzeit",
+        "contract": "Freiberuflich",
+        "temporary": "Befristet",
+        "internship": "Praktikum"
+      },
+      "posted_within_options": {
+        "days_7": "Letzte 7 Tage",
+        "days_14": "Letzte 14 Tage",
+        "days_30": "Letzte 30 Tage",
+        "days_60": "Letzte 60 Tage",
+        "days_90": "Letzte 90 Tage"
+      }
+    },
+    "noResults": {
+      "title": "Keine Stellen gefunden",
+      "description": "Versuche, deine Fähigkeiten anzupassen oder Quell-Filter zu entfernen."
+    },
+    "loading": "Stellen werden gesucht…",
+    "error": "Stellen konnten nicht geladen werden. Bitte versuche es erneut.",
+    "card": {
+      "remote": "Remote",
+      "postedOn": "Veröffentlicht am {date}",
+      "viewJob": "Stelle ansehen",
+      "generateCv_successTitle": "Lebenslauf-Generierung gestartet",
+      "generateCv_errorTitle": "Fehler"
+    },
+    "generateCv": "Lebenslauf erstellen",
+    "generateCv_success": "Lebenslauf-Generierung gestartet. Den Status findest du im Bereich Dokumente.",
+    "generateCv_error": "Lebenslauf-Generierung konnte nicht gestartet werden. Bitte versuche es erneut."
   }
 }

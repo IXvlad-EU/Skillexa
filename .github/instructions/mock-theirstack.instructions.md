@@ -5,6 +5,16 @@ applyTo: "mock-theirstack/**"
 
 # Mock TheirStack — Instructions
 
+## API Specification
+
+The authoritative contract for the TheirStack API is the OpenAPI 3.1 specification committed at the repo root:
+
+```
+theirstack-api.specification.json
+```
+
+Use this file as the reference when adding or updating mock endpoints, verifying request/response shapes, or checking error schemas. The mock must stay in sync with this spec — specifically the endpoints that Skillexa-Core and Skillexa-Engine actually call.
+
 ## Purpose
 
 `mock-theirstack` is a **standalone Node.js project** that emulates the TheirStack REST API for local development. It eliminates the need to call the real TheirStack API during development and testing, preventing quota consumption and removing the external dependency.
@@ -96,13 +106,13 @@ Other fields in the body (e.g., `job_title_pattern`, `keywords`) are accepted bu
 
 Expose optional behaviour controlled by **request headers** and **environment variables**:
 
-| Trigger                     | Behaviour                                                                          |
-| --------------------------- | ---------------------------------------------------------------------------------- |
-| Header `X-Mock-Status: 429` | Return HTTP 429 with JSON error body — useful for testing retry logic              |
-| Header `X-Mock-Status: 500` | Return HTTP 500 with JSON error body — useful for testing transient-error handling |
-| Header `X-Mock-Delay: <ms>` | Add artificial delay (ms) before responding (overrides default)                    |
-| Env `MOCK_DEFAULT_DELAY_MS` | Default latency (ms) added to every response when no header override (default `0`) |
-| Env `MOCK_FAIL_RATE`        | Fraction `0.0–1.0` of requests that randomly return 500 (default `0`)              |
+| Trigger                       | Behaviour                                                                              |
+| ----------------------------- | -------------------------------------------------------------------------------------- |
+| Header `X-Mock-Status: 429`   | Return HTTP 429 with JSON error body — useful for testing retry logic                  |
+| Header `X-Mock-Status: 500`   | Return HTTP 500 with JSON error body — useful for testing transient-error handling     |
+| Header `X-Mock-Delay: <ms>`   | Add artificial delay (ms) before responding (overrides default)                        |
+| Env `MOCK_DEFAULT_DELAY_MS`   | Default latency (ms) added to every response when no header override (default `0`)     |
+| Env `MOCK_FAIL_RATE`          | Fraction `0.0–1.0` of requests that randomly return 500 (default `0`)                  |
 
 Header-triggered errors (`X-Mock-Status`) take precedence over random failure (`MOCK_FAIL_RATE`).
 
@@ -192,8 +202,8 @@ In production, these variables point to the real TheirStack API — **no code ch
 
 ## Health Endpoint
 
-| Method | Path      | Response                             |
-| ------ | --------- | ------------------------------------ |
+| Method | Path      | Response                               |
+| ------ | --------- | -------------------------------------- |
 | `GET`  | `/health` | `200 OK` — `{ "status": "healthy" }` |
 
 Registered **before** the auth middleware — no API key required. Used by Docker Compose health check and orchestrator probes.
@@ -218,5 +228,5 @@ Registered **before** the auth middleware — no API key required. Used by Docke
 ## Key Rules
 
 - **Never deploy this service to production.** It exists solely for local development and CI.
-- The mock must stay in sync with the real TheirStack API contract. If Engine changes the endpoints or request/response shapes it uses, update the mock accordingly.
+- The mock must stay in sync with the real TheirStack API contract defined in `theirstack-api.specification.json` (repo root). If the Engine changes the endpoints or request/response shapes it uses, update the mock and verify against the spec accordingly.
 - Do not add business logic beyond what is needed to return realistic responses and simulate errors.

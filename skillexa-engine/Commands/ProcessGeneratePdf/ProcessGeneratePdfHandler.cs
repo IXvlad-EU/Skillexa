@@ -12,8 +12,8 @@ public class ProcessGeneratePdfHandler(
         ProcessGeneratePdfCommand command, CancellationToken cancellationToken = default)
     {
         logger.LogInformation(
-            "Processing GeneratePdf for JobId={JobId}, CorrelationId={CorrelationId}",
-            command.JobId, command.CorrelationId);
+            "Processing GeneratePdf for DocumentId={DocumentId}, CorrelationId={CorrelationId}",
+            command.DocumentId, command.CorrelationId);
 
         // 1. Check / decrement provider quota
         var today = DateOnly.FromDateTime(DateTime.UtcNow);
@@ -23,11 +23,11 @@ public class ProcessGeneratePdfHandler(
         if (!quotaAvailable)
         {
             logger.LogWarning(
-                "Quota exhausted for provider 'theirstack' on {DayKey}, JobId={JobId}",
-                today, command.JobId);
+                "Quota exhausted for provider 'theirstack' on {DayKey}, DocumentId={DocumentId}",
+                today, command.DocumentId);
 
             return new ProcessGeneratePdfResult(
-                command.JobId,
+                command.DocumentId,
                 Status: "Failed",
                 ErrorCode: "QuotaExceeded",
                 ErrorMessage: $"Daily quota for provider 'theirstack' exhausted on {today}.");
@@ -40,11 +40,11 @@ public class ProcessGeneratePdfHandler(
         if (template is null)
         {
             logger.LogError(
-                "Template '{TemplateKey}' version {TemplateVersion} not found, JobId={JobId}",
-                command.TemplateKey, command.TemplateVersion, command.JobId);
+                "Template '{TemplateKey}' version {TemplateVersion} not found, DocumentId={DocumentId}",
+                command.TemplateKey, command.TemplateVersion, command.DocumentId);
 
             return new ProcessGeneratePdfResult(
-                command.JobId,
+                command.DocumentId,
                 Status: "Failed",
                 ErrorCode: "TemplateNotFound",
                 ErrorMessage: $"Template '{command.TemplateKey}' version {command.TemplateVersion} not found.");
@@ -52,26 +52,26 @@ public class ProcessGeneratePdfHandler(
 
         // 3. TODO: Call TheirStack API (inject ITheirStackClient when service layer is implemented)
         logger.LogInformation(
-            "TheirStack API call placeholder for JobId={JobId}", command.JobId);
+            "TheirStack API call placeholder for DocumentId={DocumentId}", command.DocumentId);
 
         // 4. TODO: Render PDF (inject IPdfRenderingService when implemented)
         logger.LogInformation(
-            "PDF rendering placeholder for JobId={JobId}", command.JobId);
+            "PDF rendering placeholder for DocumentId={DocumentId}", command.DocumentId);
 
         // 5. TODO: Upload artefacts to blob storage (inject IObjectStorage when implemented)
-        var pdfStorageKey = $"pdf/{command.JobId}.pdf";
-        var snapshotStorageKey = $"snapshots/{command.JobId}.json";
+        var pdfStorageKey = $"pdf/{command.DocumentId}.pdf";
+        var snapshotStorageKey = $"snapshots/{command.DocumentId}.json";
         logger.LogInformation(
-            "Blob upload placeholder for JobId={JobId}, PdfKey={PdfKey}, SnapshotKey={SnapshotKey}",
-            command.JobId, pdfStorageKey, snapshotStorageKey);
+            "Blob upload placeholder for DocumentId={DocumentId}, PdfKey={PdfKey}, SnapshotKey={SnapshotKey}",
+            command.DocumentId, pdfStorageKey, snapshotStorageKey);
 
         await unitOfWork.SaveChangesAsync(cancellationToken);
 
         logger.LogInformation(
-            "Successfully processed GeneratePdf for JobId={JobId}", command.JobId);
+            "Successfully processed GeneratePdf for DocumentId={DocumentId}", command.DocumentId);
 
         return new ProcessGeneratePdfResult(
-            command.JobId,
+            command.DocumentId,
             Status: "Succeeded",
             PdfStorageKey: pdfStorageKey,
             SnapshotStorageKey: snapshotStorageKey);

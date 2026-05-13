@@ -1,0 +1,48 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  gap: var(--mantine-spacing-md);
+}
+
+.primaryRow {
+  display: grid;
+  grid-template-columns: 2fr 2fr 1fr 1.5fr auto;
+  gap: var(--mantine-spacing-md);
+  align-items: flex-end;
+
+  @media (max-width: 900px) {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  @media (max-width: 600px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+}
+
+.actions {
+  display: flex;
+  gap: var(--mantine-spacing-xs);
+  align-items: center;
+  padding-bottom: 1px;
+}
+
+.advancedGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--mantine-spacing-md);
+  padding-top: var(--mantine-spacing-md);
+  border-top: 1px solid var(--mantine-color-default-border);
+
+  @media (max-width: 900px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (max-width: 600px) {
+    grid-template-columns: 1fr;
+  }
+}

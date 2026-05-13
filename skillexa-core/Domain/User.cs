@@ -14,5 +14,5 @@ public class User : IEntity
 
     public DateTime UpdatedAt { get; set; }
 
-    public ICollection<Job> Jobs { get; set; } = [];
+    public ICollection<Document> Documents { get; set; } = [];
 }

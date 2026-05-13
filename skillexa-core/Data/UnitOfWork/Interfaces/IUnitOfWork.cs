@@ -4,7 +4,7 @@ namespace Skillexa.Core.Data.UnitOfWork.Interfaces;
 
 public interface IUnitOfWork
 {
-    IJobRepository Jobs { get; }
+    IDocumentRepository Documents { get; }
     IUserRepository Users { get; }
     ITemplateRepository Templates { get; }
     IOutboxRepository OutboxMessages { get; }

@@ -1,7 +1,7 @@
 namespace Skillexa.Engine.Commands.ProcessGeneratePdf;
 
 public record ProcessGeneratePdfResult(
-    long JobId,
+    long DocumentId,
     string Status,
     string? PdfStorageKey = null,
     string? SnapshotStorageKey = null,

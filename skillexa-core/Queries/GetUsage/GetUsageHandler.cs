@@ -4,7 +4,7 @@ using Skillexa.Core.Data;
 
 namespace Skillexa.Core.Queries.GetUsage;
 
-public class GetUsageHandler(ApplicationDbContext db)
+public class GetUsageHandler(ApplicationDbContext dbContext)
     : IQueryHandler<GetUsageQuery, GetUsageResult?>
 {
     public async Task<GetUsageResult?> HandleAsync(
@@ -12,7 +12,7 @@ public class GetUsageHandler(ApplicationDbContext db)
     {
         var currentPeriod = DateTime.UtcNow.ToString("yyyy-MM", CultureInfo.InvariantCulture);
 
-        return await db.ProviderUsages
+        return await dbContext.ProviderUsages
             .AsNoTracking()
             .Where(usage => usage.Provider == "theirstack" && usage.PeriodKey == currentPeriod)
             .Select(usage => new GetUsageResult(

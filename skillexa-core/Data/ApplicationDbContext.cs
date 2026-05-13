@@ -9,9 +9,9 @@ public sealed class ApplicationDbContext(DbContextOptions<ApplicationDbContext> 
 {
     public DbSet<User> Users => Set<User>();
 
-    public DbSet<JobStatus> JobStatuses => Set<JobStatus>();
+    public DbSet<DocumentStatus> DocumentStatuses => Set<DocumentStatus>();
 
-    public DbSet<Job> Jobs => Set<Job>();
+    public DbSet<Document> Documents => Set<Document>();
 
     public DbSet<ProviderUsage> ProviderUsages => Set<ProviderUsage>();
 

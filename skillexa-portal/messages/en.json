@@ -8,7 +8,8 @@
     "language": "Language",
     "locale_en": "English",
     "locale_ru": "Русский",
-    "locale_de": "Deutsch"
+    "locale_de": "Deutsch",
+    "jobs": "Jobs"
   },
   "home": {
     "hero": {
@@ -50,5 +51,76 @@
         "description": "Receive a secure download link and save your resume with one click."
       }
     }
+  },
+  "jobSearch": {
+    "title": "Job Search",
+    "subtitle": "Enter your skills and preferred job boards to find matching listings.",
+    "filters": {
+      "jobTitle": "Job title",
+      "jobTitlePlaceholder": "e.g. Software Engineer",
+      "skills": "Skills",
+      "skillsPlaceholder": "e.g. TypeScript, React",
+      "workType": "Work type",
+      "workTypeAll": "All",
+      "workTypeRemote": "Remote",
+      "workTypeOnSite": "On-site",
+      "seniority": "Seniority",
+      "seniorityPlaceholder": "Any seniority",
+      "moreFilters": "More filters ↓",
+      "fewerFilters": "Fewer filters ↑",
+      "search": "Search",
+      "descriptionKeywords": "Description keywords",
+      "descriptionKeywordsPlaceholder": "e.g. Python, Kubernetes",
+      "employmentType": "Employment type",
+      "employmentTypePlaceholder": "Any type",
+      "country": "Country (ISO2)",
+      "countryPlaceholder": "e.g. US, GB, DE",
+      "companyName": "Company name",
+      "companyNamePlaceholder": "e.g. Acme Corp",
+      "minSalary": "Min salary (USD)",
+      "minSalaryPlaceholder": "e.g. 80000",
+      "maxSalary": "Max salary (USD)",
+      "maxSalaryPlaceholder": "e.g. 200000",
+      "postedWithin": "Posted within",
+      "sources": "Job boards",
+      "sourcesPlaceholder": "Select job boards",
+      "seniority_options": {
+        "junior": "Junior",
+        "mid_level": "Mid-level",
+        "senior": "Senior",
+        "staff": "Staff",
+        "c_level": "C-level"
+      },
+      "employment_type_options": {
+        "full_time": "Full-time",
+        "part_time": "Part-time",
+        "contract": "Contract",
+        "temporary": "Temporary",
+        "internship": "Internship"
+      },
+      "posted_within_options": {
+        "days_7": "Last 7 days",
+        "days_14": "Last 14 days",
+        "days_30": "Last 30 days",
+        "days_60": "Last 60 days",
+        "days_90": "Last 90 days"
+      }
+    },
+    "noResults": {
+      "title": "No jobs found",
+      "description": "Try adjusting your skills or removing source filters."
+    },
+    "loading": "Searching for jobs…",
+    "error": "Failed to load jobs. Please try again.",
+    "card": {
+      "remote": "Remote",
+      "postedOn": "Posted {date}",
+      "viewJob": "View job",
+      "generateCv_successTitle": "CV generation started",
+      "generateCv_errorTitle": "Error"
+    },
+    "generateCv": "Generate CV",
+    "generateCv_success": "CV generation started. Check your documents for status.",
+    "generateCv_error": "Failed to start CV generation. Please try again."
   }
 }

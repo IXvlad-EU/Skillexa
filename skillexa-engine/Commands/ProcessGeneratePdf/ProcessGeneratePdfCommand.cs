@@ -1,7 +1,7 @@
 namespace Skillexa.Engine.Commands.ProcessGeneratePdf;
 
 public record ProcessGeneratePdfCommand(
-    long JobId,
+    long DocumentId,
     long UserId,
     string TemplateKey,
     int TemplateVersion,

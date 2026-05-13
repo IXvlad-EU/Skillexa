@@ -8,7 +8,8 @@
     "language": "Язык",
     "locale_en": "English",
     "locale_ru": "Русский",
-    "locale_de": "Deutsch"
+    "locale_de": "Deutsch",
+    "jobs": "Вакансии"
   },
   "home": {
     "hero": {
@@ -50,5 +51,76 @@
         "description": "Получи защищённую ссылку для скачивания и сохрани резюме одним кликом."
       }
     }
+  },
+  "jobSearch": {
+    "title": "Поиск вакансий",
+    "subtitle": "Введите свои навыки и предпочтительные площадки для поиска подходящих вакансий.",
+    "filters": {
+      "jobTitle": "Должность",
+      "jobTitlePlaceholder": "например Инженер-программист",
+      "skills": "Навыки",
+      "skillsPlaceholder": "например TypeScript, React",
+      "workType": "Тип занятости",
+      "workTypeAll": "Все",
+      "workTypeRemote": "Удалённо",
+      "workTypeOnSite": "Офис",
+      "seniority": "Уровень",
+      "seniorityPlaceholder": "Любой уровень",
+      "moreFilters": "Больше фильтров ↓",
+      "fewerFilters": "Меньше фильтров ↑",
+      "search": "Найти",
+      "descriptionKeywords": "Ключевые слова в описании",
+      "descriptionKeywordsPlaceholder": "например Python, Kubernetes",
+      "employmentType": "Тип трудоустройства",
+      "employmentTypePlaceholder": "Любой тип",
+      "country": "Страна (ISO2)",
+      "countryPlaceholder": "например US, GB, DE",
+      "companyName": "Название компании",
+      "companyNamePlaceholder": "например Acme Corp",
+      "minSalary": "Мин. зарплата (USD)",
+      "minSalaryPlaceholder": "например 80000",
+      "maxSalary": "Макс. зарплата (USD)",
+      "maxSalaryPlaceholder": "например 200000",
+      "postedWithin": "Дата публикации",
+      "sources": "Площадки",
+      "sourcesPlaceholder": "Выберите площадки",
+      "seniority_options": {
+        "junior": "Junior",
+        "mid_level": "Middle",
+        "senior": "Senior",
+        "staff": "Staff",
+        "c_level": "C-level"
+      },
+      "employment_type_options": {
+        "full_time": "Полная занятость",
+        "part_time": "Частичная занятость",
+        "contract": "Контракт",
+        "temporary": "Временная",
+        "internship": "Стажировка"
+      },
+      "posted_within_options": {
+        "days_7": "За 7 дней",
+        "days_14": "За 14 дней",
+        "days_30": "За 30 дней",
+        "days_60": "За 60 дней",
+        "days_90": "За 90 дней"
+      }
+    },
+    "noResults": {
+      "title": "Вакансии не найдены",
+      "description": "Попробуйте изменить навыки или убрать фильтры по площадкам."
+    },
+    "loading": "Поиск вакансий…",
+    "error": "Не удалось загрузить вакансии. Попробуйте ещё раз.",
+    "card": {
+      "remote": "Удалённо",
+      "postedOn": "Опубликовано {date}",
+      "viewJob": "Открыть вакансию",
+      "generateCv_successTitle": "Генерация резюме запущена",
+      "generateCv_errorTitle": "Ошибка"
+    },
+    "generateCv": "Создать резюме",
+    "generateCv_success": "Генерация резюме запущена. Проверьте статус в разделе документов.",
+    "generateCv_error": "Не удалось запустить генерацию резюме. Попробуйте ещё раз."
   }
 }

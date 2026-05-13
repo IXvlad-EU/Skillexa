@@ -4,14 +4,14 @@ using Skillexa.Core.Data.UnitOfWork.Interfaces;
 namespace Skillexa.Core.Data.UnitOfWork.Implementations;
 
 public sealed class UnitOfWork(
-    ApplicationDbContext db,
-    IJobRepository jobs,
+    ApplicationDbContext dbContext,
+    IDocumentRepository documents,
     IUserRepository users,
     ITemplateRepository templates,
     IOutboxRepository outboxMessages,
     IProviderUsageRepository providerUsages) : IUnitOfWork
 {
-    public IJobRepository Jobs => jobs;
+    public IDocumentRepository Documents => documents;
     public IUserRepository Users => users;
     public ITemplateRepository Templates => templates;
     public IOutboxRepository OutboxMessages => outboxMessages;
@@ -19,6 +19,6 @@ public sealed class UnitOfWork(
 
     public Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
     {
-        return db.SaveChangesAsync(cancellationToken);
+        return dbContext.SaveChangesAsync(cancellationToken);
     }
 }
