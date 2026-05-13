@@ -11,9 +11,9 @@ export async function GET() {
   try {
     const session = await getServerSession(authOptions);
     const client = createApiClient(session?.accessToken ?? "");
-    const usage = await client.app.usage.get();
-
-    return NextResponse.json(usage ?? {});
+    const { data, error } = await client.GET("/app/usage");
+    if (error) return new NextResponse("Service unavailable", { status: 502 });
+    return NextResponse.json(data ?? {});
   } catch {
     return new NextResponse("Service unavailable", { status: 502 });
   }

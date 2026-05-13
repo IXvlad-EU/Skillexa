@@ -193,7 +193,7 @@ Skillexa-Engine is the **asynchronous processing service**. It:
 | UI library      | **Mantine 7** — see `mantine-ui.instructions.md`                    |
 | Styling         | Mantine CSS modules + PostCSS                                       |
 | Data fetching   | TanStack Query — see `tanstack-query.instructions.md`               |
-| API client      | **Kiota**-generated TypeScript client — see `kiota.instructions.md` |
+| API client      | **openapi-fetch** typed client — see `api-client.instructions.md` |
 | Output          | `standalone` (Docker-friendly)                                      |
 | Package manager | pnpm (workspace)                                                    |
 
@@ -218,6 +218,6 @@ Skillexa-Engine is the **asynchronous processing service**. It:
 
 - [mantine-ui.instructions.md](mantine-ui.instructions.md) — Mantine 7 setup, components, and styling
 - [tanstack-query.instructions.md](tanstack-query.instructions.md) — TanStack Query hooks and SSR prefetching
-- [kiota.instructions.md](kiota.instructions.md) — Kiota API client generation and usage
+- [api-client.instructions.md](api-client.instructions.md) — openapi-fetch API client generation and usage
 - [nextjs.instructions.md](nextjs.instructions.md) — Next.js best practices and coding standards
 - [authentication.instructions.md](authentication.instructions.md) — Microsoft Entra ID auth flow

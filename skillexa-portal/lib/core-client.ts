@@ -1,20 +1,18 @@
-import { createSkillexaCoreClient } from "./api-client/skillexaCoreClient";
-import { FetchRequestAdapter } from "@microsoft/kiota-http-fetchlibrary";
-import {
-  AllowedHostsValidator,
-  BaseBearerTokenAuthenticationProvider,
-} from "@microsoft/kiota-abstractions";
+import createClient, { type Middleware } from "openapi-fetch";
+import type { paths } from "./api-client/schema";
 
 export function createApiClient(accessToken: string) {
-  const authProvider = new BaseBearerTokenAuthenticationProvider({
-    getAuthorizationToken: async () => accessToken,
-    getAllowedHostsValidator: () => new AllowedHostsValidator(),
+  const client = createClient<paths>({
+    baseUrl: process.env.SKILLEXA_CORE_BASE_URL ?? "http://localhost:8080",
   });
 
-  const adapter = new FetchRequestAdapter(authProvider);
+  const authMiddleware: Middleware = {
+    async onRequest({ request }) {
+      request.headers.set("Authorization", `Bearer ${accessToken}`);
+      return request;
+    },
+  };
 
-  adapter.baseUrl =
-    process.env.SKILLEXA_CORE_BASE_URL ?? "http://localhost:8080";
-    
-  return createSkillexaCoreClient(adapter);
+  client.use(authMiddleware);
+  return client;
 }
