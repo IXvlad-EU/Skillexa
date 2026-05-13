@@ -3,7 +3,7 @@
     "id": 100001,
     "job_title": "Senior Data Engineer",
     "url": "https://example.com/job/100001",
-    "date_posted": "2026-02-20",
+    "date_posted": "2026-05-11",
     "has_blurred_data": false,
     "company": "Acme Corp",
     "final_url": "https://acme.com/careers/senior-data-engineer",
@@ -24,14 +24,22 @@
     "max_annual_salary_usd": 170000,
     "avg_annual_salary_usd": 150000,
     "salary_currency": "USD",
-    "countries": ["United States"],
+    "countries": [
+      "United States"
+    ],
     "country": "United States",
-    "country_codes": ["US"],
+    "country_codes": [
+      "US"
+    ],
     "country_code": "US",
-    "cities": ["New York"],
-    "continents": ["North America"],
-    "seniority": "senior",
-    "discovered_at": "2026-02-20T08:30:00",
+    "cities": [
+      "New York"
+    ],
+    "continents": [
+      "North America"
+    ],
+    "seniority": "junior",
+    "discovered_at": "2026-05-11T10:00:00",
     "company_domain": "acme.com",
     "hiring_team": [
       {
@@ -45,7 +53,9 @@
     ],
     "reposted": false,
     "date_reposted": null,
-    "employment_statuses": ["full_time"],
+    "employment_statuses": [
+      "full_time"
+    ],
     "easy_apply": false,
     "technology_slugs": [
       "python",
@@ -56,7 +66,9 @@
     ],
     "description": "## About the Role\n\nWe are looking for a Senior Data Engineer to join our growing data platform team. You will design, build, and maintain scalable data pipelines that power our analytics and machine learning initiatives.\n\n## Key Responsibilities\n\n- Design and implement scalable ETL/ELT pipelines using Apache Spark and Airflow\n- Build and optimize data models for our data warehouse (PostgreSQL, Redshift)\n- Collaborate with data scientists and analysts to deliver reliable data products\n- Implement data quality monitoring and alerting\n- Mentor junior engineers and contribute to architectural decisions\n\n## Requirements\n\n- 5+ years of data engineering experience\n- Strong proficiency in Python and SQL\n- Experience with Apache Spark, Airflow, or similar frameworks\n- Hands-on experience with AWS data services (Redshift, S3, Glue, EMR)\n- Knowledge of data modeling and warehouse design patterns\n\n## Benefits\n\n- Competitive salary and equity\n- Comprehensive health insurance\n- Flexible work arrangements\n- Learning & development budget",
     "normalized_title": "data engineer",
-    "manager_roles": ["Engineering Manager"],
+    "manager_roles": [
+      "Engineering Manager"
+    ],
     "matching_phrases": [],
     "matching_words": [],
     "company_object": {
@@ -92,11 +104,18 @@
       "seo_description": "Acme Corp - Data Infrastructure & Analytics",
       "city": "New York",
       "postal_code": "10001",
-      "company_keywords": ["data", "analytics", "infrastructure"],
+      "company_keywords": [
+        "data",
+        "analytics",
+        "infrastructure"
+      ],
       "alexa_ranking": 45000,
       "publicly_traded_symbol": null,
       "publicly_traded_exchange": null,
-      "investors": ["Sequoia Capital", "a16z"],
+      "investors": [
+        "Sequoia Capital",
+        "a16z"
+      ],
       "funding_stage": "series_b",
       "has_blurred_data": false,
       "technology_slugs": [
@@ -139,7 +158,7 @@
     "id": 100002,
     "job_title": "Frontend Developer (React)",
     "url": "https://example.com/job/100002",
-    "date_posted": "2026-02-22",
+    "date_posted": "2026-05-09",
     "has_blurred_data": false,
     "company": "Globex Industries",
     "final_url": "https://globex.io/careers/frontend-developer",
@@ -160,19 +179,29 @@
     "max_annual_salary_usd": 160000,
     "avg_annual_salary_usd": 140000,
     "salary_currency": "USD",
-    "countries": ["United States"],
-    "country": "United States",
-    "country_codes": ["US"],
-    "country_code": "US",
-    "cities": ["San Francisco"],
-    "continents": ["North America"],
+    "countries": [
+      "United Kingdom"
+    ],
+    "country": "United Kingdom",
+    "country_codes": [
+      "GB"
+    ],
+    "country_code": "GB",
+    "cities": [
+      "San Francisco"
+    ],
+    "continents": [
+      "North America"
+    ],
     "seniority": "mid_level",
-    "discovered_at": "2026-02-22T14:00:00",
+    "discovered_at": "2026-05-09T10:00:00",
     "company_domain": "globex.io",
     "hiring_team": [],
     "reposted": false,
     "date_reposted": null,
-    "employment_statuses": ["full_time"],
+    "employment_statuses": [
+      "part_time"
+    ],
     "easy_apply": true,
     "technology_slugs": [
       "react",
@@ -219,11 +248,18 @@
       "seo_description": "Globex Industries - Developer Tools",
       "city": "San Francisco",
       "postal_code": "94105",
-      "company_keywords": ["developer tools", "productivity", "saas"],
+      "company_keywords": [
+        "developer tools",
+        "productivity",
+        "saas"
+      ],
       "alexa_ranking": 120000,
       "publicly_traded_symbol": null,
       "publicly_traded_exchange": null,
-      "investors": ["Y Combinator", "Kleiner Perkins"],
+      "investors": [
+        "Y Combinator",
+        "Kleiner Perkins"
+      ],
       "funding_stage": "series_a",
       "has_blurred_data": false,
       "technology_slugs": [
@@ -266,7 +302,7 @@
     "id": 100003,
     "job_title": "DevOps Engineer",
     "url": "https://example.com/job/100003",
-    "date_posted": "2026-02-18",
+    "date_posted": "2026-05-07",
     "has_blurred_data": false,
     "company": "Initech Solutions",
     "final_url": "https://initech.dev/jobs/devops-engineer",
@@ -287,14 +323,22 @@
     "max_annual_salary_usd": 180000,
     "avg_annual_salary_usd": 160000,
     "salary_currency": "USD",
-    "countries": ["United States"],
-    "country": "United States",
-    "country_codes": ["US"],
-    "country_code": "US",
-    "cities": ["Austin"],
-    "continents": ["North America"],
+    "countries": [
+      "Germany"
+    ],
+    "country": "Germany",
+    "country_codes": [
+      "DE"
+    ],
+    "country_code": "DE",
+    "cities": [
+      "Austin"
+    ],
+    "continents": [
+      "North America"
+    ],
     "seniority": "senior",
-    "discovered_at": "2026-02-18T10:15:00",
+    "discovered_at": "2026-05-07T10:00:00",
     "company_domain": "initech.dev",
     "hiring_team": [
       {
@@ -308,7 +352,9 @@
     ],
     "reposted": true,
     "date_reposted": "2026-02-25",
-    "employment_statuses": ["full_time"],
+    "employment_statuses": [
+      "contract"
+    ],
     "easy_apply": false,
     "technology_slugs": [
       "kubernetes",
@@ -319,7 +365,9 @@
     ],
     "description": "## DevOps Engineer\n\nJoin Initech Solutions as a DevOps Engineer and help us scale our cloud infrastructure to support millions of users.\n\n## Responsibilities\n\n- Design and maintain CI/CD pipelines using GitHub Actions\n- Manage Kubernetes clusters on AWS (EKS)\n- Implement Infrastructure as Code with Terraform\n- Monitor system health and respond to incidents\n- Optimize cloud costs and resource utilization\n- Automate repetitive operational tasks\n\n## Requirements\n\n- 4+ years of DevOps/SRE experience\n- Deep knowledge of Kubernetes and container orchestration\n- Experience with Terraform or Pulumi\n- Strong AWS experience (EKS, EC2, RDS, S3, IAM)\n- Proficiency in scripting (Bash, Python)\n- Experience with monitoring tools (Prometheus, Grafana, Datadog)",
     "normalized_title": "devops engineer",
-    "manager_roles": ["VP of Engineering"],
+    "manager_roles": [
+      "VP of Engineering"
+    ],
     "matching_phrases": [],
     "matching_words": [],
     "company_object": {
@@ -355,11 +403,17 @@
       "seo_description": "Initech Solutions - Cloud Infrastructure",
       "city": "Austin",
       "postal_code": "73301",
-      "company_keywords": ["cloud", "devops", "infrastructure"],
+      "company_keywords": [
+        "cloud",
+        "devops",
+        "infrastructure"
+      ],
       "alexa_ranking": 75000,
       "publicly_traded_symbol": null,
       "publicly_traded_exchange": null,
-      "investors": ["Lightspeed Venture Partners"],
+      "investors": [
+        "Lightspeed Venture Partners"
+      ],
       "funding_stage": "series_c",
       "has_blurred_data": false,
       "technology_slugs": [
@@ -369,7 +423,13 @@
         "docker",
         "golang"
       ],
-      "technology_names": ["Kubernetes", "Terraform", "AWS", "Docker", "Go"]
+      "technology_names": [
+        "Kubernetes",
+        "Terraform",
+        "AWS",
+        "Docker",
+        "Go"
+      ]
     },
     "locations": [
       {
@@ -394,9 +454,9 @@
   },
   {
     "id": 100004,
-    "job_title": "Backend Engineer — .NET",
+    "job_title": "Backend Engineer \u2014 .NET",
     "url": "https://example.com/job/100004",
-    "date_posted": "2026-02-25",
+    "date_posted": "2026-05-05",
     "has_blurred_data": false,
     "company": "Contoso Ltd",
     "final_url": "https://contoso.com/careers/backend-engineer-dotnet",
@@ -410,21 +470,29 @@
     "postal_code": "EC2A 1NT",
     "remote": false,
     "hybrid": true,
-    "salary_string": "£70,000 - £95,000",
+    "salary_string": "\u00a370,000 - \u00a395,000",
     "min_annual_salary": 70000,
     "min_annual_salary_usd": 88000,
     "max_annual_salary": 95000,
     "max_annual_salary_usd": 119000,
     "avg_annual_salary_usd": 103500,
     "salary_currency": "GBP",
-    "countries": ["United Kingdom"],
-    "country": "United Kingdom",
-    "country_codes": ["GB"],
-    "country_code": "GB",
-    "cities": ["London"],
-    "continents": ["Europe"],
-    "seniority": "mid_level",
-    "discovered_at": "2026-02-25T09:00:00",
+    "countries": [
+      "United States"
+    ],
+    "country": "United States",
+    "country_codes": [
+      "US"
+    ],
+    "country_code": "US",
+    "cities": [
+      "London"
+    ],
+    "continents": [
+      "Europe"
+    ],
+    "seniority": "staff",
+    "discovered_at": "2026-05-05T10:00:00",
     "company_domain": "contoso.com",
     "hiring_team": [
       {
@@ -438,12 +506,22 @@
     ],
     "reposted": false,
     "date_reposted": null,
-    "employment_statuses": ["full_time"],
+    "employment_statuses": [
+      "temporary"
+    ],
     "easy_apply": false,
-    "technology_slugs": ["dotnet", "csharp", "azure", "postgresql", "rabbitmq"],
-    "description": "## Backend Engineer — .NET\n\nContoso Ltd is hiring a Backend Engineer to work on our core platform built with .NET and Azure.\n\n## What You'll Do\n\n- Design and implement RESTful APIs using ASP.NET Core\n- Work with PostgreSQL and Entity Framework Core\n- Build event-driven microservices using RabbitMQ\n- Deploy and monitor services on Azure (App Service, AKS)\n- Write comprehensive unit and integration tests\n- Collaborate with frontend and mobile teams\n\n## Requirements\n\n- 3+ years of .NET / C# experience\n- Experience with ASP.NET Core Web API\n- Solid understanding of relational databases (PostgreSQL preferred)\n- Knowledge of message brokers (RabbitMQ, Azure Service Bus)\n- Familiarity with Docker and container orchestration\n\n## We Offer\n\n- Competitive salary + pension\n- 25 days annual leave + bank holidays\n- Hybrid working (3 days office / 2 days remote)\n- Private healthcare\n- Annual learning budget of £2,000",
+    "technology_slugs": [
+      "dotnet",
+      "csharp",
+      "azure",
+      "postgresql",
+      "rabbitmq"
+    ],
+    "description": "## Backend Engineer \u2014 .NET\n\nContoso Ltd is hiring a Backend Engineer to work on our core platform built with .NET and Azure.\n\n## What You'll Do\n\n- Design and implement RESTful APIs using ASP.NET Core\n- Work with PostgreSQL and Entity Framework Core\n- Build event-driven microservices using RabbitMQ\n- Deploy and monitor services on Azure (App Service, AKS)\n- Write comprehensive unit and integration tests\n- Collaborate with frontend and mobile teams\n\n## Requirements\n\n- 3+ years of .NET / C# experience\n- Experience with ASP.NET Core Web API\n- Solid understanding of relational databases (PostgreSQL preferred)\n- Knowledge of message brokers (RabbitMQ, Azure Service Bus)\n- Familiarity with Docker and container orchestration\n\n## We Offer\n\n- Competitive salary + pension\n- 25 days annual leave + bank holidays\n- Hybrid working (3 days office / 2 days remote)\n- Private healthcare\n- Annual learning budget of \u00a32,000",
     "normalized_title": "backend engineer",
-    "manager_roles": ["CTO"],
+    "manager_roles": [
+      "CTO"
+    ],
     "matching_phrases": [],
     "matching_words": [],
     "company_object": {
@@ -479,15 +557,31 @@
       "seo_description": "Contoso Ltd - Enterprise Software",
       "city": "London",
       "postal_code": "EC2A 1NT",
-      "company_keywords": ["enterprise", "fintech", ".net"],
+      "company_keywords": [
+        "enterprise",
+        "fintech",
+        ".net"
+      ],
       "alexa_ranking": 30000,
       "publicly_traded_symbol": null,
       "publicly_traded_exchange": null,
       "investors": [],
       "funding_stage": null,
       "has_blurred_data": false,
-      "technology_slugs": ["dotnet", "csharp", "azure", "postgresql", "react"],
-      "technology_names": [".NET", "C#", "Azure", "PostgreSQL", "React"]
+      "technology_slugs": [
+        "dotnet",
+        "csharp",
+        "azure",
+        "postgresql",
+        "react"
+      ],
+      "technology_names": [
+        ".NET",
+        "C#",
+        "Azure",
+        "PostgreSQL",
+        "React"
+      ]
     },
     "locations": [
       {
@@ -514,7 +608,7 @@
     "id": 100005,
     "job_title": "Machine Learning Engineer",
     "url": "https://example.com/job/100005",
-    "date_posted": "2026-02-24",
+    "date_posted": "2026-05-01",
     "has_blurred_data": false,
     "company": "NeuraTech AI",
     "final_url": "https://neuratech.ai/careers/ml-engineer",
@@ -535,14 +629,20 @@
     "max_annual_salary_usd": 220000,
     "avg_annual_salary_usd": 190000,
     "salary_currency": "USD",
-    "countries": ["United States"],
-    "country": "United States",
-    "country_codes": ["US"],
-    "country_code": "US",
+    "countries": [
+      "United Kingdom"
+    ],
+    "country": "United Kingdom",
+    "country_codes": [
+      "GB"
+    ],
+    "country_code": "GB",
     "cities": [],
-    "continents": ["North America"],
-    "seniority": "senior",
-    "discovered_at": "2026-02-24T16:45:00",
+    "continents": [
+      "North America"
+    ],
+    "seniority": "c_level",
+    "discovered_at": "2026-05-01T10:00:00",
     "company_domain": "neuratech.ai",
     "hiring_team": [
       {
@@ -556,7 +656,9 @@
     ],
     "reposted": false,
     "date_reposted": null,
-    "employment_statuses": ["full_time"],
+    "employment_statuses": [
+      "internship"
+    ],
     "easy_apply": true,
     "technology_slugs": [
       "python",
@@ -567,7 +669,9 @@
     ],
     "description": "## Machine Learning Engineer\n\nNeuraTech AI is looking for an experienced ML Engineer to build and deploy production machine learning systems.\n\n## Responsibilities\n\n- Design and train ML models for NLP and computer vision tasks\n- Build end-to-end ML pipelines from data ingestion to model serving\n- Optimize model performance and inference latency\n- Deploy models to production using Kubernetes and SageMaker\n- Collaborate with research scientists to productionize novel algorithms\n- Establish MLOps best practices (experiment tracking, model registry, A/B testing)\n\n## Requirements\n\n- MS or PhD in Computer Science, ML, or related field\n- 4+ years of industry ML engineering experience\n- Strong Python skills with PyTorch or TensorFlow\n- Experience deploying models at scale (Kubernetes, AWS SageMaker)\n- Solid understanding of ML fundamentals (optimization, regularization, evaluation)\n- Experience with data processing at scale (Spark, Ray)\n\n## Benefits\n\n- Top-of-market compensation\n- Fully remote with quarterly team offsites\n- Unlimited PTO\n- $5,000 annual learning stipend\n- Latest hardware (M-series Mac or GPU workstation)",
     "normalized_title": "machine learning engineer",
-    "manager_roles": ["Head of AI"],
+    "manager_roles": [
+      "Head of AI"
+    ],
     "matching_phrases": [],
     "matching_words": [],
     "company_object": {
@@ -603,11 +707,18 @@
       "seo_description": "NeuraTech AI - AI & Document Understanding",
       "city": "Palo Alto",
       "postal_code": "94301",
-      "company_keywords": ["ai", "machine learning", "nlp"],
+      "company_keywords": [
+        "ai",
+        "machine learning",
+        "nlp"
+      ],
       "alexa_ranking": 500000,
       "publicly_traded_symbol": null,
       "publicly_traded_exchange": null,
-      "investors": ["Y Combinator", "Founders Fund"],
+      "investors": [
+        "Y Combinator",
+        "Founders Fund"
+      ],
       "funding_stage": "series_a",
       "has_blurred_data": false,
       "technology_slugs": [
@@ -631,7 +742,7 @@
     "id": 100006,
     "job_title": "Junior QA Analyst",
     "url": "https://example.com/job/100006",
-    "date_posted": "2026-02-26",
+    "date_posted": "2026-04-28",
     "has_blurred_data": false,
     "company": "Contoso Ltd",
     "final_url": null,
@@ -652,22 +763,36 @@
     "max_annual_salary_usd": null,
     "avg_annual_salary_usd": null,
     "salary_currency": null,
-    "countries": ["United Kingdom"],
-    "country": "United Kingdom",
-    "country_codes": ["GB"],
-    "country_code": "GB",
-    "cities": ["London"],
-    "continents": ["Europe"],
+    "countries": [
+      "Germany"
+    ],
+    "country": "Germany",
+    "country_codes": [
+      "DE"
+    ],
+    "country_code": "DE",
+    "cities": [
+      "London"
+    ],
+    "continents": [
+      "Europe"
+    ],
     "seniority": "junior",
-    "discovered_at": "2026-02-26T11:30:00",
+    "discovered_at": "2026-04-28T10:00:00",
     "company_domain": "contoso.com",
     "hiring_team": [],
     "reposted": false,
     "date_reposted": null,
-    "employment_statuses": ["full_time"],
+    "employment_statuses": [
+      "full_time"
+    ],
     "easy_apply": true,
-    "technology_slugs": ["selenium", "jira", "postman"],
-    "description": "## Junior QA Analyst\n\nContoso Ltd is looking for a Junior QA Analyst to join our quality engineering team.\n\n## Responsibilities\n\n- Execute manual and automated test cases\n- Write and maintain test documentation\n- Report bugs and track them through resolution\n- Participate in sprint planning and retrospectives\n- Assist with regression testing for releases\n\n## Requirements\n\n- Bachelor's degree in CS or related field (or equivalent experience)\n- Basic understanding of software testing concepts\n- Familiarity with test management tools (Jira, TestRail)\n- Eagerness to learn and grow\n- Strong attention to detail\n\nNo prior professional QA experience required — we provide comprehensive training!",
+    "technology_slugs": [
+      "selenium",
+      "jira",
+      "postman"
+    ],
+    "description": "## Junior QA Analyst\n\nContoso Ltd is looking for a Junior QA Analyst to join our quality engineering team.\n\n## Responsibilities\n\n- Execute manual and automated test cases\n- Write and maintain test documentation\n- Report bugs and track them through resolution\n- Participate in sprint planning and retrospectives\n- Assist with regression testing for releases\n\n## Requirements\n\n- Bachelor's degree in CS or related field (or equivalent experience)\n- Basic understanding of software testing concepts\n- Familiarity with test management tools (Jira, TestRail)\n- Eagerness to learn and grow\n- Strong attention to detail\n\nNo prior professional QA experience required \u2014 we provide comprehensive training!",
     "normalized_title": "qa analyst",
     "manager_roles": [],
     "matching_phrases": [],
@@ -705,15 +830,31 @@
       "seo_description": "Contoso Ltd - Enterprise Software",
       "city": "London",
       "postal_code": "EC2A 1NT",
-      "company_keywords": ["enterprise", "fintech", ".net"],
+      "company_keywords": [
+        "enterprise",
+        "fintech",
+        ".net"
+      ],
       "alexa_ranking": 30000,
       "publicly_traded_symbol": null,
       "publicly_traded_exchange": null,
       "investors": [],
       "funding_stage": null,
       "has_blurred_data": false,
-      "technology_slugs": ["dotnet", "csharp", "azure", "postgresql", "react"],
-      "technology_names": [".NET", "C#", "Azure", "PostgreSQL", "React"]
+      "technology_slugs": [
+        "dotnet",
+        "csharp",
+        "azure",
+        "postgresql",
+        "react"
+      ],
+      "technology_names": [
+        ".NET",
+        "C#",
+        "Azure",
+        "PostgreSQL",
+        "React"
+      ]
     },
     "locations": [
       {
@@ -740,7 +881,7 @@
     "id": 100007,
     "job_title": "Staff Platform Engineer",
     "url": "https://example.com/job/100007",
-    "date_posted": "2026-02-21",
+    "date_posted": "2026-04-23",
     "has_blurred_data": false,
     "company": "Acme Corp",
     "final_url": "https://acme.com/careers/staff-platform-engineer",
@@ -761,14 +902,22 @@
     "max_annual_salary_usd": 250000,
     "avg_annual_salary_usd": 220000,
     "salary_currency": "USD",
-    "countries": ["United States"],
+    "countries": [
+      "United States"
+    ],
     "country": "United States",
-    "country_codes": ["US"],
+    "country_codes": [
+      "US"
+    ],
     "country_code": "US",
-    "cities": ["New York"],
-    "continents": ["North America"],
-    "seniority": "staff",
-    "discovered_at": "2026-02-21T07:00:00",
+    "cities": [
+      "New York"
+    ],
+    "continents": [
+      "North America"
+    ],
+    "seniority": "mid_level",
+    "discovered_at": "2026-04-23T10:00:00",
     "company_domain": "acme.com",
     "hiring_team": [
       {
@@ -782,7 +931,9 @@
     ],
     "reposted": false,
     "date_reposted": null,
-    "employment_statuses": ["full_time"],
+    "employment_statuses": [
+      "part_time"
+    ],
     "easy_apply": false,
     "technology_slugs": [
       "kubernetes",
@@ -791,9 +942,11 @@
       "aws",
       "postgresql"
     ],
-    "description": "## Staff Platform Engineer\n\nAcme Corp is seeking a Staff Platform Engineer to lead the design and evolution of our internal developer platform.\n\n## What You'll Do\n\n- Architect and build our internal developer platform (Kubernetes-based)\n- Define platform APIs, abstractions, and golden paths for product engineering teams\n- Drive adoption of platform services through documentation, tooling, and enablement\n- Lead technical design reviews and mentor senior engineers\n- Own reliability, scalability, and cost efficiency of shared infrastructure\n- Collaborate with Security to embed guardrails into the platform\n\n## Requirements\n\n- 8+ years of software engineering experience, with 3+ in platform/infrastructure roles\n- Expert-level Kubernetes knowledge (operators, CRDs, networking, storage)\n- Strong Go or Rust programming skills\n- Deep experience with IaC (Terraform, Crossplane, or Pulumi)\n- Track record of leading cross-team technical initiatives\n\n## Compensation\n\n- Base: $190K–$250K\n- Equity: significant RSU grant\n- Annual performance bonus",
+    "description": "## Staff Platform Engineer\n\nAcme Corp is seeking a Staff Platform Engineer to lead the design and evolution of our internal developer platform.\n\n## What You'll Do\n\n- Architect and build our internal developer platform (Kubernetes-based)\n- Define platform APIs, abstractions, and golden paths for product engineering teams\n- Drive adoption of platform services through documentation, tooling, and enablement\n- Lead technical design reviews and mentor senior engineers\n- Own reliability, scalability, and cost efficiency of shared infrastructure\n- Collaborate with Security to embed guardrails into the platform\n\n## Requirements\n\n- 8+ years of software engineering experience, with 3+ in platform/infrastructure roles\n- Expert-level Kubernetes knowledge (operators, CRDs, networking, storage)\n- Strong Go or Rust programming skills\n- Deep experience with IaC (Terraform, Crossplane, or Pulumi)\n- Track record of leading cross-team technical initiatives\n\n## Compensation\n\n- Base: $190K\u2013$250K\n- Equity: significant RSU grant\n- Annual performance bonus",
     "normalized_title": "platform engineer",
-    "manager_roles": ["Engineering Manager"],
+    "manager_roles": [
+      "Engineering Manager"
+    ],
     "matching_phrases": [],
     "matching_words": [],
     "company_object": {
@@ -829,11 +982,18 @@
       "seo_description": "Acme Corp - Data Infrastructure & Analytics",
       "city": "New York",
       "postal_code": "10001",
-      "company_keywords": ["data", "analytics", "infrastructure"],
+      "company_keywords": [
+        "data",
+        "analytics",
+        "infrastructure"
+      ],
       "alexa_ranking": 45000,
       "publicly_traded_symbol": null,
       "publicly_traded_exchange": null,
-      "investors": ["Sequoia Capital", "a16z"],
+      "investors": [
+        "Sequoia Capital",
+        "a16z"
+      ],
       "funding_stage": "series_b",
       "has_blurred_data": false,
       "technology_slugs": [
@@ -876,7 +1036,7 @@
     "id": 100008,
     "job_title": "Praktikant:in Softwareentwicklung",
     "url": "https://example.com/job/100008",
-    "date_posted": "2026-02-23",
+    "date_posted": "2026-04-18",
     "has_blurred_data": false,
     "company": "TechBerlin GmbH",
     "final_url": "https://techberlin.de/karriere/praktikum-softwareentwicklung",
@@ -897,22 +1057,36 @@
     "max_annual_salary_usd": null,
     "avg_annual_salary_usd": null,
     "salary_currency": null,
-    "countries": ["Germany"],
-    "country": "Germany",
-    "country_codes": ["DE"],
-    "country_code": "DE",
-    "cities": ["Berlin"],
-    "continents": ["Europe"],
-    "seniority": "junior",
-    "discovered_at": "2026-02-23T12:00:00",
+    "countries": [
+      "United Kingdom"
+    ],
+    "country": "United Kingdom",
+    "country_codes": [
+      "GB"
+    ],
+    "country_code": "GB",
+    "cities": [
+      "Berlin"
+    ],
+    "continents": [
+      "Europe"
+    ],
+    "seniority": "senior",
+    "discovered_at": "2026-04-18T10:00:00",
     "company_domain": "techberlin.de",
     "hiring_team": [],
     "reposted": false,
     "date_reposted": null,
-    "employment_statuses": ["internship"],
+    "employment_statuses": [
+      "contract"
+    ],
     "easy_apply": false,
-    "technology_slugs": ["java", "spring-boot", "postgresql"],
-    "description": "## Praktikant:in Softwareentwicklung\n\nDu suchst ein spannendes Praktikum in der Softwareentwicklung? Bei TechBerlin GmbH arbeitest du an echten Produkten und lernst moderne Technologien kennen.\n\n## Deine Aufgaben\n\n- Mitarbeit an der Entwicklung von Web-Applikationen mit Java & Spring Boot\n- Schreiben von Unit- und Integrationstests\n- Teilnahme an Code Reviews und täglichen Stand-ups\n- Dokumentation von technischen Lösungen\n\n## Was du mitbringst\n\n- Eingeschriebene:r Student:in der Informatik oder vergleichbar\n- Grundkenntnisse in Java oder einer anderen objektorientierten Sprache\n- Interesse an agiler Softwareentwicklung\n- Gute Deutsch- und Englischkenntnisse\n\n## Was wir bieten\n\n- Praktikumsvergütung\n- Flexible Arbeitszeiten\n- Modernes Büro in Berlin-Mitte\n- Mentoring durch erfahrene Entwickler:innen",
+    "technology_slugs": [
+      "java",
+      "spring-boot",
+      "postgresql"
+    ],
+    "description": "## Praktikant:in Softwareentwicklung\n\nDu suchst ein spannendes Praktikum in der Softwareentwicklung? Bei TechBerlin GmbH arbeitest du an echten Produkten und lernst moderne Technologien kennen.\n\n## Deine Aufgaben\n\n- Mitarbeit an der Entwicklung von Web-Applikationen mit Java & Spring Boot\n- Schreiben von Unit- und Integrationstests\n- Teilnahme an Code Reviews und t\u00e4glichen Stand-ups\n- Dokumentation von technischen L\u00f6sungen\n\n## Was du mitbringst\n\n- Eingeschriebene:r Student:in der Informatik oder vergleichbar\n- Grundkenntnisse in Java oder einer anderen objektorientierten Sprache\n- Interesse an agiler Softwareentwicklung\n- Gute Deutsch- und Englischkenntnisse\n\n## Was wir bieten\n\n- Praktikumsverg\u00fctung\n- Flexible Arbeitszeiten\n- Modernes B\u00fcro in Berlin-Mitte\n- Mentoring durch erfahrene Entwickler:innen",
     "normalized_title": "software development intern",
     "manager_roles": [],
     "matching_phrases": [],
@@ -950,7 +1124,11 @@
       "seo_description": "TechBerlin GmbH - Cloud-native Software",
       "city": "Berlin",
       "postal_code": "10115",
-      "company_keywords": ["software", "cloud", "berlin"],
+      "company_keywords": [
+        "software",
+        "cloud",
+        "berlin"
+      ],
       "alexa_ranking": 900000,
       "publicly_traded_symbol": null,
       "publicly_traded_exchange": null,
@@ -997,7 +1175,7 @@
     "id": 100009,
     "job_title": "Product Manager",
     "url": "https://example.com/job/100009",
-    "date_posted": "2026-02-19",
+    "date_posted": "2026-04-08",
     "has_blurred_data": false,
     "company": "Globex Industries",
     "final_url": "https://globex.io/careers/product-manager",
@@ -1018,14 +1196,22 @@
     "max_annual_salary_usd": 200000,
     "avg_annual_salary_usd": 175000,
     "salary_currency": "USD",
-    "countries": ["United States"],
-    "country": "United States",
-    "country_codes": ["US"],
-    "country_code": "US",
-    "cities": ["San Francisco"],
-    "continents": ["North America"],
-    "seniority": "senior",
-    "discovered_at": "2026-02-19T15:30:00",
+    "countries": [
+      "Germany"
+    ],
+    "country": "Germany",
+    "country_codes": [
+      "DE"
+    ],
+    "country_code": "DE",
+    "cities": [
+      "San Francisco"
+    ],
+    "continents": [
+      "North America"
+    ],
+    "seniority": "staff",
+    "discovered_at": "2026-04-08T10:00:00",
     "company_domain": "globex.io",
     "hiring_team": [
       {
@@ -1039,12 +1225,16 @@
     ],
     "reposted": false,
     "date_reposted": null,
-    "employment_statuses": ["full_time"],
+    "employment_statuses": [
+      "temporary"
+    ],
     "easy_apply": true,
     "technology_slugs": [],
-    "description": "## Product Manager\n\nGlobex Industries is hiring a Senior Product Manager to drive strategy for our developer tools platform.\n\n## Responsibilities\n\n- Define product vision and roadmap for our core developer tools\n- Conduct user research and analyze usage metrics to inform decisions\n- Write clear PRDs and user stories\n- Collaborate closely with engineering, design, and marketing\n- Prioritize features based on impact and feasibility\n- Communicate product updates to stakeholders and customers\n\n## Requirements\n\n- 5+ years of product management experience (B2B SaaS preferred)\n- Strong technical background — ability to discuss APIs, architecture, and tradeoffs with engineers\n- Experience with developer tools or infrastructure products\n- Data-driven decision making (SQL, analytics tools)\n- Excellent written and verbal communication\n\n## Nice to Have\n\n- Engineering background\n- Experience at a startup (<200 people)\n- Familiarity with PLG (product-led growth) strategies",
+    "description": "## Product Manager\n\nGlobex Industries is hiring a Senior Product Manager to drive strategy for our developer tools platform.\n\n## Responsibilities\n\n- Define product vision and roadmap for our core developer tools\n- Conduct user research and analyze usage metrics to inform decisions\n- Write clear PRDs and user stories\n- Collaborate closely with engineering, design, and marketing\n- Prioritize features based on impact and feasibility\n- Communicate product updates to stakeholders and customers\n\n## Requirements\n\n- 5+ years of product management experience (B2B SaaS preferred)\n- Strong technical background \u2014 ability to discuss APIs, architecture, and tradeoffs with engineers\n- Experience with developer tools or infrastructure products\n- Data-driven decision making (SQL, analytics tools)\n- Excellent written and verbal communication\n\n## Nice to Have\n\n- Engineering background\n- Experience at a startup (<200 people)\n- Familiarity with PLG (product-led growth) strategies",
     "normalized_title": "product manager",
-    "manager_roles": ["VP of Product"],
+    "manager_roles": [
+      "VP of Product"
+    ],
     "matching_phrases": [],
     "matching_words": [],
     "company_object": {
@@ -1080,11 +1270,18 @@
       "seo_description": "Globex Industries - Developer Tools",
       "city": "San Francisco",
       "postal_code": "94105",
-      "company_keywords": ["developer tools", "productivity", "saas"],
+      "company_keywords": [
+        "developer tools",
+        "productivity",
+        "saas"
+      ],
       "alexa_ranking": 120000,
       "publicly_traded_symbol": null,
       "publicly_traded_exchange": null,
-      "investors": ["Y Combinator", "Kleiner Perkins"],
+      "investors": [
+        "Y Combinator",
+        "Kleiner Perkins"
+      ],
       "funding_stage": "series_a",
       "has_blurred_data": false,
       "technology_slugs": [
@@ -1127,7 +1324,7 @@
     "id": 100010,
     "job_title": "Security Engineer",
     "url": "https://example.com/job/100010",
-    "date_posted": "2026-02-17",
+    "date_posted": "2026-03-29",
     "has_blurred_data": false,
     "company": "Initech Solutions",
     "final_url": "https://initech.dev/jobs/security-engineer",
@@ -1148,21 +1345,36 @@
     "max_annual_salary_usd": 190000,
     "avg_annual_salary_usd": 170000,
     "salary_currency": "USD",
-    "countries": ["United States"],
+    "countries": [
+      "United States"
+    ],
     "country": "United States",
-    "country_codes": ["US"],
+    "country_codes": [
+      "US"
+    ],
     "country_code": "US",
-    "cities": ["Austin"],
-    "continents": ["North America"],
-    "seniority": "senior",
-    "discovered_at": "2026-02-17T09:45:00",
+    "cities": [
+      "Austin"
+    ],
+    "continents": [
+      "North America"
+    ],
+    "seniority": "c_level",
+    "discovered_at": "2026-03-29T10:00:00",
     "company_domain": "initech.dev",
     "hiring_team": [],
     "reposted": false,
     "date_reposted": null,
-    "employment_statuses": ["full_time"],
+    "employment_statuses": [
+      "internship"
+    ],
     "easy_apply": false,
-    "technology_slugs": ["aws", "terraform", "python", "golang"],
+    "technology_slugs": [
+      "aws",
+      "terraform",
+      "python",
+      "golang"
+    ],
     "description": "## Security Engineer\n\nJoin our security team at Initech Solutions to protect our cloud infrastructure and customer data.\n\n## Responsibilities\n\n- Conduct security assessments and penetration testing of cloud infrastructure\n- Implement and maintain security tooling (SIEM, IDS, vulnerability scanners)\n- Develop security automation and incident response playbooks\n- Review infrastructure-as-code for security best practices\n- Collaborate with DevOps to embed security into CI/CD pipelines\n- Lead security incident investigations and post-mortems\n\n## Requirements\n\n- 5+ years of security engineering experience\n- Deep AWS security knowledge (IAM, GuardDuty, Security Hub, KMS)\n- Experience with Terraform security scanning (tfsec, Checkov)\n- Proficiency in Python or Go for security tooling\n- Knowledge of OWASP Top 10 and common attack vectors\n- Relevant certifications (AWS Security Specialty, OSCP, CEH) are a plus",
     "normalized_title": "security engineer",
     "manager_roles": [],
@@ -1201,11 +1413,17 @@
       "seo_description": "Initech Solutions - Cloud Infrastructure",
       "city": "Austin",
       "postal_code": "73301",
-      "company_keywords": ["cloud", "devops", "infrastructure"],
+      "company_keywords": [
+        "cloud",
+        "devops",
+        "infrastructure"
+      ],
       "alexa_ranking": 75000,
       "publicly_traded_symbol": null,
       "publicly_traded_exchange": null,
-      "investors": ["Lightspeed Venture Partners"],
+      "investors": [
+        "Lightspeed Venture Partners"
+      ],
       "funding_stage": "series_c",
       "has_blurred_data": false,
       "technology_slugs": [
@@ -1215,7 +1433,13 @@
         "docker",
         "golang"
       ],
-      "technology_names": ["Kubernetes", "Terraform", "AWS", "Docker", "Go"]
+      "technology_names": [
+        "Kubernetes",
+        "Terraform",
+        "AWS",
+        "Docker",
+        "Go"
+      ]
     },
     "locations": [
       {
@@ -1242,7 +1466,7 @@
     "id": 100011,
     "job_title": "Data Analyst (Contract)",
     "url": "https://example.com/job/100011",
-    "date_posted": "2026-02-27",
+    "date_posted": "2026-03-19",
     "has_blurred_data": false,
     "company": "Acme Corp",
     "final_url": null,
@@ -1263,22 +1487,36 @@
     "max_annual_salary_usd": null,
     "avg_annual_salary_usd": null,
     "salary_currency": "USD",
-    "countries": ["United States"],
-    "country": "United States",
-    "country_codes": ["US"],
-    "country_code": "US",
-    "cities": ["New York"],
-    "continents": ["North America"],
-    "seniority": "mid_level",
-    "discovered_at": "2026-02-27T18:00:00",
+    "countries": [
+      "United Kingdom"
+    ],
+    "country": "United Kingdom",
+    "country_codes": [
+      "GB"
+    ],
+    "country_code": "GB",
+    "cities": [
+      "New York"
+    ],
+    "continents": [
+      "North America"
+    ],
+    "seniority": "junior",
+    "discovered_at": "2026-03-19T10:00:00",
     "company_domain": "acme.com",
     "hiring_team": [],
     "reposted": false,
     "date_reposted": null,
-    "employment_statuses": ["contract"],
+    "employment_statuses": [
+      "full_time"
+    ],
     "easy_apply": false,
-    "technology_slugs": ["python", "sql", "tableau"],
-    "description": "## Data Analyst (Contract)\n\nAcme Corp is looking for a Data Analyst on a 6-month contract to support our business intelligence initiatives.\n\n## Responsibilities\n\n- Build and maintain dashboards and reports in Tableau\n- Write complex SQL queries to extract insights from our data warehouse\n- Analyze business metrics and present findings to stakeholders\n- Collaborate with data engineers to improve data quality\n- Automate recurring reports using Python\n\n## Requirements\n\n- 3+ years of data analysis experience\n- Advanced SQL skills\n- Proficiency with Tableau or similar BI tools\n- Python experience for data manipulation (pandas, numpy)\n- Strong communication skills\n\n## Contract Details\n\n- Duration: 6 months (possible extension)\n- Rate: $60–$80/hr depending on experience\n- On-site in New York (no remote option)",
+    "technology_slugs": [
+      "python",
+      "sql",
+      "tableau"
+    ],
+    "description": "## Data Analyst (Contract)\n\nAcme Corp is looking for a Data Analyst on a 6-month contract to support our business intelligence initiatives.\n\n## Responsibilities\n\n- Build and maintain dashboards and reports in Tableau\n- Write complex SQL queries to extract insights from our data warehouse\n- Analyze business metrics and present findings to stakeholders\n- Collaborate with data engineers to improve data quality\n- Automate recurring reports using Python\n\n## Requirements\n\n- 3+ years of data analysis experience\n- Advanced SQL skills\n- Proficiency with Tableau or similar BI tools\n- Python experience for data manipulation (pandas, numpy)\n- Strong communication skills\n\n## Contract Details\n\n- Duration: 6 months (possible extension)\n- Rate: $60\u2013$80/hr depending on experience\n- On-site in New York (no remote option)",
     "normalized_title": "data analyst",
     "manager_roles": [],
     "matching_phrases": [],
@@ -1316,11 +1554,18 @@
       "seo_description": "Acme Corp - Data Infrastructure & Analytics",
       "city": "New York",
       "postal_code": "10001",
-      "company_keywords": ["data", "analytics", "infrastructure"],
+      "company_keywords": [
+        "data",
+        "analytics",
+        "infrastructure"
+      ],
       "alexa_ranking": 45000,
       "publicly_traded_symbol": null,
       "publicly_traded_exchange": null,
-      "investors": ["Sequoia Capital", "a16z"],
+      "investors": [
+        "Sequoia Capital",
+        "a16z"
+      ],
       "funding_stage": "series_b",
       "has_blurred_data": false,
       "technology_slugs": [
@@ -1363,7 +1608,7 @@
     "id": 100012,
     "job_title": "C-Level: Chief Technology Officer",
     "url": "https://example.com/job/100012",
-    "date_posted": "2026-02-15",
+    "date_posted": "2026-03-09",
     "has_blurred_data": false,
     "company": "NeuraTech AI",
     "final_url": "https://neuratech.ai/careers/cto",
@@ -1384,19 +1629,29 @@
     "max_annual_salary_usd": null,
     "avg_annual_salary_usd": null,
     "salary_currency": null,
-    "countries": ["United States"],
-    "country": "United States",
-    "country_codes": ["US"],
-    "country_code": "US",
-    "cities": ["Palo Alto"],
-    "continents": ["North America"],
-    "seniority": "c_level",
-    "discovered_at": "2026-02-15T06:00:00",
+    "countries": [
+      "Germany"
+    ],
+    "country": "Germany",
+    "country_codes": [
+      "DE"
+    ],
+    "country_code": "DE",
+    "cities": [
+      "Palo Alto"
+    ],
+    "continents": [
+      "North America"
+    ],
+    "seniority": "mid_level",
+    "discovered_at": "2026-03-09T10:00:00",
     "company_domain": "neuratech.ai",
     "hiring_team": [],
     "reposted": false,
     "date_reposted": null,
-    "employment_statuses": ["full_time"],
+    "employment_statuses": [
+      "part_time"
+    ],
     "easy_apply": false,
     "technology_slugs": [],
     "description": "## Chief Technology Officer\n\nNeuraTech AI is seeking a visionary CTO to lead our engineering organization through the next phase of growth.\n\nThis role reports directly to the CEO and is responsible for all technology strategy, architecture, and engineering team leadership.\n\nPlease apply with a cover letter describing your vision for AI infrastructure over the next 5 years.\n\n## Requirements\n\n- 15+ years in technology, with 5+ in executive leadership roles\n- Proven track record of scaling engineering teams (50+ engineers)\n- Deep expertise in AI/ML systems, distributed computing, and cloud architecture\n- Experience leading through IPO or major acquisition is a strong plus\n- Strong board-level communication skills",
@@ -1437,11 +1692,18 @@
       "seo_description": "NeuraTech AI - AI & Document Understanding",
       "city": "Palo Alto",
       "postal_code": "94301",
-      "company_keywords": ["ai", "machine learning", "nlp"],
+      "company_keywords": [
+        "ai",
+        "machine learning",
+        "nlp"
+      ],
       "alexa_ranking": 500000,
       "publicly_traded_symbol": null,
       "publicly_traded_exchange": null,
-      "investors": ["Y Combinator", "Founders Fund"],
+      "investors": [
+        "Y Combinator",
+        "Founders Fund"
+      ],
       "funding_stage": "series_a",
       "has_blurred_data": false,
       "technology_slugs": [
@@ -1484,7 +1746,7 @@
     "id": 100013,
     "job_title": "Part-Time Customer Support Specialist",
     "url": "https://example.com/job/100013",
-    "date_posted": "2026-02-28",
+    "date_posted": "2026-02-27",
     "has_blurred_data": false,
     "company": "Globex Industries",
     "final_url": "https://globex.io/careers/support-specialist",
@@ -1505,22 +1767,33 @@
     "max_annual_salary_usd": null,
     "avg_annual_salary_usd": null,
     "salary_currency": "USD",
-    "countries": ["United States", "Canada"],
+    "countries": [
+      "United States"
+    ],
     "country": "United States",
-    "country_codes": ["US", "CA"],
+    "country_codes": [
+      "US"
+    ],
     "country_code": "US",
     "cities": [],
-    "continents": ["North America"],
-    "seniority": "junior",
-    "discovered_at": "2026-02-28T10:00:00",
+    "continents": [
+      "North America"
+    ],
+    "seniority": "senior",
+    "discovered_at": "2026-02-27T10:00:00",
     "company_domain": "globex.io",
     "hiring_team": [],
     "reposted": false,
     "date_reposted": null,
-    "employment_statuses": ["part_time"],
+    "employment_statuses": [
+      "contract"
+    ],
     "easy_apply": true,
-    "technology_slugs": ["zendesk", "jira"],
-    "description": "## Part-Time Customer Support Specialist\n\nGlobex Industries is looking for a part-time Customer Support Specialist to help our growing user base.\n\n## Schedule\n\n- 20 hours/week\n- Flexible scheduling (core hours: 10am–2pm PST)\n- Fully remote\n\n## Responsibilities\n\n- Respond to customer inquiries via email and chat (Zendesk)\n- Troubleshoot basic technical issues and escalate when necessary\n- Create and maintain help center articles\n- Collect and relay customer feedback to the product team\n\n## Requirements\n\n- 1+ year of customer support experience (tech/SaaS preferred)\n- Excellent written English\n- Patience and empathy\n- Basic technical aptitude",
+    "technology_slugs": [
+      "zendesk",
+      "jira"
+    ],
+    "description": "## Part-Time Customer Support Specialist\n\nGlobex Industries is looking for a part-time Customer Support Specialist to help our growing user base.\n\n## Schedule\n\n- 20 hours/week\n- Flexible scheduling (core hours: 10am\u20132pm PST)\n- Fully remote\n\n## Responsibilities\n\n- Respond to customer inquiries via email and chat (Zendesk)\n- Troubleshoot basic technical issues and escalate when necessary\n- Create and maintain help center articles\n- Collect and relay customer feedback to the product team\n\n## Requirements\n\n- 1+ year of customer support experience (tech/SaaS preferred)\n- Excellent written English\n- Patience and empathy\n- Basic technical aptitude",
     "normalized_title": "customer support specialist",
     "manager_roles": [],
     "matching_phrases": [],
@@ -1558,11 +1831,18 @@
       "seo_description": "Globex Industries - Developer Tools",
       "city": "San Francisco",
       "postal_code": "94105",
-      "company_keywords": ["developer tools", "productivity", "saas"],
+      "company_keywords": [
+        "developer tools",
+        "productivity",
+        "saas"
+      ],
       "alexa_ranking": 120000,
       "publicly_traded_symbol": null,
       "publicly_traded_exchange": null,
-      "investors": ["Y Combinator", "Kleiner Perkins"],
+      "investors": [
+        "Y Combinator",
+        "Kleiner Perkins"
+      ],
       "funding_stage": "series_a",
       "has_blurred_data": false,
       "technology_slugs": [
@@ -1584,37 +1864,45 @@
   },
   {
     "id": 100014,
-    "job_title": "Développeur Full-Stack (Python/React)",
+    "job_title": "D\u00e9veloppeur Full-Stack (Python/React)",
     "url": "https://example.com/job/100014",
-    "date_posted": "2026-02-16",
+    "date_posted": "2026-02-17",
     "has_blurred_data": false,
     "company": "Lyon Digital SAS",
     "final_url": "https://lyondigital.fr/emplois/dev-fullstack",
     "source_url": "https://www.glassdoor.com/job-listing/view/100014",
     "location": "Lyon, France",
     "short_location": "Lyon",
-    "long_location": "Lyon, Auvergne-Rhône-Alpes, France",
+    "long_location": "Lyon, Auvergne-Rh\u00f4ne-Alpes, France",
     "state_code": null,
     "latitude": 45.764,
     "longitude": 4.8357,
     "postal_code": "69001",
     "remote": false,
     "hybrid": true,
-    "salary_string": "45 000 € - 55 000 €",
+    "salary_string": "45 000 \u20ac - 55 000 \u20ac",
     "min_annual_salary": 45000,
     "min_annual_salary_usd": 49000,
     "max_annual_salary": 55000,
     "max_annual_salary_usd": 60000,
     "avg_annual_salary_usd": 54500,
     "salary_currency": "EUR",
-    "countries": ["France"],
-    "country": "France",
-    "country_codes": ["FR"],
-    "country_code": "FR",
-    "cities": ["Lyon"],
-    "continents": ["Europe"],
-    "seniority": "mid_level",
-    "discovered_at": "2026-02-16T13:20:00",
+    "countries": [
+      "United Kingdom"
+    ],
+    "country": "United Kingdom",
+    "country_codes": [
+      "GB"
+    ],
+    "country_code": "GB",
+    "cities": [
+      "Lyon"
+    ],
+    "continents": [
+      "Europe"
+    ],
+    "seniority": "staff",
+    "discovered_at": "2026-02-17T10:00:00",
     "company_domain": "lyondigital.fr",
     "hiring_team": [
       {
@@ -1628,12 +1916,22 @@
     ],
     "reposted": false,
     "date_reposted": null,
-    "employment_statuses": ["full_time"],
+    "employment_statuses": [
+      "temporary"
+    ],
     "easy_apply": false,
-    "technology_slugs": ["python", "django", "react", "postgresql", "docker"],
-    "description": "## Développeur Full-Stack (Python/React)\n\nLyon Digital SAS recherche un développeur full-stack pour rejoindre notre équipe produit.\n\n## Missions\n\n- Développer et maintenir des applications web avec Django (backend) et React (frontend)\n- Concevoir des APIs RESTful performantes\n- Participer aux revues de code et aux cérémonies agiles\n- Écrire des tests unitaires et d'intégration\n- Déployer et monitorer les applications sur notre infrastructure Docker/Kubernetes\n\n## Profil recherché\n\n- 3+ ans d'expérience en développement full-stack\n- Maîtrise de Python (Django/Flask) et React/TypeScript\n- Bonne connaissance de PostgreSQL\n- Expérience avec Docker et CI/CD\n- Français courant + anglais professionnel\n\n## Avantages\n\n- Tickets restaurant\n- Mutuelle prise en charge à 100%\n- 2 jours de télétravail/semaine\n- Budget formation annuel",
+    "technology_slugs": [
+      "python",
+      "django",
+      "react",
+      "postgresql",
+      "docker"
+    ],
+    "description": "## D\u00e9veloppeur Full-Stack (Python/React)\n\nLyon Digital SAS recherche un d\u00e9veloppeur full-stack pour rejoindre notre \u00e9quipe produit.\n\n## Missions\n\n- D\u00e9velopper et maintenir des applications web avec Django (backend) et React (frontend)\n- Concevoir des APIs RESTful performantes\n- Participer aux revues de code et aux c\u00e9r\u00e9monies agiles\n- \u00c9crire des tests unitaires et d'int\u00e9gration\n- D\u00e9ployer et monitorer les applications sur notre infrastructure Docker/Kubernetes\n\n## Profil recherch\u00e9\n\n- 3+ ans d'exp\u00e9rience en d\u00e9veloppement full-stack\n- Ma\u00eetrise de Python (Django/Flask) et React/TypeScript\n- Bonne connaissance de PostgreSQL\n- Exp\u00e9rience avec Docker et CI/CD\n- Fran\u00e7ais courant + anglais professionnel\n\n## Avantages\n\n- Tickets restaurant\n- Mutuelle prise en charge \u00e0 100%\n- 2 jours de t\u00e9l\u00e9travail/semaine\n- Budget formation annuel",
     "normalized_title": "full-stack developer",
-    "manager_roles": ["Lead Developer"],
+    "manager_roles": [
+      "Lead Developer"
+    ],
     "matching_phrases": [],
     "matching_words": [],
     "company_object": {
@@ -1665,36 +1963,52 @@
       "last_funding_round_date": null,
       "last_funding_round_amount_readable": null,
       "employee_count_range": "11-50",
-      "long_description": "Lyon Digital SAS est une agence de développement web basée à Lyon, spécialisée dans les solutions sur mesure pour les PME.",
-      "seo_description": "Lyon Digital SAS - Développement Web",
+      "long_description": "Lyon Digital SAS est une agence de d\u00e9veloppement web bas\u00e9e \u00e0 Lyon, sp\u00e9cialis\u00e9e dans les solutions sur mesure pour les PME.",
+      "seo_description": "Lyon Digital SAS - D\u00e9veloppement Web",
       "city": "Lyon",
       "postal_code": "69001",
-      "company_keywords": ["web development", "digital agency", "lyon"],
+      "company_keywords": [
+        "web development",
+        "digital agency",
+        "lyon"
+      ],
       "alexa_ranking": 2000000,
       "publicly_traded_symbol": null,
       "publicly_traded_exchange": null,
       "investors": [],
       "funding_stage": null,
       "has_blurred_data": false,
-      "technology_slugs": ["python", "django", "react", "postgresql", "docker"],
-      "technology_names": ["Python", "Django", "React", "PostgreSQL", "Docker"]
+      "technology_slugs": [
+        "python",
+        "django",
+        "react",
+        "postgresql",
+        "docker"
+      ],
+      "technology_names": [
+        "Python",
+        "Django",
+        "React",
+        "PostgreSQL",
+        "Docker"
+      ]
     },
     "locations": [
       {
         "admin1_code": "ARA",
-        "admin1_name": "Auvergne-Rhône-Alpes",
+        "admin1_name": "Auvergne-Rh\u00f4ne-Alpes",
         "admin2_code": "69",
-        "admin2_name": "Rhône",
+        "admin2_name": "Rh\u00f4ne",
         "continent": "EU",
         "country_code": "FR",
         "country_name": "France",
-        "display_name": "Lyon, Auvergne-Rhône-Alpes, France",
+        "display_name": "Lyon, Auvergne-Rh\u00f4ne-Alpes, France",
         "feature_code": "PPL",
         "id": 2996944,
         "latitude": 45.764,
         "longitude": 4.8357,
         "name": "Lyon",
-        "state": "Auvergne-Rhône-Alpes",
+        "state": "Auvergne-Rh\u00f4ne-Alpes",
         "state_code": "ARA",
         "type": "city"
       }
@@ -1702,9 +2016,9 @@
   },
   {
     "id": 100015,
-    "job_title": "Temporary Data Entry Clerk — <script>alert('xss')</script>",
+    "job_title": "Temporary Data Entry Clerk \u2014 <script>alert('xss')</script>",
     "url": "https://example.com/job/100015",
-    "date_posted": "2026-02-28",
+    "date_posted": "2026-02-07",
     "has_blurred_data": false,
     "company": "Acme Corp",
     "final_url": null,
@@ -1725,19 +2039,29 @@
     "max_annual_salary_usd": null,
     "avg_annual_salary_usd": null,
     "salary_currency": "USD",
-    "countries": ["United States"],
-    "country": "United States",
-    "country_codes": ["US"],
-    "country_code": "US",
-    "cities": ["New York"],
-    "continents": ["North America"],
-    "seniority": null,
-    "discovered_at": "2026-02-28T20:00:00",
+    "countries": [
+      "Germany"
+    ],
+    "country": "Germany",
+    "country_codes": [
+      "DE"
+    ],
+    "country_code": "DE",
+    "cities": [
+      "New York"
+    ],
+    "continents": [
+      "North America"
+    ],
+    "seniority": "c_level",
+    "discovered_at": "2026-02-07T10:00:00",
     "company_domain": "acme.com",
     "hiring_team": [],
     "reposted": false,
     "date_reposted": null,
-    "employment_statuses": ["temporary"],
+    "employment_statuses": [
+      "internship"
+    ],
     "easy_apply": false,
     "technology_slugs": [],
     "description": "Temporary data entry position. Basic computer skills required.\n\nThis is a minimal job posting to test edge cases with sparse data.",
@@ -1778,11 +2102,18 @@
       "seo_description": "Acme Corp - Data Infrastructure & Analytics",
       "city": "New York",
       "postal_code": "10001",
-      "company_keywords": ["data", "analytics", "infrastructure"],
+      "company_keywords": [
+        "data",
+        "analytics",
+        "infrastructure"
+      ],
       "alexa_ranking": 45000,
       "publicly_traded_symbol": null,
       "publicly_traded_exchange": null,
-      "investors": ["Sequoia Capital", "a16z"],
+      "investors": [
+        "Sequoia Capital",
+        "a16z"
+      ],
       "funding_stage": "series_b",
       "has_blurred_data": false,
       "technology_slugs": [
@@ -1817,6 +2148,244 @@
         "name": "New York",
         "state": "New York",
         "state_code": "NY",
+        "type": "city"
+      }
+    ]
+  },
+  {
+    "id": 200001,
+    "job_title": "C++ / C# Engineer",
+    "url": "https://example.com/job/200001",
+    "date_posted": "2026-02-02",
+    "has_blurred_data": false,
+    "company": "Edge Case Labs",
+    "final_url": null,
+    "source_url": "https://www.linkedin.com/jobs/view/200001",
+    "location": null,
+    "short_location": null,
+    "long_location": null,
+    "state_code": null,
+    "latitude": null,
+    "longitude": null,
+    "postal_code": null,
+    "remote": null,
+    "hybrid": null,
+    "salary_string": null,
+    "min_annual_salary": null,
+    "min_annual_salary_usd": null,
+    "max_annual_salary": null,
+    "max_annual_salary_usd": null,
+    "avg_annual_salary_usd": null,
+    "salary_currency": null,
+    "countries": [
+      "United States"
+    ],
+    "country": "United States",
+    "country_codes": [
+      "US"
+    ],
+    "country_code": "US",
+    "cities": [],
+    "continents": [],
+    "seniority": "junior",
+    "discovered_at": "2026-02-02T10:00:00",
+    "company_domain": "edgecaselabs.io",
+    "hiring_team": [],
+    "reposted": false,
+    "date_reposted": null,
+    "employment_statuses": [
+      "full_time"
+    ],
+    "easy_apply": null,
+    "technology_slugs": [],
+    "company_object": null,
+    "description": null,
+    "locations": []
+  },
+  {
+    "id": 200002,
+    "job_title": "Full-Stack Engineer (React & Node.js) \u2014 \"Remote-First\" \ud83c\udf0d",
+    "url": "https://example.com/job/200002",
+    "date_posted": "2026-01-23",
+    "has_blurred_data": false,
+    "company": "Unicode & Co. <GmbH>",
+    "final_url": "https://unicodeandco.de/jobs/fullstack",
+    "source_url": "https://jobs.unicodeandco.de/fullstack-engineer",
+    "location": "Remote",
+    "short_location": "Remote",
+    "long_location": "Fully Remote \u2014 Worldwide",
+    "state_code": null,
+    "latitude": null,
+    "longitude": null,
+    "postal_code": null,
+    "remote": true,
+    "hybrid": false,
+    "salary_string": "\u20ac70,000 \u2013 \u20ac95,000",
+    "min_annual_salary": 70000,
+    "min_annual_salary_usd": 75000,
+    "max_annual_salary": 95000,
+    "max_annual_salary_usd": 101500,
+    "avg_annual_salary_usd": 88250,
+    "salary_currency": "EUR",
+    "countries": [
+      "United Kingdom"
+    ],
+    "country": "United Kingdom",
+    "country_codes": [
+      "GB"
+    ],
+    "country_code": "GB",
+    "cities": [],
+    "continents": [],
+    "seniority": "mid_level",
+    "discovered_at": "2026-01-23T10:00:00",
+    "company_domain": "unicodeandco.de",
+    "hiring_team": null,
+    "reposted": false,
+    "date_reposted": null,
+    "employment_statuses": [
+      "part_time"
+    ],
+    "easy_apply": true,
+    "technology_slugs": [
+      "react",
+      "nodejs",
+      "typescript",
+      "postgresql"
+    ],
+    "description": "We are Unicode & Co. <GmbH>, a fully remote engineering team building developer tools.\n\nAbout the role:\n- You will own the full product surface: from pixel-perfect UI to database schema\n- Our stack: React 19, Node.js 22, TypeScript (strict), PostgreSQL 16, Redis 7\n\nRequirements:\n\u2022 3+ years with React (hooks, concurrent mode, Suspense)\n\u2022 Strong TypeScript: generics, conditional types, template literal types\n\u2022 PostgreSQL: window functions, CTEs, explain analyze\n\u2022 Familiarity with event-driven architectures & message queues\n\nWhat we offer:\n\u20ac70,000\u2013\u20ac95,000 base + equity (0.1\u20130.5%)\n28 days PTO + local public holidays\nHome office stipend: \u20ac1,500/year\nConferences & learning budget: \u20ac2,000/year\n\nInterview process:\n1. 30-min intro call\n2. Take-home assignment (~4 hrs)\n3. Technical deep-dive (90 min)\n4. Offer\n\nApply via https://unicodeandco.de/apply?role=fullstack or email careers@unicodeandco.de with subject \"FS-2026\". \ud83c\udf89",
+    "locations": [],
+    "company_object": {
+      "id": "unicode-and-co",
+      "name": "Unicode & Co. <GmbH>",
+      "domain": "unicodeandco.de",
+      "linkedin_url": null,
+      "logo_url": null,
+      "employee_count": 12,
+      "employee_count_range": "11-50",
+      "short_description": "Developer tools for the modern web. 100% remote.",
+      "long_description": null,
+      "industry": "Software Development",
+      "founded_year": 2021,
+      "country": null,
+      "country_code": null,
+      "city": null,
+      "technology_slugs": [
+        "react",
+        "nodejs",
+        "typescript",
+        "postgresql",
+        "redis"
+      ],
+      "funding_stage": null,
+      "total_funding_usd": null
+    }
+  },
+  {
+    "id": 200003,
+    "job_title": "Junior Data Analyst",
+    "url": "https://example.com/job/200003",
+    "date_posted": "2026-01-13",
+    "has_blurred_data": false,
+    "company": "Startup XYZ",
+    "final_url": "https://startupxyz.com/careers/junior-analyst",
+    "source_url": "https://startupxyz.com/careers/junior-analyst",
+    "location": "Austin, TX",
+    "short_location": "Austin, TX",
+    "long_location": "Austin, TX 78701",
+    "state_code": "TX",
+    "latitude": 30.2672,
+    "longitude": -97.7431,
+    "postal_code": "78701",
+    "remote": false,
+    "hybrid": false,
+    "salary_string": null,
+    "min_annual_salary": null,
+    "min_annual_salary_usd": null,
+    "max_annual_salary": null,
+    "max_annual_salary_usd": null,
+    "avg_annual_salary_usd": null,
+    "salary_currency": null,
+    "countries": [
+      "Germany"
+    ],
+    "country": "Germany",
+    "country_codes": [
+      "DE"
+    ],
+    "country_code": "DE",
+    "cities": [
+      "Austin"
+    ],
+    "continents": [
+      "North America"
+    ],
+    "seniority": "senior",
+    "discovered_at": "2026-01-13T10:00:00",
+    "company_domain": "startupxyz.com",
+    "hiring_team": [
+      {
+        "first_name": "Alex",
+        "full_name": "Alex Rivera",
+        "image_url": null,
+        "linkedin_url": "https://www.linkedin.com/in/alex-rivera",
+        "role": "Head of People",
+        "thumbnail_url": null
+      }
+    ],
+    "reposted": true,
+    "date_reposted": "2026-05-01",
+    "employment_statuses": [
+      "contract"
+    ],
+    "easy_apply": false,
+    "technology_slugs": [
+      "python",
+      "sql",
+      "tableau"
+    ],
+    "description": "Entry-level position. No prior work experience required.",
+    "company_object": {
+      "id": "startup-xyz",
+      "name": "Startup XYZ",
+      "domain": "startupxyz.com",
+      "linkedin_url": "https://www.linkedin.com/company/startup-xyz",
+      "logo_url": null,
+      "employee_count": 30,
+      "employee_count_range": "11-50",
+      "short_description": null,
+      "long_description": null,
+      "industry": "FinTech",
+      "founded_year": 2023,
+      "country": "United States",
+      "country_code": "US",
+      "city": "Austin",
+      "technology_slugs": [
+        "python",
+        "sql",
+        "tableau",
+        "aws"
+      ],
+      "funding_stage": "seed",
+      "total_funding_usd": 2500000
+    },
+    "locations": [
+      {
+        "admin1_code": "TX",
+        "admin1_name": "Texas",
+        "admin2_code": "453",
+        "admin2_name": "Travis County",
+        "continent": "NA",
+        "country_code": "US",
+        "country_name": "United States",
+        "display_name": "Austin, Texas, United States",
+        "feature_code": "PPL",
+        "id": 4671654,
+        "latitude": 30.2672,
+        "longitude": -97.7431,
+        "name": "Austin",
+        "state": "Texas",
+        "state_code": "TX",
         "type": "city"
       }
     ]

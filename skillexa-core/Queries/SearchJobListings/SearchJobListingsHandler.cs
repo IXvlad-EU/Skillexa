@@ -10,11 +10,20 @@ public class SearchJobListingsHandler(ITheirStackClient client)
     {
         var request = new TheirStackSearchRequest
         {
-            JobTechnologySlugOr = query.Skills,
-            UrlDomainOr = query.SourceDomains,
-            Page = query.Page,
-            Limit = query.PageSize,
-            PostedAtMaxAgeDays = 30,
+            JobTechnologySlugOr          = query.Skills,
+            UrlDomainOr                  = query.SourceDomains,
+            Page                         = query.Page,
+            Limit                        = query.PageSize,
+            PostedAtMaxAgeDays           = query.PostedWithinDays,
+            JobTitleOr                   = query.JobTitles ?? [],
+            JobDescriptionContainsOr     = query.DescriptionKeywords ?? [],
+            Remote                       = query.Remote,
+            JobSeniorityOr               = query.Seniorities ?? [],
+            EmploymentStatusesOr         = query.EmploymentTypes ?? [],
+            JobCountryCodeOr             = query.Countries ?? [],
+            MinSalaryUsd                 = query.MinSalaryUsd,
+            MaxSalaryUsd                 = query.MaxSalaryUsd,
+            CompanyNamePartialMatchOr    = query.CompanyNames ?? [],
         };
 
         var response = await client.SearchAsync(request, cancellationToken);

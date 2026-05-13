@@ -1,6 +1,5 @@
 import express from "express";
-import pinoHttp from "pino-http";
-const pinoHttpMiddleware = pinoHttp.default ?? pinoHttp;
+import { pinoHttp } from "pino-http";
 import { logger } from "./utils/logger.js";
 import { auth } from "./middleware/auth.js";
 import { delay } from "./middleware/delay.js";
@@ -12,7 +11,7 @@ const PORT = Number(process.env["PORT"] ?? "3100");
 const app = express();
 
 // --- Global middleware ---
-app.use(pinoHttpMiddleware({ logger }));
+app.use(pinoHttp({ logger }));
 app.use(express.json());
 
 // --- Health endpoint (no auth) ---

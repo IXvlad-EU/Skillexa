@@ -1,7 +1,8 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { Group, Text } from "@mantine/core";
+import { Anchor, Group, Text } from "@mantine/core";
+import { Link } from "@/i18n/navigation";
 import { LocaleSwitcher } from "@/components/LocaleSwitcher";
 import classes from "./Navbar.module.scss";
 
@@ -14,6 +15,9 @@ export function Navbar() {
         {t("appName")}
       </Text>
       <Group gap="sm">
+        <Anchor component={Link} href="/jobs" size="sm">
+          {t("jobs")}
+        </Anchor>
         <LocaleSwitcher />
       </Group>
     </Group>

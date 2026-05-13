@@ -8,6 +8,8 @@ services:
       - "8080:8080"
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
+      - TheirStack__BaseUrl=${THEIRSTACK_BASE_URL}
+      - TheirStack__ApiKey=${THEIRSTACK_API_KEY}
       - AzureAd__TenantId=${ENTRA_TENANT_ID}
       - AzureAd__ClientId=${ENTRA_CORE_CLIENT_ID}
       - AzureAd__Audience=api://${ENTRA_CORE_CLIENT_ID}
@@ -44,7 +46,7 @@ services:
     container_name: skillexa-engine
     environment:
       - DOTNET_ENVIRONMENT=Production
-      - TheirStack__BaseUrl=http://mock-theirstack:3100
+      - TheirStack__BaseUrl=${THEIRSTACK_BASE_URL}
       - TheirStack__ApiKey=${THEIRSTACK_API_KEY}
       - Messaging__Provider=RabbitMQ
       - Messaging__ConnectionString=amqp://${RABBITMQ_USER}:${RABBITMQ_PASS}@rabbitmq:5672/${RABBITMQ_VHOST}
@@ -99,6 +101,7 @@ services:
       - "3000:3000"
     environment:
       - NODE_ENV=production
+      - AUTH_REQUIRED=${AUTH_REQUIRED}
       - SKILLEXA_CORE_BASE_URL=http://skillexa-core:8080
       - NEXTAUTH_URL=http://localhost:3000
       - NEXTAUTH_SECRET=${AUTH_SECRET}

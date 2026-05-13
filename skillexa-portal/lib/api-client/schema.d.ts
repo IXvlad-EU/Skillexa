@@ -147,6 +147,22 @@ export interface components {
              * @default 25
              */
             pageSize: number;
+            jobTitles?: null | string[];
+            descriptionKeywords?: null | string[];
+            remote?: null | boolean;
+            seniorities?: null | string[];
+            employmentTypes?: null | string[];
+            countries?: null | string[];
+            /** Format: double */
+            minSalaryUsd?: null | number;
+            /** Format: double */
+            maxSalaryUsd?: null | number;
+            /**
+             * Format: int32
+             * @default 30
+             */
+            postedWithinDays: number;
+            companyNames?: null | string[];
         };
         SearchJobListingsResult: {
             /** Format: int64 */

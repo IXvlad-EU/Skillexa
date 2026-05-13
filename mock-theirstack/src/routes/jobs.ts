@@ -3,6 +3,7 @@ import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
 import { logger } from "../utils/logger.js";
+import { errorResponse } from "../utils/errors.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -42,13 +43,13 @@ jobsRouter.post("/v1/jobs/search", (req, res) => {
     (field) => body[field] !== undefined && body[field] !== null,
   );
   if (!hasRequiredFilter) {
-    res.status(422).json({
-      detail: [
-        {
-          msg: "At least one of posted_at_max_age_days, posted_at_gte, posted_at_lte, company_domain_or, company_linkedin_url_or, company_name_or is required",
-        },
-      ],
-    });
+    res.status(422).json(
+      errorResponse(
+        "Validation error",
+        "At least one of posted_at_max_age_days, posted_at_gte, posted_at_lte, company_domain_or, company_linkedin_url_or, company_name_or is required",
+        "E-007",
+      ),
+    );
     return;
   }
 
@@ -81,6 +82,133 @@ jobsRouter.post("/v1/jobs/search", (req, res) => {
         url.toLowerCase().includes(domain.toLowerCase()),
       );
     });
+  }
+
+  // Job title — substring match (case-insensitive)
+  const titleFilter = Array.isArray(body["job_title_or"])
+    ? (body["job_title_or"] as string[])
+    : [];
+
+  if (titleFilter.length > 0) {
+    filtered = filtered.filter((job) =>
+      titleFilter.some((t) =>
+        (job["job_title"] as string | undefined)
+          ?.toLowerCase()
+          .includes(t.toLowerCase()),
+      ),
+    );
+  }
+
+  // Description keywords — whole-word, case-insensitive
+  const descFilter = Array.isArray(body["job_description_contains_or"])
+    ? (body["job_description_contains_or"] as string[])
+    : [];
+
+  if (descFilter.length > 0) {
+    filtered = filtered.filter((job) => {
+      const desc = (job["description"] as string | undefined) ?? "";
+      return descFilter.some((word) =>
+        new RegExp(`\\b${word}\\b`, "i").test(desc),
+      );
+    });
+  }
+
+  // Remote
+  if (body["remote"] !== undefined && body["remote"] !== null) {
+    const wantRemote = body["remote"] as boolean;
+    filtered = filtered.filter((job) => job["remote"] === wantRemote);
+  }
+
+  // Seniority
+  const seniorityFilter = Array.isArray(body["job_seniority_or"])
+    ? (body["job_seniority_or"] as string[])
+    : [];
+
+  if (seniorityFilter.length > 0) {
+    filtered = filtered.filter((job) =>
+      seniorityFilter.includes(job["seniority"] as string),
+    );
+  }
+
+  // Employment type
+  const employmentFilter = Array.isArray(body["employment_statuses_or"])
+    ? (body["employment_statuses_or"] as string[])
+    : [];
+
+  if (employmentFilter.length > 0) {
+    filtered = filtered.filter((job) => {
+      const statuses = job["employment_statuses"] as string[] | undefined;
+      return employmentFilter.some((s) => statuses?.includes(s));
+    });
+  }
+
+  // Country (ISO2)
+  const countryFilter = Array.isArray(body["job_country_code_or"])
+    ? (body["job_country_code_or"] as string[])
+    : [];
+
+  if (countryFilter.length > 0) {
+    filtered = filtered.filter((job) => {
+      const codes = job["country_codes"] as string[] | undefined;
+      const primary = job["country_code"] as string | undefined;
+      return countryFilter.some(
+        (code) => codes?.includes(code) || primary === code,
+      );
+    });
+  }
+
+  // Salary
+  const minSalary =
+    typeof body["min_salary_usd"] === "number"
+      ? (body["min_salary_usd"] as number)
+      : null;
+  const maxSalary =
+    typeof body["max_salary_usd"] === "number"
+      ? (body["max_salary_usd"] as number)
+      : null;
+
+  if (minSalary !== null) {
+    filtered = filtered.filter((job) => {
+      const val = job["min_annual_salary_usd"] as number | undefined;
+      return val !== undefined && val >= minSalary;
+    });
+  }
+  if (maxSalary !== null) {
+    filtered = filtered.filter((job) => {
+      const val = job["max_annual_salary_usd"] as number | undefined;
+      return val !== undefined && val <= maxSalary;
+    });
+  }
+
+  // Posted within N days
+  const maxAgeDays =
+    typeof body["posted_at_max_age_days"] === "number"
+      ? (body["posted_at_max_age_days"] as number)
+      : null;
+
+  if (maxAgeDays !== null) {
+    const cutoff = new Date();
+    cutoff.setDate(cutoff.getDate() - maxAgeDays);
+    filtered = filtered.filter((job) => {
+      const posted = job["date_posted"] as string | undefined;
+      if (!posted) return false;
+      return new Date(posted) >= cutoff;
+    });
+  }
+
+  // Company name — partial match (case-insensitive)
+  const companyFilter = Array.isArray(body["company_name_partial_match_or"])
+    ? (body["company_name_partial_match_or"] as string[])
+    : [];
+
+  if (companyFilter.length > 0) {
+    filtered = filtered.filter((job) =>
+      companyFilter.some((name) =>
+        (job["company"] as string | undefined)
+          ?.toLowerCase()
+          .includes(name.toLowerCase()),
+      ),
+    );
   }
 
   const totalResults = filtered.length;

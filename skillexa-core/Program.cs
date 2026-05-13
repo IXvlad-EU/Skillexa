@@ -75,7 +75,21 @@ app.MapPost("/job-listings/search", async (
     IQueryHandler<SearchJobListingsQuery, IReadOnlyList<SearchJobListingsResult>> handler,
     CancellationToken cancellationToken) =>
 {
-    var query = new SearchJobListingsQuery(request.Skills, request.SourceDomains, request.Page, request.PageSize);
+    var query = new SearchJobListingsQuery(
+        request.Skills,
+        request.SourceDomains,
+        request.Page,
+        request.PageSize,
+        request.JobTitles,
+        request.DescriptionKeywords,
+        request.Remote,
+        request.Seniorities,
+        request.EmploymentTypes,
+        request.Countries,
+        request.MinSalaryUsd,
+        request.MaxSalaryUsd,
+        request.PostedWithinDays,
+        request.CompanyNames);
     var results = await handler.HandleAsync(query, cancellationToken);
     return TypedResults.Ok(results);
 })
