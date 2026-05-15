@@ -1,8 +1,11 @@
 "use client";
 
-import { Anchor, Avatar, Badge, Button, Card, Group, Stack, Text } from "@mantine/core";
+import { ActionIcon, Anchor, Avatar, Badge, Button, Card, Group, Stack, Text } from "@mantine/core";
+import { useDisclosure } from "@mantine/hooks";
 import { notifications } from "@mantine/notifications";
 import { useTranslations } from "next-intl";
+import { IconChevronDown } from "@tabler/icons-react";
+import ReactMarkdown from "react-markdown";
 import type { components } from "@/lib/api-client/schema";
 import { useCreateDocument } from "@/lib/hooks/useCreateDocument";
 import classes from "./JobCard.module.scss";
@@ -16,6 +19,7 @@ type Props = {
 export function JobCard({ job }: Props) {
   const t = useTranslations("jobSearch");
   const { mutate, isPending } = useCreateDocument();
+  const [descriptionOpened, { toggle: toggleDescription }] = useDisclosure(false);
 
   function handleGenerateCv() {
     mutate(
@@ -80,6 +84,23 @@ export function JobCard({ job }: Props) {
               </Text>
             )}
           </Group>
+        )}
+
+        {job.description && (
+          <Stack gap={4}>
+            <div className={`${classes.description} ${!descriptionOpened ? classes.clamped : ""}`}>
+              <ReactMarkdown>{job.description}</ReactMarkdown>
+            </div>
+            <ActionIcon
+              variant="subtle"
+              color="gray"
+              size="xs"
+              onClick={toggleDescription}
+              className={`${classes.chevron} ${descriptionOpened ? classes.chevronOpen : ""}`}
+            >
+              <IconChevronDown size={14} />
+            </ActionIcon>
+          </Stack>
         )}
 
         <Group gap="xs" wrap="wrap">
