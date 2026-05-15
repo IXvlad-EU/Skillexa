@@ -66,6 +66,7 @@ type Props = {
   onMaxSalaryChange: (value: number | string) => void;
   onPostedWithinDaysChange: (value: string) => void;
   onCompanyNamesChange: (value: string[]) => void;
+  onClearFilters: () => void;
   onSearch: () => void;
 };
 
@@ -95,6 +96,7 @@ export function JobSearchFilters({
   onMaxSalaryChange,
   onPostedWithinDaysChange,
   onCompanyNamesChange,
+  onClearFilters,
   onSearch,
 }: Props) {
   const t = useTranslations("jobSearch");
@@ -169,6 +171,9 @@ export function JobSearchFilters({
             onClick={() => setShowMore((prev) => !prev)}
           >
             {showMore ? t("filters.fewerFilters") : t("filters.moreFilters")}
+          </Button>
+          <Button variant="subtle" size="sm" onClick={onClearFilters}>
+            {t("filters.clearFilters")}
           </Button>
           <Button loading={isPending} onClick={onSearch}>
             {t("filters.search")}

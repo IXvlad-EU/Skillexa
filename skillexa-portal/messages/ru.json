@@ -68,6 +68,7 @@
       "seniorityPlaceholder": "Любой уровень",
       "moreFilters": "Больше фильтров ↓",
       "fewerFilters": "Меньше фильтров ↑",
+      "clearFilters": "Очистить фильтры",
       "search": "Найти",
       "descriptionKeywords": "Ключевые слова в описании",
       "descriptionKeywordsPlaceholder": "например Python, Kubernetes",
