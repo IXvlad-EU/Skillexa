@@ -68,6 +68,7 @@
       "seniorityPlaceholder": "Any seniority",
       "moreFilters": "More filters ↓",
       "fewerFilters": "Fewer filters ↑",
+      "clearFilters": "Clear filters",
       "search": "Search",
       "descriptionKeywords": "Description keywords",
       "descriptionKeywordsPlaceholder": "e.g. Python, Kubernetes",

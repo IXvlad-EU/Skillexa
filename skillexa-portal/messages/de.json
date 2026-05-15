@@ -68,6 +68,7 @@
       "seniorityPlaceholder": "Beliebig",
       "moreFilters": "Mehr Filter ↓",
       "fewerFilters": "Weniger Filter ↑",
+      "clearFilters": "Filter zurücksetzen",
       "search": "Suchen",
       "descriptionKeywords": "Schlüsselwörter in der Beschreibung",
       "descriptionKeywordsPlaceholder": "z. B. Python, Kubernetes",

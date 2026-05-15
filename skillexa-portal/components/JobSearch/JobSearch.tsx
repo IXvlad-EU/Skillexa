@@ -23,6 +23,21 @@ export function JobSearch() {
 
   const { mutate, data, isPending, isError } = useJobSearch();
 
+  function handleClearFilters() {
+    setSkills([]);
+    setSourceDomains([]);
+    setJobTitle("");
+    setRemote("all");
+    setSeniorities([]);
+    setDescriptionKeywords([]);
+    setEmploymentTypes([]);
+    setCountries([]);
+    setMinSalary("");
+    setMaxSalary("");
+    setPostedWithinDays("30");
+    setCompanyNames([]);
+  }
+
   function handleSearch() {
     const trimmedJobTitle = jobTitle.trim();
     const trimmedSkills = skills.map((skill) => skill.trim()).filter(Boolean);
@@ -78,6 +93,7 @@ export function JobSearch() {
         onPostedWithinDaysChange={setPostedWithinDays}
         onCompanyNamesChange={setCompanyNames}
         onSearch={handleSearch}
+        onClearFilters={handleClearFilters}
       />
       <JobGrid
         jobs={data}
