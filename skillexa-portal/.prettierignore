@@ -6,7 +6,7 @@ build/
 # Dependencies
 node_modules/
 
-# Auto-generated API client (Kiota)
+# Auto-generated OpenAPI types
 lib/api-client/
 
 # Lock file
