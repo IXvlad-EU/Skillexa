@@ -10,9 +10,9 @@ services:
       - ASPNETCORE_ENVIRONMENT=Production
       - TheirStack__BaseUrl=${THEIRSTACK_BASE_URL}
       - TheirStack__ApiKey=${THEIRSTACK_API_KEY}
-      - AzureAd__TenantId=${ENTRA_TENANT_ID}
-      - AzureAd__ClientId=${ENTRA_CORE_CLIENT_ID}
-      - AzureAd__Audience=api://${ENTRA_CORE_CLIENT_ID}
+      - JWT__Issuer=skillexa-portal
+      - JWT__Audience=skillexa-core
+      - JWT__PublicKey=${JWT_PUBLIC_KEY}
       - Messaging__Provider=RabbitMQ
       - Messaging__ConnectionString=amqp://${RABBITMQ_USER}:${RABBITMQ_PASS}@rabbitmq:5672/${RABBITMQ_VHOST}
       - ConnectionStrings__DefaultConnection=Host=postgres;Port=5432;Database=${POSTGRES_DB};Username=${POSTGRES_USER};Password=${POSTGRES_PASSWORD}
@@ -101,14 +101,15 @@ services:
       - "3000:3000"
     environment:
       - NODE_ENV=production
-      - AUTH_REQUIRED=${AUTH_REQUIRED}
       - SKILLEXA_CORE_BASE_URL=http://skillexa-core:8080
       - NEXTAUTH_URL=http://localhost:3000
       - NEXTAUTH_SECRET=${AUTH_SECRET}
       - AUTH_MICROSOFT_ENTRA_ID_ID=${ENTRA_PORTAL_CLIENT_ID}
       - AUTH_MICROSOFT_ENTRA_ID_SECRET=${ENTRA_PORTAL_CLIENT_SECRET}
       - AUTH_MICROSOFT_ENTRA_ID_TENANT_ID=${ENTRA_TENANT_ID}
-      - AZURE_AD_API_SCOPE=api://${ENTRA_CORE_CLIENT_ID}/access_as_user
+      - AUTH_GOOGLE_ID=${AUTH_GOOGLE_ID}
+      - AUTH_GOOGLE_SECRET=${AUTH_GOOGLE_SECRET}
+      - JWT_PRIVATE_KEY=${JWT_PRIVATE_KEY}
     networks:
       - skillexa-network
     restart: unless-stopped

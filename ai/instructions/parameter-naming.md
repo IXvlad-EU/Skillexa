@@ -15,7 +15,7 @@ Use full, descriptive names for every parameter in method signatures, constructo
 
 ```csharp
 // Method
-public Task<User?> GetByEntraIdAsync(string entraObjectId, CancellationToken cancellationToken = default);
+public Task<User?> GetByEmailAsync(string email, CancellationToken cancellationToken = default);
 
 // Endpoint lambda
 app.MapPost("/documents", async (
@@ -34,7 +34,7 @@ public UnitOfWork(
 
 ```csharp
 // ❌ abbreviated type names
-public Task<User?> GetByEntraIdAsync(string id, CancellationToken ct = default);
+public Task<User?> GetByEmailAsync(string id, CancellationToken ct = default);
 
 // ❌ abbreviated lambda parameters
 app.MapPost("/documents", async (CreateDocumentRequest req, HttpContext ctx, CancellationToken ct) => { ... });

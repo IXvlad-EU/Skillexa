@@ -4,8 +4,6 @@ public class User : IEntity
 {
     public long Id { get; set; }
 
-    public string EntraObjectId { get; set; } = string.Empty;
-
     public string Email { get; set; } = string.Empty;
 
     public string DisplayName { get; set; } = string.Empty;

@@ -8,10 +8,12 @@ flowchart LR
     Search[TheirStack API]
     Storage[(Object Storage)]
     Db[(PostgreSQL)]
-    Entra[Entra ID]
+    Microsoft[Microsoft Entra ID]
+    Google[Google OAuth]
 
-    Portal --> Entra
-    Portal --> Core
+    Portal --> Microsoft
+    Portal --> Google
+    Portal -->|Portal-signed JWT| Core
     Core --> Search
     Core --> Db
     Core --> Broker

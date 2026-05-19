@@ -73,6 +73,7 @@ export function createApiClient(accessToken: string) {
 ```
 
 - The public signature `createApiClient(accessToken: string)` is fixed — do not change it.
+- `accessToken` is the server-minted Portal JWT for Core, not a Microsoft or Google provider token.
 - `baseUrl` is read from `process.env.SKILLEXA_CORE_BASE_URL`; falls back to `http://localhost:8080` for local dev.
 
 ---
@@ -129,6 +130,7 @@ return NextResponse.json(data ?? {});
 
 | Method | Path                           | Call pattern                                                                 |
 | ------ | ------------------------------ | ---------------------------------------------------------------------------- |
+| POST   | `/provision`                   | Used by sign-in provisioning with a bootstrap Core JWT                        |
 | POST   | `/job-listings/search`         | `client.POST("/job-listings/search", { body })`                              |
 | POST   | `/documents`                   | `client.POST("/documents", { body })`                                        |
 | GET    | `/documents`                   | `client.GET("/documents")`                                                   |
@@ -153,12 +155,12 @@ The client is used **exclusively on the server side**:
 ## Authentication Pattern (Route Handlers)
 
 ```ts
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/auth";
 import { createApiClient } from "@/lib/core-client";
+import { createCoreAccessToken } from "@/lib/auth/core-token";
 
-const session = await getServerSession(authOptions);
-const client = createApiClient(session?.accessToken ?? "");
+const accessToken = await createCoreAccessToken(request);
+if (!accessToken) return new NextResponse("Unauthorized", { status: 401 });
+const client = createApiClient(accessToken);
 
 const { data, error } = await client.GET("/documents");
 ```

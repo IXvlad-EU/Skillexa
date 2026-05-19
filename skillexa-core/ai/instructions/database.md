@@ -1,12 +1,18 @@
 # Core Database Schema (high-level)
 
+## Migration Rules
+
+- Generate migrations with `dotnet ef migrations add <Name>`.
+- Never manually edit generated migration or model snapshot files.
+- If a migration is wrong, use `dotnet ef migrations remove`, correct the EF model/configuration, and regenerate.
+- If a design-time `DbContext` factory is required, it must load standard configuration (`appsettings`, environment-specific appsettings, environment variables, command-line args). Never hard-code local connection strings in it.
+
 ## `users`
 
 | Column            | Type                 | Notes                              |
 | ----------------- | -------------------- | ---------------------------------- |
 | `id`              | BIGINT (PK)          | Auto-increment                     |
-| `entra_object_id` | VARCHAR(36), UNIQUE  | Entra ID Object ID (`oid` claim)   |
-| `email`           | VARCHAR(256), UNIQUE | From `preferred_username` claim    |
+| `email`           | VARCHAR(256), UNIQUE | Normalized verified email claim    |
 | `display_name`    | VARCHAR(256)         | From `name` claim                  |
 | `created_at`      | TIMESTAMPTZ          | Default `now() AT TIME ZONE 'UTC'` |
 | `updated_at`      | TIMESTAMPTZ          | Default `now() AT TIME ZONE 'UTC'` |

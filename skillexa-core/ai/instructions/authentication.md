@@ -1,88 +1,79 @@
-# Skillexa-Core — Protected Web API (ASP.NET Core)
+# Skillexa-Core — Portal-Issued JWT Validation
 
-## NuGet Package
+Skillexa-Core does not trust provider tokens from Microsoft or Google directly. It validates only short-lived RS256 JWTs issued by Skillexa-Portal.
 
+## Package
+
+```xml
+<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="10.*" />
 ```
-Microsoft.Identity.Web   (3.* in `Skillexa.Core.csproj`)
-```
 
-## Configuration — `appsettings.json`
+Do not use `Microsoft.Identity.Web` in Core.
+
+## Configuration
 
 ```jsonc
 {
-  "AzureAd": {
-    "Instance": "https://login.microsoftonline.com/",
-    "TenantId": "<Directory (tenant) ID>",
-    "ClientId": "<Skillexa-Core-API Application (client) ID>",
-    "Audience": "api://<Skillexa-Core-API Application (client) ID>",
-  },
+  "JWT": {
+    "Issuer": "skillexa-portal",
+    "Audience": "skillexa-core",
+    "PublicKey": "<RSA public key PEM>"
+  }
 }
 ```
 
-- **`TenantId`**: Use the actual tenant GUID for single-tenant apps. Use `"organizations"` only if multi-tenant is needed.
-- **`ClientId`**: The Application (client) ID from the `Skillexa-Core-API` registration.
-- **`Audience`**: Must match the Application ID URI configured when exposing the API scope.
-- In production, source `TenantId` and `ClientId` from **environment variables or a secrets manager** — never hard-code.
+Environment variables use .NET configuration binding:
 
-## Code — `Program.cs`
-
-```csharp
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.Identity.Web;
-
-var builder = WebApplication.CreateBuilder(args);
-
-// ── Authentication ─────────────────────────────────────────────
-builder.Services
-    .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddMicrosoftIdentityWebApi(builder.Configuration.GetSection("AzureAd"));
-
-builder.Services.AddAuthorization();
-
-// ... other service registrations (EF Core, Autofac, OpenAPI, etc.)
-
-var app = builder.Build();
-
-// ── Middleware pipeline ────────────────────────────────────────
-app.UseAuthentication();
-app.UseAuthorization();
-
-// ... endpoints
-app.Run();
+```env
+JWT__Issuer=skillexa-portal
+JWT__Audience=skillexa-core
+JWT__PublicKey="-----BEGIN PUBLIC KEY-----\n...\n-----END PUBLIC KEY-----"
 ```
+
+PEM values may contain literal `\n`; the app normalizes them before importing the key.
+
+## Validation Rules
+
+- Validate issuer, audience, lifetime, signature, and `RS256`.
+- Require `sub` and `email` claims.
+- Treat `uid` as optional.
+- Use `name` as display name when present; fall back to email.
+
+Expected Portal JWT claims:
+
+| Claim | Purpose |
+| --- | --- |
+| `iss` | `skillexa-portal` |
+| `aud` | `skillexa-core` |
+| `sub` | Provider-scoped subject, e.g. `google:123` |
+| `email` | Normalized verified email |
+| `name` | Display name |
+| `uid` | Optional Core user ID for DB-free user lookup |
 
 ## Protecting Endpoints
 
-> **Development note:** Entra ID app registrations are not yet configured. During active development, authorization is applied as `// TODO: .RequireAuthorization()` comments and endpoints are temporarily public. Re-enable `.RequireAuthorization()` once registrations are set up.
+- Apply `.RequireAuthorization()` on all Core API endpoints except OpenAPI metadata and health checks.
+- Do not leave auth bypasses, `AUTH_REQUIRED` checks, or `// TODO: .RequireAuthorization()` comments in Core.
 
-- Apply `.RequireAuthorization()` on all endpoints **except** health checks and OpenAPI metadata.
-- Use policy-based authorization for role-restricted endpoints:
+## User Provisioning
 
-```csharp
-builder.Services.AddAuthorizationBuilder()
-    .AddPolicy("AdminOnly", policy =>
-        policy.RequireRole("Admin")); // matches Entra app role
-```
+Portal should call `POST /provision` once during initial sign-in with a bootstrap Core JWT that has no `uid` claim. Core returns the Core user ID so Portal can store it in the encrypted NextAuth JWT and include it as `uid` in later Core JWTs.
 
-## Extracting User Identity
+For user-scoped endpoints, resolve the current Core user ID as follows:
 
-The validated JWT populates `HttpContext.User`. Use standard claims:
+1. If the validated Portal JWT includes a positive numeric `uid`, use it directly.
+2. Otherwise, read `email` and `name` from the validated Portal JWT.
+3. Normalize email with `Trim().ToLowerInvariant()`.
+4. Look up `users.email`.
+5. Create a user when no row exists.
 
-| Claim                                          | Purpose                          |
-| ---------------------------------------------- | -------------------------------- |
-| `ClaimTypes.NameIdentifier` (`oid` or `sub`)   | Unique user ID (Entra Object ID) |
-| `preferred_username`                           | User's email / UPN               |
-| `name`                                         | Display name                     |
-| `roles`                                        | App roles (e.g., `Admin`)        |
+The fallback path exists for first-login bootstrap tokens, old sessions, and failed login-time provisioning.
 
-```csharp
-var entraObjectId = context.User.FindFirstValue(ClaimTypes.NameIdentifier);
-var email = context.User.FindFirstValue("preferred_username");
-```
+Do not persist provider object IDs in Core. Microsoft and Google accounts with the same verified email map to the same Core user.
 
-## User Provisioning (Just-In-Time)
+## EF Migrations
 
-Since users no longer register locally:
-
-- On the **first authenticated request**, look up the user by `entra_object_id` in the `users` table.
-- If not found, **auto-create** a user record (JIT provisioning) using claims from the token (`oid`, `preferred_username`, `name`).
+- Generate migrations with `dotnet ef migrations add <Name>`.
+- Do not manually edit generated migration or snapshot files.
+- If a generated migration is wrong, remove it with `dotnet ef migrations remove`, fix the model/configuration, and regenerate it.
+- If a design-time `DbContext` factory is required, it must load standard configuration (`appsettings`, environment-specific appsettings, environment variables, command-line args). Never hard-code local connection strings in it.

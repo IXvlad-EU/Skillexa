@@ -44,6 +44,7 @@ Important local instructions:
 - Prefer explicit DTOs and contracts.
 - Use dependency injection consistently.
 - Keep infrastructure concerns isolated.
+- Keep `Program.cs` in top-level program style; do not add namespace declarations there.
 
 ## Avoid
 

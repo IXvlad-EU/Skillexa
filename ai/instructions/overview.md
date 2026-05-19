@@ -18,7 +18,7 @@ Current implementation status:
 | Application         | Path               | Tech                                                                            | Role                                                                                                 |
 | ------------------- | ------------------ | ------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
 | **Skillexa-Portal** | `skillexa-portal/` | Next.js 16, React 19, TypeScript, TanStack Query, openapi-fetch, Mantine 7, SCSS | SSR + BFF — renders pages server-side, proxies API calls to Skillexa-Core                            |
-| **Skillexa-Core**   | `skillexa-core/`   | ASP.NET Core (.NET 10), EF Core, Microsoft Entra ID auth                        | REST API — job search proxy, document persistence, outbox staging, placeholder download URLs         |
+| **Skillexa-Core**   | `skillexa-core/`   | ASP.NET Core (.NET 10), EF Core, Portal-issued JWT auth                         | REST API — job search proxy, document persistence, outbox staging, placeholder download URLs         |
 | **Skillexa-Engine** | `skillexa-engine/` | .NET 10 Worker Service                                                          | Background processor scaffold — quota/template checks; broker/PDF/blob/status integration pending    |
 
 ## Portability Goals
@@ -33,16 +33,16 @@ Current implementation status:
 ## Async Data Flow (high-level)
 
 ```
-Portal ──POST /job-listings/search──▸ Core ──▸ TheirStack API ──▸ listings response
+Portal ──POST /job-listings/search + Portal JWT──▸ Core ──▸ TheirStack API ──▸ listings response
 
-Portal ──POST /documents──▸ Core ──create Document + outbox GeneratePdf payload──▸ DB
+Portal ──POST /documents + Portal JWT──▸ Core ──create Document + outbox GeneratePdf payload──▸ DB
 
 Planned async path:
 
 Outbox dispatcher ──GeneratePdf──▸ Broker ──▸ Engine ──PDF/blob/status event──▸ Core
                                                                               │
-Portal ──GET /documents/{id}──▸ Core ────────────────────────────────────────▸ UI
-Portal ──POST /documents/{id}/download-url──▸ Core ──placeholder URL until storage adapter exists
+Portal ──GET /documents/{id} + Portal JWT──▸ Core ───────────────────────────▸ UI
+Portal ──POST /documents/{id}/download-url + Portal JWT──▸ Core ──placeholder URL until storage adapter exists
 ```
 
 ## Related Instructions

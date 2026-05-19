@@ -27,8 +27,14 @@ The `docker-compose.yml` at the repo root defines the full local environment:
 ### Environment Variables
 
 - Local dev values go in a root `.env` file (gitignored) and referenced from `docker-compose.yml` via `${VAR_NAME}` syntax.
-- The `.env` file defines values used by Compose, including `RABBITMQ_USER`, `RABBITMQ_PASS`, `RABBITMQ_VHOST`, `THEIRSTACK_BASE_URL`, `THEIRSTACK_API_KEY`, `POSTGRES_USER`, `POSTGRES_PASSWORD`, `POSTGRES_DB`, `POSTGRES_DB_ENGINE`, `ENTRA_TENANT_ID`, `ENTRA_CORE_CLIENT_ID`, `ENTRA_PORTAL_CLIENT_ID`, `ENTRA_PORTAL_CLIENT_SECRET`, `AUTH_SECRET`, and `AUTH_REQUIRED`.
+- The `.env` file defines values used by Compose, including `RABBITMQ_USER`, `RABBITMQ_PASS`, `RABBITMQ_VHOST`, `THEIRSTACK_BASE_URL`, `THEIRSTACK_API_KEY`, `POSTGRES_USER`, `POSTGRES_PASSWORD`, `POSTGRES_DB`, `POSTGRES_DB_ENGINE`, `ENTRA_TENANT_ID`, `ENTRA_PORTAL_CLIENT_ID`, `ENTRA_PORTAL_CLIENT_SECRET`, `AUTH_GOOGLE_ID`, `AUTH_GOOGLE_SECRET`, `AUTH_SECRET`, `JWT_PRIVATE_KEY`, and `JWT_PUBLIC_KEY`.
 - Production values come from the deployment platform's secret/config management.
+
+### Auth
+
+- Portal signs short-lived Core JWTs with `JWT_PRIVATE_KEY`.
+- Core validates them with `JWT__PublicKey`.
+- Store PEM values as secrets. Literal `\n` newlines are supported by both services.
 
 ## Dockerfile Conventions
 

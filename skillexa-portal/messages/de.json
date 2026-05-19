@@ -1,21 +1,26 @@
 {
-  "common": {
-    "helloWorld": "Hallo Welt!",
-    "failedToLoad": "Nachricht konnte nicht geladen werden"
+  "common": {},
+  "metadata": {
+    "title": "Skillexa",
+    "description": "Skillexa Portal"
   },
   "navbar": {
     "appName": "Skillexa",
     "language": "Sprache",
+    "profileMenu": "Kontomenü",
+    "information": "Informationen",
+    "themeToggle": "Dunkles Design",
+    "logout": "Abmelden",
     "locale_en": "English",
     "locale_ru": "Русский",
-    "locale_de": "Deutsch",
-    "jobs": "Jobs"
+    "locale_de": "Deutsch"
   },
   "home": {
     "hero": {
       "title": "Jobs finden. Lebenslauf erstellen. Herausstechen.",
       "tagline": "Skillexa bündelt tausende Stellenanzeigen und erstellt auf Anfrage maßgeschneiderte PDF-Lebensläufe – damit du dich auf den Job konzentrieren kannst.",
-      "cta": "Mit Microsoft anmelden"
+      "signInMicrosoft": "Mit Microsoft anmelden",
+      "signInGoogle": "Mit Google anmelden"
     },
     "features": {
       "sectionTitle": "Alles, was du für deinen nächsten Job brauchst",
@@ -36,7 +41,7 @@
       "sectionTitle": "So funktioniert es",
       "signIn": {
         "title": "Anmelden",
-        "description": "Authentifiziere dich sicher mit deinem Microsoft-Konto – kein Passwort erforderlich."
+        "description": "Authentifiziere dich sicher mit deinem bestehenden Konto – kein Passwort erforderlich."
       },
       "browse": {
         "title": "Jobs durchsuchen",

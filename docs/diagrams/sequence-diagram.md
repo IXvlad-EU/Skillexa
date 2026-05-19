@@ -9,7 +9,7 @@ sequenceDiagram
     participant Storage as Object Storage
 
     User->>Portal: Generate CV from listing
-    Portal->>Core: POST /documents
+    Portal->>Core: POST /documents with Portal JWT
     Core->>Broker: Publish GeneratePdf
     Broker-->>Engine: Deliver GeneratePdf
     Engine->>Storage: Upload pdf/{documentId}.pdf

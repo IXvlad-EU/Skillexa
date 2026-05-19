@@ -165,7 +165,8 @@ Always move client-only UI into a Client Component and import it directly in you
 
 ## 8. Tooling updates (Next.js 16)
 
-- **Turbopack is the default dev bundler.** Configure via the top-level `turbopack` field in `next.config.*` (do not use the removed `experimental.turbo`).
+- **Turbopack is the default bundler.** Do not switch build scripts to webpack. Configure via the top-level `turbopack` field in `next.config.*` (do not use the removed `experimental.turbo`).
+- If `pnpm build` fails because a native dependency build script was blocked, update `pnpm-workspace.yaml` `allowBuilds` for that package instead of changing the Next.js build command.
 - **Typed routes are stable** via `typedRoutes` (TypeScript required).
 
 ## 9. Avoid Unnecessary Example Files
@@ -178,4 +179,3 @@ Do not create example/demo files (like ModalExample.tsx) in the main codebase un
 - Use the following tools to fetch and search documentation if they are available:
   - `resolve_library_id` to resolve the package/library name in the docs.
   - `get_library_docs` for up-to-date documentation.
-

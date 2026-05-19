@@ -3,6 +3,10 @@ flowchart TD
 
     Client[Portal BFF]
 
+    subgraph AuthAPI
+        Provision[Provision User]
+    end
+
     subgraph SearchAPI
         SearchJobs[Search Jobs]
     end
@@ -20,12 +24,13 @@ flowchart TD
 
     Search[TheirStack API]
 
-    Client --> SearchJobs
-    Client --> CreateDoc
-    Client --> ListDocs
-    Client --> GetDoc
-    Client --> DownloadUrl
-    Client --> Usage
+    Client -->|Bootstrap JWT| Provision
+    Client -->|Portal-signed JWT| SearchJobs
+    Client -->|Portal-signed JWT with uid| CreateDoc
+    Client -->|Portal-signed JWT with uid| ListDocs
+    Client -->|Portal-signed JWT with uid| GetDoc
+    Client -->|Portal-signed JWT with uid| DownloadUrl
+    Client -->|Portal-signed JWT with uid| Usage
 
     SearchJobs --> Search
 ```

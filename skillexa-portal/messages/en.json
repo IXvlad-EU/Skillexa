@@ -1,21 +1,26 @@
 {
-  "common": {
-    "helloWorld": "Hello World!",
-    "failedToLoad": "Failed to load message"
+  "common": {},
+  "metadata": {
+    "title": "Skillexa",
+    "description": "Skillexa Portal"
   },
   "navbar": {
     "appName": "Skillexa",
     "language": "Language",
+    "profileMenu": "Account menu",
+    "information": "Information",
+    "themeToggle": "Dark theme",
+    "logout": "Log out",
     "locale_en": "English",
     "locale_ru": "Русский",
-    "locale_de": "Deutsch",
-    "jobs": "Jobs"
+    "locale_de": "Deutsch"
   },
   "home": {
     "hero": {
       "title": "Find Jobs. Build Your CV. Stand Out.",
       "tagline": "Skillexa aggregates thousands of job listings and generates tailored PDF resumes on demand — so you can focus on landing the role.",
-      "cta": "Sign in with Microsoft"
+      "signInMicrosoft": "Sign in with Microsoft",
+      "signInGoogle": "Sign in with Google"
     },
     "features": {
       "sectionTitle": "Everything you need to land your next job",
@@ -36,7 +41,7 @@
       "sectionTitle": "How it works",
       "signIn": {
         "title": "Sign in",
-        "description": "Authenticate securely with your Microsoft account — no password required."
+        "description": "Authenticate securely with your existing account — no password required."
       },
       "browse": {
         "title": "Browse jobs",
