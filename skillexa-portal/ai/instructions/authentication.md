@@ -1,125 +1,87 @@
-# Skillexa-Portal — Confidential Client (Next.js BFF)
+# Skillexa-Portal — NextAuth BFF Authentication
 
-## Package
+Skillexa-Portal authenticates users with Microsoft or Google through `next-auth`, stores the user session in an encrypted httpOnly cookie, and signs short-lived Core JWTs only on the server.
 
+## Packages
+
+```bash
+pnpm add jose
 ```
-next-auth   (v4, as installed in `package.json`)
-```
 
-Use the **Azure AD** provider built into `next-auth`.
+`next-auth` remains the OAuth/session layer. `jose` signs RS256 JWTs for Skillexa-Core.
 
 ## Environment Variables
 
 ```env
-# .env (development — gitignored)
 NEXTAUTH_SECRET=<random-32-byte-secret-for-session-encryption>
 NEXTAUTH_URL=http://localhost:3000
-AUTH_MICROSOFT_ENTRA_ID_ID=<Skillexa-Portal-Web Application (client) ID>
-AUTH_MICROSOFT_ENTRA_ID_SECRET=<Skillexa-Portal-Web client secret>
-AUTH_MICROSOFT_ENTRA_ID_TENANT_ID=<Directory (tenant) ID>
 
-# Scope to request access token for Skillexa-Core API
-AZURE_AD_API_SCOPE=api://<Skillexa-Core-API-Client-ID>/access_as_user
+AUTH_MICROSOFT_ENTRA_ID_ID=<Portal Microsoft client ID>
+AUTH_MICROSOFT_ENTRA_ID_SECRET=<Portal Microsoft client secret>
+AUTH_MICROSOFT_ENTRA_ID_TENANT_ID=<Directory tenant ID>
+
+AUTH_GOOGLE_ID=<Google OAuth client ID>
+AUTH_GOOGLE_SECRET=<Google OAuth client secret>
+
+JWT_PRIVATE_KEY="-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----"
 ```
 
-## NextAuth Configuration — `auth.ts`
+PEM values may contain literal `\n`; the signing helper normalizes them before importing the key.
 
-```ts
-import type { AuthOptions } from "next-auth";
-import AzureAD from "next-auth/providers/azure-ad";
+## NextAuth Rules
 
-export const authOptions: AuthOptions = {
-  providers: [
-    AzureAD({
-      clientId: process.env.AUTH_MICROSOFT_ENTRA_ID_ID!,
-      clientSecret: process.env.AUTH_MICROSOFT_ENTRA_ID_SECRET!,
-      tenantId: process.env.AUTH_MICROSOFT_ENTRA_ID_TENANT_ID!,
-      authorization: {
-        params: {
-          scope: `openid profile email ${process.env.AZURE_AD_API_SCOPE}`,
-        },
-      },
-    }),
-  ],
-  callbacks: {
-    async jwt({ token, account }) {
-      // Persist the access token from the initial sign-in
-      if (account) {
-        token.accessToken = account.access_token;
-        token.expiresAt = account.expires_at;
-      }
-      return token;
-    },
-    async session({ session, token }) {
-      // Make the access token available in the session (server-side only)
-      session.accessToken = token.accessToken as string;
-      return session;
-    },
-  },
-  session: { strategy: "jwt" },
-};
-```
+- Configure Microsoft (`azure-ad`) and Google (`google`) providers.
+- Request only `openid profile email`.
+- Do not store provider access tokens in the NextAuth JWT.
+- Do not expose Core JWTs through `session`.
+- Persist only identity metadata needed for server-side Core calls:
+  - `providerSub = "{provider}:{providerAccountId}"`
+  - normalized `email`
+  - `name`
+  - `userId` returned by Core provisioning
+- A provider avatar URL may be forwarded as `session.user.image` for browser UI only. It is not used for Core calls and must not require storing provider access tokens.
 
-## Route Handler — `app/api/auth/[...nextauth]/route.ts`
+Google sign-in requires `email_verified === true`. Microsoft sign-in requires an email from NextAuth/profile data.
 
-```ts
-import NextAuth from "next-auth";
-import { authOptions } from "@/auth";
+## Calling Skillexa-Core
 
-const handler = NextAuth(authOptions);
+On initial OAuth sign-in, the NextAuth `jwt` callback should:
 
-export { handler as GET, handler as POST };
-```
+1. Persist `providerSub`, normalized `email`, and `name` in the encrypted NextAuth JWT.
+2. Sign a short-lived bootstrap Core JWT without `uid`.
+3. Call Core `POST /provision`.
+4. Store the returned Core `userId` in the encrypted NextAuth JWT when provisioning succeeds.
 
-## Calling Skillexa-Core from Server Components / Route Handlers
+Provisioning failures must not fail sign-in. Core keeps a lazy email-based fallback for old sessions, bootstrap tokens, and failed login-time provisioning.
 
-```ts
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/auth";
+Route handlers call a server-only helper that:
 
-const session = await getServerSession(authOptions);
-const response = await fetch(`${process.env.SKILLEXA_CORE_BASE_URL}/documents`, {
-  headers: {
-    Authorization: `Bearer ${session?.accessToken}`,
-  },
-});
-```
+1. Reads the encrypted NextAuth JWT with `getToken()`.
+2. Rejects missing `providerSub` or email.
+3. Signs a fresh RS256 JWT with `JWT_PRIVATE_KEY`.
+4. Sets `iss = skillexa-portal`, `aud = skillexa-core`, and a 15-minute expiry.
+5. Includes `uid` only when `userId` exists in the encrypted NextAuth JWT.
 
-When using the **openapi-fetch client**, pass the access token from the session to the `createApiClient(accessToken)` factory:
+The browser calls Portal route handlers. The browser may receive display-only profile metadata such as `name`, `email`, and `image`, but must never receive provider access tokens, Core JWTs, Core `userId`, or signing keys.
 
-```ts
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/auth";
-import { createApiClient } from "@/lib/core-client";
+## Expiry and Active Sessions
 
-const session = await getServerSession(authOptions);
-const client = createApiClient(session?.accessToken ?? "");
-```
+Do not implement browser-visible refresh tokens for Core JWTs. The Core JWT is intentionally short-lived and server-only.
 
-## Sign-In / Sign-Out UI
+When a user is still active on the page:
 
-```tsx
-import { signIn, signOut } from "next-auth/react";
+1. The browser calls a Portal BFF route.
+2. The BFF reads the current encrypted NextAuth session cookie.
+3. If the session is still valid, the BFF signs a brand-new 15-minute Core JWT for that request, including `uid` when available.
+4. If the NextAuth session has expired, the route returns `401` and the UI should send the user through normal sign-in again.
 
-// Sign in — redirects to Entra ID login page
-<Button onClick={() => signIn("azure-ad")}>Sign in</Button>
+Auth.js provider access-token refresh is only needed when the app stores and uses provider API access tokens. Skillexa does not do that; Core never receives Microsoft or Google access tokens.
 
-// Sign out — clears session + redirects to Entra ID logout
-<Button onClick={() => signOut()}>Sign out</Button>
-```
+## Sign-In UI
 
-Use the `useSession()` hook from `next-auth/react` in client components to access session state (user name, auth status). Wrap the app in `<SessionProvider>` (inside `app/providers.tsx`).
+Use two explicit buttons:
 
----
+- Microsoft: `signIn("azure-ad")`
+- Google: `signIn("google")`
 
-## Token Validation Rules (Skillexa-Core)
-
-`Microsoft.Identity.Web` handles these automatically, but be aware:
-
-1. **Signature** — validated against Entra ID's public signing keys (fetched from the OIDC discovery endpoint).
-2. **Issuer** — must match `https://login.microsoftonline.com/{tenant-id}/v2.0`.
-3. **Audience** — must match `api://<Core-API client ID>` (the `aud` claim).
-4. **Expiry** — tokens past `exp` are rejected.
-5. **Token version** — v2.0 tokens (configured via `accessTokenAcceptedVersion: 2` in the app manifest).
-
-Do **not** manually validate tokens or parse JWTs in application code. Rely on `Microsoft.Identity.Web` middleware.
+All labels must come from `messages/en.json`, `messages/ru.json`, and `messages/de.json`.

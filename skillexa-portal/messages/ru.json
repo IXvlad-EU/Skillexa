@@ -1,21 +1,26 @@
 {
-  "common": {
-    "helloWorld": "Привет, мир!",
-    "failedToLoad": "Не удалось загрузить сообщение"
+  "common": {},
+  "metadata": {
+    "title": "Skillexa",
+    "description": "Портал Skillexa"
   },
   "navbar": {
     "appName": "Skillexa",
     "language": "Язык",
+    "profileMenu": "Меню аккаунта",
+    "information": "Информация",
+    "themeToggle": "Тёмная тема",
+    "logout": "Выйти",
     "locale_en": "English",
     "locale_ru": "Русский",
-    "locale_de": "Deutsch",
-    "jobs": "Вакансии"
+    "locale_de": "Deutsch"
   },
   "home": {
     "hero": {
       "title": "Находи вакансии. Создавай резюме. Выделяйся.",
       "tagline": "Skillexa агрегирует тысячи вакансий и генерирует персонализированные PDF-резюме по запросу — чтобы ты мог сосредоточиться на получении работы.",
-      "cta": "Войти через Microsoft"
+      "signInMicrosoft": "Войти через Microsoft",
+      "signInGoogle": "Войти через Google"
     },
     "features": {
       "sectionTitle": "Всё необходимое для следующей работы",
@@ -36,7 +41,7 @@
       "sectionTitle": "Как это работает",
       "signIn": {
         "title": "Войти",
-        "description": "Безопасная аутентификация через учётную запись Microsoft — без пароля."
+        "description": "Безопасная аутентификация через существующую учётную запись — без пароля."
       },
       "browse": {
         "title": "Просматривать вакансии",

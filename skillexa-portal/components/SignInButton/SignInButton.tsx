@@ -1,14 +1,27 @@
 "use client";
 
 import { useSession, signIn } from "next-auth/react";
-import { Button, Loader } from "@mantine/core";
-import { IconBrandWindows } from "@tabler/icons-react";
+import { useTranslations } from "next-intl";
+import Image from "next/image";
+import { Button, Loader, Stack } from "@mantine/core";
 
-type SignInButtonProps = {
-  label: string;
-};
+import classes from "./SignInButton.module.scss";
 
-export function SignInButton({ label }: SignInButtonProps) {
+const providers = [
+  {
+    id: "azure-ad",
+    labelKey: "signInMicrosoft",
+    iconSrc: "/auth/microsoft.svg",
+  },
+  {
+    id: "google",
+    labelKey: "signInGoogle",
+    iconSrc: "/auth/google.svg",
+  },
+] as const;
+
+export function SignInButton() {
+  const t = useTranslations("home.hero");
   const { status } = useSession();
 
   if (status === "loading") {
@@ -20,12 +33,30 @@ export function SignInButton({ label }: SignInButtonProps) {
   }
 
   return (
-    <Button
-      size="lg"
-      leftSection={<IconBrandWindows size={20} />}
-      onClick={() => signIn("azure-ad")}
-    >
-      {label}
-    </Button>
+    <Stack className={classes.stack} gap="sm" align="stretch">
+      {providers.map((provider) => (
+        <Button
+          key={provider.id}
+          className={classes.providerButton}
+          classNames={{
+            section: classes.iconSection,
+            label: classes.label,
+          }}
+          variant="default"
+          leftSection={
+            <Image
+              className={classes.icon}
+              src={provider.iconSrc}
+              alt=""
+              width={20}
+              height={20}
+            />
+          }
+          onClick={() => signIn(provider.id)}
+        >
+          {t(provider.labelKey)}
+        </Button>
+      ))}
+    </Stack>
   );
 }

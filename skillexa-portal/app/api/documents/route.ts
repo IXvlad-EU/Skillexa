@@ -1,20 +1,18 @@
-import { NextResponse } from "next/server";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/auth";
+import { NextRequest, NextResponse } from "next/server";
 import { createApiClient } from "@/lib/core-client";
+import { createCoreAccessToken } from "@/lib/auth/core-token";
 import type { components } from "@/lib/api-client/schema";
 
 type CreateDocumentRequest = components["schemas"]["CreateDocumentRequest"];
 
-export async function POST(request: Request) {
-  const session = await getServerSession(authOptions);
-  // TODO: Re-enable auth check once Entra ID app registrations are configured
-  if (!session && process.env.AUTH_REQUIRED !== "false") {
+export async function POST(request: NextRequest) {
+  const accessToken = await createCoreAccessToken(request);
+  if (!accessToken) {
     return new NextResponse("Unauthorized", { status: 401 });
   }
 
   const body: CreateDocumentRequest = await request.json();
-  const client = createApiClient(session?.accessToken ?? "");
+  const client = createApiClient(accessToken);
   const { data, error } = await client.POST("/documents", {
     body,
   });

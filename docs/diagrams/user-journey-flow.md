@@ -2,8 +2,11 @@
 flowchart TD
 
     User((User)) --> SignIn[Sign in]
-    SignIn --> Entra[Microsoft Entra ID]
-    Entra --> Session[Portal session created]
+    SignIn --> Provider{Choose provider}
+    Provider --> Microsoft[Microsoft Entra ID]
+    Provider --> Google[Google OAuth]
+    Microsoft --> Session[Portal session created]
+    Google --> Session
     Session --> Search[Search jobs]
     Search --> Results[View listings]
     Results --> Choose[Select listing]

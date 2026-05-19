@@ -6,9 +6,9 @@ namespace Skillexa.Core.Data.Repositories.Implementations;
 
 public sealed class UserRepository(ApplicationDbContext dbContext) : IUserRepository
 {
-    public Task<User?> GetByEntraIdAsync(string entraObjectId, CancellationToken cancellationToken = default)
+    public Task<User?> GetByEmailAsync(string email, CancellationToken cancellationToken = default)
     {
-        return dbContext.Users.FirstOrDefaultAsync(user => user.EntraObjectId == entraObjectId, cancellationToken);
+        return dbContext.Users.FirstOrDefaultAsync(user => user.Email == email, cancellationToken);
     }
 
     public async Task AddAsync(User user, CancellationToken cancellationToken = default)

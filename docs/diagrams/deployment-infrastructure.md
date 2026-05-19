@@ -8,12 +8,14 @@ flowchart LR
     Broker[RabbitMQ or Azure Service Bus]
     Db[(PostgreSQL)]
     Blob[(Azurite or Azure Blob)]
-    Entra[Microsoft Entra ID]
+    Microsoft[Microsoft Entra ID]
+    Google[Google OAuth]
     Search[TheirStack API]
 
     Browser --> Portal
-    Portal --> Entra
-    Portal --> Core
+    Portal --> Microsoft
+    Portal --> Google
+    Portal -->|Portal-signed JWT| Core
     Core --> Search
     Core --> Db
     Core --> Broker

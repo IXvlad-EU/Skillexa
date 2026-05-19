@@ -1,3 +1,4 @@
+import { getServerSession } from "next-auth";
 import { getTranslations } from "next-intl/server";
 import type { ComponentType } from "react";
 import {
@@ -11,9 +12,15 @@ import {
   Title,
 } from "@mantine/core";
 import { IconDownload, IconFileText, IconSearch } from "@tabler/icons-react";
+import { authOptions } from "@/auth";
 import { SignInButton } from "@/components/SignInButton";
+import { redirect } from "@/i18n/navigation";
 
 import classes from "./page.module.scss";
+
+type Props = {
+  params: Promise<{ locale: string }>;
+};
 
 type FeatureItem = {
   icon: ComponentType<{ size?: number | string }>;
@@ -27,7 +34,14 @@ type StepItem = {
   description: string;
 };
 
-export default async function HomePage() {
+export default async function HomePage({ params }: Props) {
+  const { locale } = await params;
+  const session = await getServerSession(authOptions);
+
+  if (session) {
+    redirect({ href: "/jobs", locale });
+  }
+
   const t = await getTranslations("home");
 
   const features: FeatureItem[] = [
@@ -83,7 +97,7 @@ export default async function HomePage() {
             <Text size="xl" c="dimmed" ta="center" maw={560}>
               {t("hero.tagline")}
             </Text>
-            <SignInButton label={t("hero.cta")} />
+            <SignInButton />
           </Stack>
         </Container>
       </Box>

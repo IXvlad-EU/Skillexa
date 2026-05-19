@@ -9,12 +9,12 @@ sequenceDiagram
     participant Broker as Message Broker
 
     User->>Portal: Search jobs
-    Portal->>Core: POST /job-listings/search
+    Portal->>Core: POST /job-listings/search with Portal JWT
     Core->>Search: Proxy search request
     Search-->>Core: Job listings
     Core-->>Portal: Search response
     User->>Portal: Generate CV
-    Portal->>Core: POST /documents
+    Portal->>Core: POST /documents with Portal JWT
     Core->>Db: Insert document row
     Core->>Broker: Publish GeneratePdf
     Core-->>Portal: 202 Accepted with document id

@@ -4,5 +4,5 @@ allowBuilds:
   esbuild: true
   "@parcel/watcher": true
   "@swc/core": true
-  sharp: false
-  unrs-resolver: false
+  sharp: true
+  unrs-resolver: true

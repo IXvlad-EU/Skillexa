@@ -2,12 +2,14 @@
 
 ## Authentication
 
-- **Microsoft Entra ID** is the intended identity provider. Service-specific details live in `skillexa-core/ai/instructions/authentication.md` and `skillexa-portal/ai/instructions/authentication.md`.
-- Skillexa-Core validates Bearer tokens issued by Entra ID using `Microsoft.Identity.Web`.
-- Skillexa-Portal (BFF) stores the encrypted session in an **httpOnly, Secure, SameSite=Strict** cookie — the browser never sees raw access tokens.
-- Authorization is wired but temporarily not enforced on Core endpoints while Entra app registrations are pending; endpoints currently use `// TODO: .RequireAuthorization()` comments.
-- Portal BFF routes can be made public for local development with `AUTH_REQUIRED=false`.
-- There are **no local passwords, no self-issued tokens, and no login/refresh endpoints**.
+- Skillexa-Portal authenticates users with Microsoft or Google through `next-auth`. Service-specific details live in `skillexa-core/ai/instructions/authentication.md` and `skillexa-portal/ai/instructions/authentication.md`.
+- Skillexa-Core validates only short-lived RS256 Bearer tokens issued by Skillexa-Portal.
+- Skillexa-Portal stores the encrypted NextAuth session in an **httpOnly** cookie; production deployments must use HTTPS and Secure cookies.
+- The browser never receives provider access tokens, Core JWTs, private signing keys, or raw bearer tokens.
+- Core endpoints are protected with `.RequireAuthorization()` except OpenAPI metadata and health checks.
+- User identity is provisioned by normalized verified email; provider object IDs are not persisted in Core.
+- Portal calls Core `POST /provision` once during sign-in, stores the returned Core `userId` only in the encrypted NextAuth JWT, and includes it as an optional signed `uid` claim in later short-lived Core JWTs.
+- There are **no local passwords, no login/refresh endpoints, and no direct browser calls to Core**.
 
 ## Object Storage Access
 
@@ -20,7 +22,7 @@
 
 ## Secrets Management
 
-- All secrets (DB connection strings, broker credentials, storage keys, TheirStack API key, Entra ID client secrets) come from **environment variables or a secrets manager** — never hard-coded or committed to source control.
+- All secrets (DB connection strings, broker credentials, storage keys, TheirStack API key, OAuth client secrets, and JWT private keys) come from **environment variables or a secrets manager** — never hard-coded or committed to source control.
 - `.env` files for local development are listed in `.gitignore`.
 
 ## Idempotency

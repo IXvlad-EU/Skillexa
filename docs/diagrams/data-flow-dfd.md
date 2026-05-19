@@ -19,7 +19,7 @@ flowchart TD
 
     User --> Portal
 
-    Portal --> Core
+    Portal -->|Portal-signed JWT| Core
 
     Core --> Search
 

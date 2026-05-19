@@ -13,13 +13,6 @@ public sealed class UserConfiguration : IEntityTypeConfiguration<User>
         builder.Property(u => u.Id)
             .ValueGeneratedOnAdd();
 
-        builder.Property(u => u.EntraObjectId)
-            .HasMaxLength(36)
-            .IsRequired();
-
-        builder.HasIndex(u => u.EntraObjectId)
-            .IsUnique();
-
         builder.Property(u => u.Email)
             .HasMaxLength(256)
             .IsRequired();
